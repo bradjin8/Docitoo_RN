@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "extensions": [".ios.js", ".android.js", ".js", ".json", ".ts", ".tsx"],
+        "alias": {
+          "@": "./src"
+        }
+      }
+    ]
+  ],
+  "presets": [
+    "module:metro-react-native-babel-preset"
+  ],
+  "env": {
+    "production": {
+      "plugins": ["transform-remove-console", "ignite-ignore-reactotron"]
+    }
+  }
+}
