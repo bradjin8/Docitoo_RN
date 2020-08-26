@@ -29,7 +29,9 @@ const en = {
   'submit': 'Submit',
 
   'doctors': 'Doctors',
+  'sort': 'Sort',
   'results_found': 'results found',
+  'ratings': 'ratings',
 
   'search_doctors': 'Search Doctors',
   'search_by_Name': 'Search by Name',
@@ -41,7 +43,6 @@ const en = {
   'filter_result': 'Filter Result',
 
   'notifications': 'Notifications',
-
 };
 
 export default en;

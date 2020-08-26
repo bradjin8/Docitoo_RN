@@ -13,7 +13,7 @@ function useViewModel(props) {
   const [avatarSource, setAvatarSource] = useState('');
 
   const onPressSubmit = () => {
-    nav.navigate(Screens.signUp)
+    nav.navigate(Screens.doctors)
   };
 
   const onPressChoose = async () => {

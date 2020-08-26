@@ -11,6 +11,7 @@ const Colors = {
   transparent: 'transparent',
 
   grey_dark: '#555',
+  grey: '#ddd',
   grey_light: '#f8f8f8',
 
   black: '#000',

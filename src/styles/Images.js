@@ -6,6 +6,10 @@ const Images = {
     header: require('@/assets/images/header_bg.png'),
     blue_button: require('@/assets/images/blue_button_bg.png'),
     blue_circle: require('@/assets/images/circle_bg.png'),
+    header_right_button: require('@/assets/images/header_right_button.png'),
+  },
+  button: {
+    search: require('@/assets/images/search_button.png'),
   },
   logo: {
     main: require('@/assets/images/logo_main.png'),
@@ -17,6 +21,10 @@ const Images = {
   },
   placeholder: {
     avatarDefault: require('@/assets/images/avatar.png')
+  },
+  star: {
+    filled: require('@/assets/images/star_filled.png'),
+    empty: require('@/assets/images/star_empty.png'),
   }
 };
 
