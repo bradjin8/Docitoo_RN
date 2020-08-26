@@ -7,7 +7,7 @@ import {toJS} from 'mobx';
 const store = Store.create({
   user: {},
   notification: {},
-
+  settings: {}
 });
 
 const storageKey = 'auth';
@@ -18,6 +18,7 @@ store.initialize = function () {
     console.log('store.initialize() - Snapshot loaded', snapshot);
     // load from snapshot
     store.user.load(snapshot);
+    // store.settings.load(snapshot);
   })
 };
 

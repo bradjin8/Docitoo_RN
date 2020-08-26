@@ -17,6 +17,12 @@ export const absolute_top = `
     top: 0px;
 `;
 
+export const absolute_top_full = `
+    ${absolute_top}
+    right: 0px;
+    width: 100%;
+`;
+
 export const background_image = `
     ${absolute_full}
     width: 100%;

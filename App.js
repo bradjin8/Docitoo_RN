@@ -12,7 +12,8 @@ import {
 } from 'react-native';
 import Route from '@/Route';
 import StoreProvider from '@/mst/StoreProvider';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+Icon.loadFont();
 
 const App: () => React$Node = () => {
   return (

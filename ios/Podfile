@@ -10,6 +10,10 @@ target 'Docitoo' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  # pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'DocitooTests' do
     inherit! :complete
     # Pods for testing

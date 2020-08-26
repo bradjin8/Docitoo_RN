@@ -4,6 +4,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {Screens} from '@/constants/Navigation';
 
 import Home from '@/screens/Home';
+import SignUp from '@/screens/SignUp';
+import Login from '@/screens/Login';
+import ShareMoreDetails from '@/screens/ShareMoreDetails';
 import Loading from '@/screens/Loading'
 
 import useViewModel from './methods';
@@ -24,6 +27,9 @@ const Route = () => {
             gestureEnabled: false,
           }}>
           <Stack.Screen name={Screens.home} component={Home}/>
+          <Stack.Screen name={Screens.signUp} component={SignUp}/>
+          <Stack.Screen name={Screens.logIn} component={Login}/>
+          <Stack.Screen name={Screens.shareMoreDetails} component={ShareMoreDetails}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

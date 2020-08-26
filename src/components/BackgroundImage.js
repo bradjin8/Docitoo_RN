@@ -1,4 +1,4 @@
-import styled from "styled-components/native/dist/styled-components.native.esm";
+import styled from "styled-components/native";
 import * as Styles from "@/styles";
 import Colors from "@/styles/Colors";
 
