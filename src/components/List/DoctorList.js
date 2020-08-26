@@ -55,7 +55,7 @@ const DoctorReview = ({reviews}) => {
     reviews.map(item => {
       totalRating += parseFloat(item.rating);
     });
-    console.log('DoctorList', 'TotalRating', totalRating);
+    // console.log('DoctorList', 'TotalRating', totalRating);
     setAverageRating(totalRating / reviews.length);
   }, []);
 

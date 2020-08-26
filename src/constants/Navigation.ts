@@ -27,4 +27,13 @@ export const Screens = {
 
     pickADate: 'PickADate', // 19
     pickATime: 'PickATime', // 20
+
+    tabStack: 'TabStack',
+};
+
+export const BottomTabs = {
+    doctors: 'Doctors',
+    notifications: 'Notifications',
+    pillReminders: 'PillReminders',
+    more: 'More',
 };
