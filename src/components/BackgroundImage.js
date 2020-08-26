@@ -5,6 +5,7 @@ import Colors from "@/styles/Colors";
 const BackgroundImage = styled.Image`
   ${Styles.background_image};
   background-color: ${Colors.turquoise};
+  margin: 0;
 `;
 
 export default BackgroundImage;

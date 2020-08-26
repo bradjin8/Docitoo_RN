@@ -34,7 +34,7 @@ const en = {
   'ratings': 'ratings',
 
   'search_doctors': 'Search Doctors',
-  'search_by_Name': 'Search by Name',
+  'search_by_name': 'Search by Name',
   'doctors_name': 'Doctor\'s Name',
   'speciality': 'Speciality',
   'select_speciality': 'Select Speciality',
@@ -43,6 +43,15 @@ const en = {
   'filter_result': 'Filter Result',
 
   'notifications': 'Notifications',
+
+  'gynecologist': 'Gynecologist',
+  'skin specialist': 'Skin Specialist',
+  'child specialist': 'Child Specialist',
+  'orthopedic surgeon': 'Orthopedic Surgeon',
+  'ent specialist': 'ENT Specialist',
+  'diagnostics': 'Diagnostics',
+  'diabetes specialist': 'Diabetes Specialist',
+  'eye specialist': 'Eye Specialist',
 };
 
 export default en;

@@ -6,7 +6,7 @@ import ImageButton from '@/components/Button/ImageButton';
 import Images from '@/styles/Images';
 import Colors from "@/styles/Colors";
 import * as Styles from '@/styles'
-import {scale} from '@/styles/Sizes';
+import {scale, headerHeight} from '@/styles/Sizes';
 
 
 const BoardWithHeaderRightButton = ({children, title, buttonCaption, onPressRightButton}) => {
@@ -29,8 +29,6 @@ const BoardWithHeaderRightButton = ({children, title, buttonCaption, onPressRigh
     </Container>
   )
 };
-
-const headerHeight = Platform.OS === 'ios' ? 80 : 60;
 
 const HeaderBg = styled.Image`
   ${Styles.absolute_top_full};

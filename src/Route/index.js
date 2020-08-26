@@ -36,7 +36,16 @@ function TabStack() {
   return (
       <Tab.Navigator
         initialRouteName={BottomTabs.doctors}
-        tabBarOptions={{activeTintColor: Colors.blue1}}
+        tabBarOptions={{
+          activeTintColor: Colors.blue1,
+          style: {
+            borderTopWidth: 0,
+            elevation: 10,
+            shadowColor: Colors.grey_dark,
+            shadowRadius: 10,
+            shadowOpacity: 0.75,
+          }
+        }}
         tabStyle={styles.tabItem}
         labelStyle={styles.tabLabel}
       >

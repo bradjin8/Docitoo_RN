@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 import Images from '@/styles/Images';
 import Colors from "@/styles/Colors";
 import * as Styles from '@/styles'
-import {scale} from '@/styles/Sizes';
+import {scale, headerHeight} from '@/styles/Sizes';
 
 
 const BoardWithHeader = ({children, title}) => {
@@ -21,8 +21,6 @@ const BoardWithHeader = ({children, title}) => {
     </Container>
   )
 };
-
-const headerHeight = Platform.OS === 'ios' ? 80 : 60;
 
 const HeaderBg = styled.Image`
   ${Styles.absolute_top_full};

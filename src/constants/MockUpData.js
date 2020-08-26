@@ -1,5 +1,16 @@
 import Images from "../styles/Images";
 
+export const mockSpecialities = [
+  'Gynecologist',
+  'Skin Specialist',
+  'Child Specialist',
+  'Orthopedic Surgeon',
+  'ENT Specialist',
+  'Diagnostics',
+  'Diabetes Specialist',
+  'Eye Specialist'
+];
+
 export const mockDoctors = [
   {
     id: 0,
