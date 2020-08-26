@@ -2,7 +2,7 @@ import React from 'react';
 import useViewModel from './methods';
 import {observer} from 'mobx-react';
 import Colors from '@/styles/Colors';
-import {StyleSheet, TouchableHighlight, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableHighlight, View, Text, TouchableOpacity, Image} from 'react-native';
 import __ from '@/assets/lang';
 import BoardWithHeader from '@/components/Panel/BoardWithHeader';
 import GreyInput from '@/components/Input/GreyInput';
@@ -19,7 +19,10 @@ import Icon from 'react-native-vector-icons/Feather';
 const styles = StyleSheet.create({
   uploadButton: {
     justifyContent: 'center',
-    padding: 25,
+  },
+  image: {
+    width: 75 * scale,
+    height: 75 * scale,
   },
   dropDownContainer: {
     height: 60 * scale,
@@ -42,7 +45,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grey_light,
     color: Colors.grey_dark,
     fontSize: 16 * scale
-  }
+  },
+
 });
 
 const ShareModeDetails = (props) => {
@@ -51,8 +55,12 @@ const ShareModeDetails = (props) => {
   return (
     <BoardWithHeader title={__('share_more_details')}>
       <View style={styles.socialContainer}>
-        <IconButton name={'camera'} size={50 * scale} color={Colors.white2} style={styles.uploadButton}
-                    iconStyle={{opacity: 0.7}} onPress={vm.onPressChoose}/>
+        {vm.avatarSource === '' ?
+          <IconButton name={'camera'} size={50 * scale} color={Colors.white2} style={styles.uploadButton}
+                      iconStyle={{opacity: 0.7, margin: 25}} onPress={vm.onPressChoose}/>
+          : /*<ImageButton onPress={vm.onPressChoose} image={vm.avatarSource} style={styles.uploadButton}/>*/
+          <ImageButton image={vm.avatarSource} imageStyle={styles.image} onPress={vm.onPressChoose} />
+        }
       </View>
       <Space height={20 * scale}/>
       <TransBlueButton onPress={vm.onPressChoose} caption={__('upload_your_photo')}/>

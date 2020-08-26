@@ -21,6 +21,7 @@ const en = {
 
   'share_more_details': 'Share more details',
   'upload_your_photo': 'Upload your Photo',
+  'select_photo': 'Select Photo',
   'select_gender': 'Select Gender',
   'male': 'Male',
   'female': 'Female',
