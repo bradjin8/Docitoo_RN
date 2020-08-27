@@ -14,10 +14,17 @@ function useViewModel(props) {
       nav.goBack()
   };
 
+  const onPressShare = () => {
+    // nav.navigate(DoctorStackScreens.doctors)
+    console.log(tag, 'onPressShare()')
+  };
+
   const onPressWriteReview = () => {
+    console.log(tag, 'onPressWriteReview()', doctor.id)
   };
 
   const onPressBook = () => {
+    console.log(tag, 'onPressBook()', doctor.id)
   };
 
   useEffect(()=>{
@@ -27,6 +34,7 @@ function useViewModel(props) {
   return {
     doctor, setDoctor,
     onPressBack,
+    onPressShare,
     onPressWriteReview,
     onPressBook,
   }

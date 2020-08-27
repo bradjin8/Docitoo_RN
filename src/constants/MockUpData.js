@@ -19,13 +19,24 @@ export const mockDoctors = [
     reviews: [
       {
         author: {
-          id: 0,
           fullName: 'Thomas Lawrence',
-          date: '22nd May 2020'
+          date: '22nd May 2020',
+          avatarUrl: 'https://st2.depositphotos.com/1006318/5909/v/450/depositphotos_59094701-stock-illustration-businessman-profile-icon.jpg'
         },
+        date: '22nd May 2020',
         rating: 5.0,
-        comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inicididunt ut labore et dolore magna aliqua.'
-      }
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inicididunt ut labore et dolore magna aliqua.'
+      },
+      {
+        author: {
+          fullName: 'Edward John',
+          date: '22nd May 2020',
+          avatarUrl: 'https://image.freepik.com/free-vector/profile-icon-male-avatar-hipster-man-wear-headphones_48369-8728.jpg'
+        },
+        date: '22nd May 2020',
+        rating: 5.0,
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor inicididunt ut labore et dolore magna aliqua.'
+      },
     ],
     street: 'Abby Road',
     city: 'New Jersey',

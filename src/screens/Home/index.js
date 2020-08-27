@@ -10,6 +10,46 @@ import Colors from '@/styles/Colors';
 import {StyleSheet, TouchableHighlight, View, Text, TouchableOpacity} from 'react-native';
 import __ from '@/assets/lang';
 
+const Home = (props) => {
+  const vm = useViewModel(props);
+
+  return (
+    <Container>
+      <BackgroundImage source={Images.background.mask_bg} resizeMdoe="cover" />
+      <BackgroundMaskImage source={Images.background.mask_gradient} resizeMdoe="cover" />
+
+      <View style={styles.container}>
+        <View style={{marginBottom: 30}}>
+          <LogoImage/>
+        </View>
+
+        <Text style={styles.description}>
+          {__('app_desc')}
+        </Text>
+        <TouchableHighlight style={styles.whiteButton}  onPress={vm.onPressSignUp}>
+          <Text style={styles.buttonLabel}>
+            {__('sign_up')}
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.whiteButton}  onPress={vm.onPressLogin}>
+          <Text style={styles.buttonLabel}>
+            {__('login')}
+          </Text>
+        </TouchableHighlight>
+        <TouchableOpacity onPress={vm.onPressSkipSignUp}>
+          <Text style={styles.whiteLabel}>
+            {__('skip_sign_up')}
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.note}>
+          {__('app_note')}
+        </Text>
+      </View>
+    </Container>
+  )
+};
+
+
 const styles = StyleSheet.create({
   bottomButton: {
     position: 'absolute',
@@ -61,44 +101,5 @@ const styles = StyleSheet.create({
     lineHeight: 25,
   }
 });
-
-const Home = (props) => {
-  const vm = useViewModel(props);
-
-  return (
-    <Container>
-      <BackgroundImage source={Images.background.mask_bg} resizeMdoe="cover" />
-      <BackgroundMaskImage source={Images.background.mask_gradient} resizeMdoe="cover" />
-
-      <View style={styles.container}>
-        <View style={{marginBottom: 30}}>
-          <LogoImage/>
-        </View>
-
-        <Text style={styles.description}>
-          {__('app_desc')}
-        </Text>
-        <TouchableHighlight style={styles.whiteButton}  onPress={vm.onPressSignUp}>
-          <Text style={styles.buttonLabel}>
-            {__('sign_up')}
-          </Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.whiteButton}  onPress={vm.onPressLogin}>
-          <Text style={styles.buttonLabel}>
-            {__('login')}
-          </Text>
-        </TouchableHighlight>
-        <TouchableOpacity onPress={vm.onPressSkipSignUp}>
-          <Text style={styles.whiteLabel}>
-            {__('skip_sign_up')}
-          </Text>
-        </TouchableOpacity>
-        <Text style={styles.note}>
-          {__('app_note')}
-        </Text>
-      </View>
-    </Container>
-  )
-};
 
 export default observer(Home);

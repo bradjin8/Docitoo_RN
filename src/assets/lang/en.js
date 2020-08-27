@@ -42,9 +42,12 @@ const en = {
   'browse_location': 'Browse Location',
   'filter_result': 'Filter Result',
 
+  'back': 'Back',
+  'share': 'Share',
   'description': 'Description',
   'write_review': 'Write Review',
   'book': 'Book',
+  'reviews': 'Reviews',
 
   'notifications': 'Notifications',
 
