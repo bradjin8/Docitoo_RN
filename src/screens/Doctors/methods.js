@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Screens} from '@/constants/Navigation';
+import {DoctorStackScreens, Screens} from '@/constants/Navigation';
 import ImagePicker from 'react-native-image-picker';
 import __ from '@/assets/lang';
 import {Platform, PermissionsAndroid} from 'react-native';
@@ -12,16 +12,24 @@ const tag = 'Screens::Doctors';
 function useViewModel(props) {
   const nav = useNavigation();
 
+
   const [doctors, setDoctors] = useState(mockDoctors);
   const [totalDoctorCount, setTotalDoctorCount] = useState(128289);
   const [searchVisible, setSearchVisible] = useState(false);
 
   const onPressSort = () => {
-    nav.goBack()
+    // nav.goBack()
+
   };
 
   const onPressSearch = () => {
     setSearchVisible(!searchVisible);
+  };
+
+  const onPressDoctor = (doctor) => {
+    console.log(tag, 'onPressDoctor()', doctor);
+
+    nav.navigate(DoctorStackScreens.viewDoctor);
   };
 
   const applyFilter = (filter) => {
@@ -35,6 +43,7 @@ function useViewModel(props) {
     searchVisible, setSearchVisible,
     onPressSort,
     onPressSearch,
+    onPressDoctor,
     applyFilter,
   }
 }

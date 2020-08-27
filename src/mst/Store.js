@@ -11,6 +11,7 @@ const Store = types
     const updateUser = (json) => {
       self.user.load(json)
     };
+
     return {
       updateUser,
     };

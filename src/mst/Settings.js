@@ -1,34 +1,40 @@
 import {applySnapshot, flow, types} from "mobx-state-tree";
 import {observable} from "mobx";
 import {isEmpty} from 'lodash';
-import {defNumber, defString} from './Types';
+import {defNumber, defString, defObjString} from './Types';
 import 'mobx-react-lite/batchingForReactDom';
 
 const tag = 'MST.Settings::';
 let statusCode = 0;
 const Settings = types
-  .model('Settings', {
-    lang: defString
+  .model( 'Settings', {
+    lang: defString,
+    doctor: defNumber,
   })
   .views((self) => ({
     get lang() {
       return self.lang;
-    }
+    },
+    get getDoctor() {
+      return self.doctor;
+    },
+
   }))
   .actions((self) => {
     const load = (snapshot) => {
       try {
+        self.doctor = 1;
         applySnapshot(self, snapshot);
       } catch (e) {
         console.log('Settings.actions.load(): Load from snapshot failed');
       }
     };
 
-    const setLang = (lang) => {
-      self.lang = lang;
+    const updateDoctor = (json) => {
+      self.doctor = 1;
     };
 
-    return {load, setLang}
+    return {load, updateDoctor}
   })
   .extend((self) => {
     const localState = observable.box(false);

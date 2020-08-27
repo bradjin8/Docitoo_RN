@@ -31,9 +31,14 @@ export const Screens = {
     tabStack: 'TabStack',
 };
 
-export const BottomTabs = {
-    doctors: 'Doctors',
+export const TabStackScreens = {
+    doctorStack: 'DoctorStack',
     notifications: 'Notifications',
     pillReminders: 'PillReminders',
     more: 'More',
+};
+
+export const DoctorStackScreens = {
+    doctors: 'Doctors',
+    viewDoctor: 'ViewDoctor',
 };

@@ -42,6 +42,10 @@ const en = {
   'browse_location': 'Browse Location',
   'filter_result': 'Filter Result',
 
+  'description': 'Description',
+  'write_review': 'Write Review',
+  'book': 'Book',
+
   'notifications': 'Notifications',
 
   'gynecologist': 'Gynecologist',

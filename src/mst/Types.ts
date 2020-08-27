@@ -4,8 +4,10 @@ import {isString} from 'lodash';
 
 export const defString = types.optional(types.string, '', [null, undefined]);
 export const defNumber = types.optional(types.number, 0, [null, undefined]);
+export const defObjString = types.optional(types.string, '{}', [null, undefined]);
 
 export default {
     defString,
-    defNumber
+    defNumber,
+    defObjString,
 };

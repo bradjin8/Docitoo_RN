@@ -36,10 +36,10 @@ const Doctors = (props) => {
         vm.onPressSort(vm.doctors)
       }}>
         <Text style={styles.resultCount}>
-          {StringUtil.formatInteger(vm.totalDoctorCount)} results found
+          {StringUtil.formatInteger(vm.totalDoctorCount) + ' ' + __('results_found')}
         </Text>
         <Space height={16 * scale}/>
-        <DoctorList doctors={vm.doctors}/>
+        <DoctorList doctors={vm.doctors} onPressDoctor={vm.onPressDoctor}/>
         <ImageButton image={Images.button.search} onPress={vm.onPressSearch} style={styles.searchButton}/>
       </BoardWithHeaderRightButton>
       <SearchDoctorsModal isVisible={vm.searchVisible} onPressClose={vm.onPressSearch} onPressOK={vm.applyFilter}/>

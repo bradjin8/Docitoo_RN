@@ -17,6 +17,7 @@ const User = types
     profilePicture: defString,
     hadSignedUp: false,
     statusCode: 0,
+    doctor: defString,
   })
   .views((self) => ({
     get isValid() {
@@ -24,6 +25,9 @@ const User = types
     },
     get getStatusCode() {
       return self.statusCode;
+    },
+    get getDoctor(){
+      return self.doctor;
     }
   }))
   .actions((self) => {
@@ -35,7 +39,10 @@ const User = types
       }
     };
 
-    return {load, }
+    const updateDoctor = (v) => {
+      self.doctor = v;
+    };
+    return {load, updateDoctor}
   })
   .extend((self) => {
     const localState = observable.box(false);

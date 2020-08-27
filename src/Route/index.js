@@ -3,13 +3,14 @@ import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {BottomTabs, Screens} from '@/constants/Navigation';
+import {DoctorStackScreens, TabStackScreens, Screens} from '@/constants/Navigation';
 
 import Home from '@/screens/Home';
 import SignUp from '@/screens/SignUp';
 import Login from '@/screens/Login';
 import ShareMoreDetails from '@/screens/ShareMoreDetails';
 import Doctors from '@/screens/Doctors';
+import ViewDoctor from '@/screens/ViewDoctor';
 import Loading from '@/screens/Loading';
 
 import Colors from '@/styles/Colors';
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
 function TabStack() {
   return (
       <Tab.Navigator
-        initialRouteName={BottomTabs.doctors}
+        initialRouteName={TabStackScreens.doctorStack}
         tabBarOptions={{
           activeTintColor: Colors.blue1,
           style: {
@@ -50,46 +51,59 @@ function TabStack() {
         labelStyle={styles.tabLabel}
       >
         <Tab.Screen
-          name={BottomTabs.doctors}
-          component={Doctors}
+          name={TabStackScreens.doctorStack}
+          component={DoctorStack}
           options={{
-            title: __(BottomTabs.doctors),
+            title: __('doctors'),
             tabBarIcon: ({color, size}) => (
               <Icon name={'plus-circle'} color={color} size={size}/>
             ),
           }}
         />
         <Tab.Screen
-          name={BottomTabs.notifications}
+          name={TabStackScreens.notifications}
           component={Doctors}
           options={{
-            title: __(BottomTabs.notifications),
+            title: __(TabStackScreens.notifications),
             tabBarIcon: ({color, size}) => (
-              <Icon name={'bell'} color={color} size={size}/>
+              <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
             ),
           }}
         />
         <Tab.Screen
-          name={BottomTabs.pillReminders}
+          name={TabStackScreens.pillReminders}
           component={Doctors}
           options={{
-            title: __(BottomTabs.pillReminders),
+            title: __(TabStackScreens.pillReminders),
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcon name={'pill'} color={color} size={size}  style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
             ),
           }}
         />
         <Tab.Screen
-          name={BottomTabs.more}
+          name={TabStackScreens.more}
           component={Doctors}
           options={{
-            title: __(BottomTabs.more),
+            title: __(TabStackScreens.more),
             tabBarIcon: ({color, size}) => (
               <FoundationIcon name={'indent-more'} color={color} size={size}/>
             ),
           }}
         />
       </Tab.Navigator>
+  )
+}
+
+function DoctorStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
+      }}>
+      <Stack.Screen name={DoctorStackScreens.doctors} component={Doctors}/>
+      <Stack.Screen name={DoctorStackScreens.viewDoctor} component={ViewDoctor}/>
+    </Stack.Navigator>
   )
 }
 
@@ -102,6 +116,7 @@ const Route = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator
+          initialRouteName={DoctorStackScreens.viewDoctor}
           screenOptions={{
             headerShown: false,
             gestureEnabled: false,
@@ -111,6 +126,9 @@ const Route = () => {
           <Stack.Screen name={Screens.logIn} component={Login}/>
           <Stack.Screen name={Screens.shareMoreDetails} component={ShareMoreDetails}/>
           <Stack.Screen name={Screens.tabStack} component={TabStack}/>
+
+          <Stack.Screen name={DoctorStackScreens.viewDoctor} component={ViewDoctor}/>
+
         </Stack.Navigator>
       </NavigationContainer>
     );

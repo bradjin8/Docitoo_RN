@@ -19,6 +19,7 @@ store.initialize = function () {
     // load from snapshot
     store.user.load(snapshot);
     // store.settings.load(snapshot);
+    console.log('after loading', snapshot)
   })
 };
 
