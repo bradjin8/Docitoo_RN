@@ -20,13 +20,12 @@ export const Screens = {
     addPillReminder: 'AddPillReminder', // 11
 
     notifications: 'Notifications', // 13
-    more: 'More', // 14
 
+    more: 'More', // 14
     termsAndConditions: 'TermsAndConditions', // 17
     contactUs: 'ContactUs', // 18
 
-    pickADate: 'PickADate', // 19
-    pickATime: 'PickATime', // 20
+    bookDoctor: 'BookDoctor', // 19, 20
 
     tabStack: 'TabStack',
 };
@@ -34,11 +33,20 @@ export const Screens = {
 export const TabStackScreens = {
     doctorStack: 'DoctorStack',
     notifications: 'Notifications',
-    pillReminders: 'PillReminders',
+    pillReminder: 'PillReminder',
     more: 'More',
 };
 
 export const DoctorStackScreens = {
-    doctors: 'Doctors',
-    viewDoctor: 'ViewDoctor',
+    doctors: 'Doctors', // 5
+    viewDoctor: 'ViewDoctor', // 7
+    bookDoctor: 'BookDoctor', // 19, 20
+};
+
+export const MoreStackScreens = {
+    more: 'More', // 14,
+    termsAndConditions: 'TermsAndConditions', // 17
+    contactUs: 'ContactUs', // 18,
+    myProfile: 'myProfile', // 8
+    editProfile: 'editProfile', // 9
 };

@@ -9,3 +9,18 @@ export const formatInteger = (value) => {
   // console.log(tag, 'formatInteger() - out', ret);
   return ret;
 };
+
+export const formatHour = (hour) => {
+  let AMPM = 'AM';
+  hour = parseInt(hour);
+  if (hour / 12 >= 1) {
+    AMPM = 'PM';
+    hour -= 12;
+  }
+
+  if (parseInt(hour) === 0) {
+    hour = 12;
+  }
+
+  return `${hour} ${AMPM}`;
+};

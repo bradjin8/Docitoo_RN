@@ -7,15 +7,15 @@ import Colors from "@/styles/Colors";
 import * as Styles from '@/styles'
 import {scale, headerHeight} from '@/styles/Sizes';
 
-
 const BoardWithHeader = ({children, title}) => {
+
   return (
     <Container style={styles.container}>
       <HeaderBg source={Images.background.header} resizeMode={'cover'}/>
       <Text style={styles.title}>
         {title}
       </Text>
-      <KeyboardAvoidingView behavior={'padding'} enabled={Platform.OS === 'ios'} style={styles.board}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios'?'padding':'height'} enabled={Platform.OS === 'ios'} style={styles.board}>
         {children}
       </KeyboardAvoidingView>
     </Container>

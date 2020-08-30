@@ -20,9 +20,11 @@ const Images = {
     google: require('@/assets/images/google.png'),
     camera: require('@/assets/images/camera.png'),
     grey: require('@/assets/images/logo_grey.png'),
+    contact_us: require('@/assets/images/contact_us.png'),
   },
   placeholder: {
-    avatarDefault: require('@/assets/images/avatar.png')
+    avatar_default: require('@/assets/images/avatar_default.png'),
+
   },
   star: {
     filled: require('@/assets/images/star_filled.png'),

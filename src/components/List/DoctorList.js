@@ -8,6 +8,7 @@ import StarRatingBar from 'react-native-star-rating-view/StarRatingBar';
 import Images from '@/styles/Images';
 import Separator from '@/components/Separator';
 import Space from '@/components/Space';
+import {formatHour} from '@/utils/String';
 
 const DoctorList = ({doctors, onPressDoctor}) => {
   return (
@@ -65,7 +66,7 @@ export const DoctorCard = ({doctor}) => {
           {doctor.speciality}
         </Text>
         <Text style={styles.availableTime}>
-          {doctor.availableTime.from + ' - ' + doctor.availableTime.to}
+          {formatHour(doctor.availableTime.from) + ' - ' + formatHour(doctor.availableTime.to)}
         </Text>
         <DoctorReview style={styles.reviewsCard} reviews={doctor.reviews}/>
       </View>

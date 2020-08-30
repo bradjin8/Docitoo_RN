@@ -21,12 +21,13 @@ const ScrollBoardWithHeaderLBButton = ({children, lButtonCaption, rButtonCaption
             {lButtonCaption}
           </Text>
         </TouchableOpacity>
+        {rButtonCaption && rButtonCaption.length &&
         <TouchableOpacity style={styles.rButton} onPress={onPressRightButton}>
           <Icon name={'share-a'} color={'#fff'} size={18 * scale}/>
           <Text style={styles.rButtonCaption}>
             {rButtonCaption}
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
       <ScrollView style={styles.board} containerStyle={styles.boardContainer}>
         {children}
@@ -42,10 +43,10 @@ const HeaderBg = styled.Image`
 
 const styles = StyleSheet.create({
   lButton: {
-    width: '20%',
+    width: '40%',
     height: headerHeight / 3,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center'
   },
   rButton: {
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+    marginLeft: 10 * scale,
   },
   header: {
     position: 'absolute',

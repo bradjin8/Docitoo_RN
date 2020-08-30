@@ -49,7 +49,36 @@ const en = {
   'book': 'Book',
   'reviews': 'Reviews',
 
+  'pick_a_date': 'Pick a Date',
+  'confirm_selection': 'Confirm Selection',
+  'pick_a_time': 'Pick a Time',
+  'book_appointment': 'Book Appointment',
+
   'notifications': 'Notifications',
+
+  'pill_reminder': 'Pill Reminder',
+
+  'more': 'More', // 14
+  'english': 'English',
+  'account_settings': 'Account Settings',
+  'logout': 'Logout',
+
+  'terms_and_conditions': 'Terms & Conditions', // 17
+
+  'contact_us': 'Contact Us', // 18
+  'contact_us_note': 'Have feedback or question? Send us a message',
+  'subject': 'Subject',
+  'message': 'Message',
+  'send_message': 'Send Message',
+
+  'my_profile': 'My Profile',
+  'name': 'Name',
+  'email': 'Email',
+  'gender': 'Gender',
+  'blood_type': 'Blood Type',
+  'language': 'Language',
+  'edit_profile': 'Edit Profile',
+  'update_profile': 'Update Profile',
 
   'gynecologist': 'Gynecologist',
   'skin specialist': 'Skin Specialist',

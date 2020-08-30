@@ -59,7 +59,7 @@ const ShareModeDetails = (props) => {
           <IconButton name={'camera'} size={50 * scale} color={Colors.white2} style={styles.uploadButton}
                       iconStyle={{opacity: 0.7, margin: 25}} onPress={vm.onPressChoose}/>
           : /*<ImageButton onPress={vm.onPressChoose} image={vm.avatarSource} style={styles.uploadButton}/>*/
-          <ImageButton image={vm.avatarSource} imageStyle={styles.image} onPress={vm.onPressChoose} />
+          <ImageButton image={vm.avatarSource} imageStyle={styles.image} onPress={vm.onPressChoose}/>
         }
       </View>
       <Space height={20 * scale}/>
@@ -97,7 +97,9 @@ const ShareModeDetails = (props) => {
           placeholder={__('select_blood_type')}
         />
       </View>
-      <BlueButton onPress={vm.onPressSubmit} caption={__('submit')}/>
+      <View style={{width: '90%'}}>
+        <BlueButton onPress={vm.onPressSubmit} caption={__('submit')}/>
+      </View>
       <Space height={26}/>
     </BoardWithHeader>
   )

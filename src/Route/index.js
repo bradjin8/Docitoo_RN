@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {DoctorStackScreens, TabStackScreens, Screens} from '@/constants/Navigation';
+import {MoreStackScreens, DoctorStackScreens, TabStackScreens, Screens} from '@/constants/Navigation';
 
 import Home from '@/screens/Home';
 import SignUp from '@/screens/SignUp';
@@ -11,7 +11,13 @@ import Login from '@/screens/Login';
 import ShareMoreDetails from '@/screens/ShareMoreDetails';
 import Doctors from '@/screens/Doctors';
 import ViewDoctor from '@/screens/ViewDoctor';
-import Loading from '@/screens/Loading';
+import BookDoctor from '@/screens/BookDoctor';
+import More from '@/screens/More';
+import TermsAndConditions from '@/screens/TermsAndConditions';
+import ContactUs from '@/screens/ContactUs';
+import MyProfile from '@/screens/MyProfile';
+import EditProfile from '@/screens/EditProfile';
+import Splash from '@/screens/Splash';
 
 import Colors from '@/styles/Colors';
 import useViewModel from './methods';
@@ -36,11 +42,11 @@ const styles = StyleSheet.create({
 function TabStack() {
   return (
       <Tab.Navigator
-        initialRouteName={TabStackScreens.doctorStack}
+        initialRouteName={TabStackScreens.more}
         tabBarOptions={{
           activeTintColor: Colors.blue1,
           style: {
-            borderTopWidth: 0,
+            borderTopWidth: 0.5,
             elevation: 10,
             shadowColor: Colors.grey_dark,
             shadowRadius: 10,
@@ -71,10 +77,10 @@ function TabStack() {
           }}
         />
         <Tab.Screen
-          name={TabStackScreens.pillReminders}
+          name={TabStackScreens.pillReminder}
           component={Doctors}
           options={{
-            title: __(TabStackScreens.pillReminders),
+            title: __('pill_reminder'),
             tabBarIcon: ({color, size}) => (
               <MaterialCommunityIcon name={'pill'} color={color} size={size}  style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
             ),
@@ -82,9 +88,9 @@ function TabStack() {
         />
         <Tab.Screen
           name={TabStackScreens.more}
-          component={Doctors}
+          component={MoreStack}
           options={{
-            title: __(TabStackScreens.more),
+            title: __(MoreStackScreens.more),
             tabBarIcon: ({color, size}) => (
               <FoundationIcon name={'indent-more'} color={color} size={size}/>
             ),
@@ -103,6 +109,24 @@ function DoctorStack() {
       }}>
       <Stack.Screen name={DoctorStackScreens.doctors} component={Doctors}/>
       <Stack.Screen name={DoctorStackScreens.viewDoctor} component={ViewDoctor}/>
+      <Stack.Screen name={DoctorStackScreens.bookDoctor} component={BookDoctor}/>
+    </Stack.Navigator>
+  )
+}
+
+function MoreStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false
+      }}
+    >
+      <Stack.Screen name={MoreStackScreens.more} component={More}/>
+      <Stack.Screen name={MoreStackScreens.termsAndConditions} component={TermsAndConditions}/>
+      <Stack.Screen name={MoreStackScreens.contactUs} component={ContactUs}/>
+      <Stack.Screen name={MoreStackScreens.myProfile} component={MyProfile}/>
+      <Stack.Screen name={MoreStackScreens.editProfile} component={EditProfile}/>
     </Stack.Navigator>
   )
 }
@@ -111,7 +135,7 @@ const Route = () => {
   const vm = useViewModel();
 
   if (vm.isInitializing) {
-    return <Loading />;
+    return <Splash />;
   } else {
     return (
       <NavigationContainer>
@@ -127,7 +151,7 @@ const Route = () => {
           <Stack.Screen name={Screens.shareMoreDetails} component={ShareMoreDetails}/>
           <Stack.Screen name={Screens.tabStack} component={TabStack}/>
 
-          <Stack.Screen name={DoctorStackScreens.viewDoctor} component={ViewDoctor}/>
+          <Stack.Screen name={DoctorStackScreens.viewDoctor} component={TabStack}/>
 
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,5 +1,19 @@
 import Images from "../styles/Images";
 
+export const default_avatar_url = 'https://cdn.discordapp.com/attachments/679790637868253199/749465959651082382/avatar.png';
+
+export const mockUser = {
+  id: 0,
+  fullName: 'Alberta John',
+  email: 'albertajohn@gmail.com',
+  phoneNumber: '+134838222',
+  gender: 'Female',
+  bloodType: 'O+ve',
+  language: 'English',
+  avatarUrl: 'https://cdn.discordapp.com/attachments/679790637868253199/749216226508800071/alberta.png',
+  joinDate: 'July 2020',
+};
+
 export const mockSpecialities = [
   'Gynecologist',
   'Skin Specialist',
@@ -41,11 +55,11 @@ export const mockDoctors = [
     street: 'Abby Road',
     city: 'New Jersey',
     country: 'USA',
-    avatar: Images.placeholder.avatarDefault,
-    avatarUrl: 'https://st2.depositphotos.com/1006318/5909/v/450/depositphotos_59094701-stock-illustration-businessman-profile-icon.jpg',
+    avatar: Images.placeholder.avatar_default,
+    avatarUrl: 'https://cdn.discordapp.com/attachments/676196488610709504/748595432547942421/Rectangle_14.png',
     availableTime: {
-      from: '10 AM',
-      to: '6 PM'
+      from: 10,
+      to: 18
     },
     hospital: {
       name: 'Abbey Road Hospital',

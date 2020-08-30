@@ -22,7 +22,11 @@ const styles = StyleSheet.create({
     width: '90%',
     justifyContent: 'center',
     marginVertical: 18 * scale,
-  }
+  },
+  container: {
+    flexDirection: 'column',
+    width: '90%',
+  },
 });
 
 const SignUp = (props) => {
@@ -30,22 +34,25 @@ const SignUp = (props) => {
 
   return (
     <BoardWithHeader title={__('sign_up')}>
-      <BlackText text={__('sign_up_with')}/>
-      <View style={styles.socialContainer}>
-        <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
-        <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
+      <View style={styles.container}>
+        <BlackText text={__('sign_up_with')}/>
+        <View style={styles.socialContainer}>
+          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20 * scale}}
+                       onPress={vm.onPressFacebook}/>
+          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
+        </View>
+        <BlackText text={__('or_sign_up_using_email')}/>
+        <Space height={20 * scale}/>
+        <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
+        <GreyInput placeholder={__('email_address')} value={vm.emailAddress} onChangeText={vm.setEmailAddress}/>
+        <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
+                   onChangeText={vm.setPhoneNumber}/>
+        <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}/>
+        <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up')}/>
+        <GreyText text={__('sign_up_note')}/>
+        <Space height={26 * scale}/>
+        <TransBlueButton onPress={vm.onPressLogin} caption={__('already_have_account') + ' ' + __('login')}/>
       </View>
-      <BlackText text={__('or_sign_up_using_email')}/>
-      <Space height={20 * scale}/>
-      <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
-      <GreyInput placeholder={__('email_address')} value={vm.emailAddress} onChangeText={vm.setEmailAddress}/>
-      <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
-                 onChangeText={vm.setPhoneNumber}/>
-      <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}/>
-      <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up')}/>
-      <GreyText text={__('sign_up_note')}/>
-      <Space height={26 * scale}/>
-      <TransBlueButton onPress={vm.onPressLogin} caption={__('already_have_account') + ' ' + __('login')}/>
     </BoardWithHeader>
   )
 };

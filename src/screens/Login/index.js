@@ -17,9 +17,13 @@ import Images from '@/styles/Images';
 const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
-    width: '90%',
+    width: '100%',
     justifyContent: 'center',
     marginVertical: 18,
+  },
+  container: {
+    flexDirection: 'column',
+    width: '90%',
   }
 });
 
@@ -28,19 +32,22 @@ const Login = (props) => {
 
   return (
     <BoardWithHeader title={__('login')}>
-      <BlackText text={__('login_with')} />
-      <View style={styles.socialContainer}>
-        <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20}} onPress={vm.onPressFacebook}>test</ImageButton>
-        <ImageButton image={Images.logo.google} style={{marginHorizontal: 20}} onPress={vm.onPressFacebook}/>
+      <View style={styles.container}>
+        <BlackText text={__('login_with')}/>
+        <View style={styles.socialContainer}>
+          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20}} onPress={vm.onPressFacebook}/>
+          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20}} onPress={vm.onPressFacebook}/>
+        </View>
+        <BlackText text={__('or_login_using_email')}/>
+        <Space height={20}/>
+        <GreyInput placeholder={__('email_address') + ' or ' + __('phone_number')} value={vm.emailOrPhone}
+                   onChangeText={vm.setEmailOrPhone}/>
+        <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}/>
+        <BlueButton onPress={vm.onPressLogin} caption={__('login')}/>
+        <GreyText text={__('sign_up_note')}/>
+        <Space height={26}/>
+        <TransBlueButton onPress={vm.onPressSignUp} caption={__('dont_have_account') + ' ' + __('sign_up')}/>
       </View>
-      <BlackText text={__('or_login_using_email')} />
-      <Space height={20} />
-      <GreyInput placeholder={__('email_address') + ' or ' + __('phone_number')} value={vm.emailOrPhone} onChangeText={vm.setEmailOrPhone}/>
-      <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}/>
-      <BlueButton onPress={vm.onPressLogin} caption={__('login')} />
-      <GreyText text={__('sign_up_note')} />
-      <Space height={26}/>
-      <TransBlueButton onPress={vm.onPressSignUp} caption={__('dont_have_account') + ' ' + __('sign_up')}/>
     </BoardWithHeader>
   )
 };

@@ -24,7 +24,8 @@ function useViewModel(props) {
   };
 
   const onPressBook = () => {
-    console.log(tag, 'onPressBook()', doctor.id)
+    console.log(tag, 'onPressBook()', doctor.id);
+    nav.navigate(DoctorStackScreens.bookDoctor)
   };
 
   useEffect(()=>{
