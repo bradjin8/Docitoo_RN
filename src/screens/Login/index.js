@@ -42,7 +42,7 @@ const Login = (props) => {
         <Space height={20}/>
         <GreyInput placeholder={__('email_address') + ' or ' + __('phone_number')} value={vm.emailOrPhone}
                    onChangeText={vm.setEmailOrPhone}/>
-        <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}/>
+        <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword} secureTextEntry={true}/>
         <BlueButton onPress={vm.onPressLogin} caption={__('login')}/>
         <GreyText text={__('sign_up_note')}/>
         <Space height={26}/>

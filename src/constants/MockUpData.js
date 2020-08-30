@@ -2,6 +2,17 @@ import Images from "../styles/Images";
 
 export const default_avatar_url = 'https://cdn.discordapp.com/attachments/679790637868253199/749465959651082382/avatar.png';
 
+export const mockBloodTypes = [
+  'A+',
+  'A-',
+  'B+',
+  'B-',
+  'AB+',
+  'AB-',
+  'O+',
+  'O-'
+];
+
 export const mockUser = {
   id: 0,
   fullName: 'Alberta John',
@@ -13,6 +24,71 @@ export const mockUser = {
   avatarUrl: 'https://cdn.discordapp.com/attachments/679790637868253199/749216226508800071/alberta.png',
   joinDate: 'July 2020',
 };
+
+export const mockNotifications = [
+  {
+    type: 'pill',
+    content: 'Omega 3 - 500mg',
+  },
+  {
+    type: 'schedule',
+    content: '4 weeks ago'
+  },
+  {
+    type: 'announcement',
+    content: 'More than a 100 new physicians have been listed in your area. Check out new listings now!'
+  },
+  {
+    type: 'pill',
+    content: 'Omega 3 - 500mg',
+  },
+  {
+    type: 'schedule',
+    content: '4 weeks ago'
+  },
+  {
+    type: 'announcement',
+    content: 'More than a 100 new physicians have been listed in your area. Check out new listings now!'
+  },
+];
+
+export const mockMedicines = [
+  {
+    id: 0,
+    name: 'Omega 3',
+    dosage: '500mg',
+    frequency: 1,
+    time: '6 PM'
+  },
+  {
+    id: 1,
+    name: 'Aspirin',
+    dosage: '500mg',
+    frequency: 1,
+    time: '1 PM'
+  },
+  {
+    id: 0,
+    name: 'Vitamin D',
+    dosage: '500mg',
+    frequency: 1,
+    time: '6 PM'
+  },
+  {
+    id: 0,
+    name: 'Neumercazole',
+    dosage: '500mg',
+    frequency: 1,
+    time: '6 PM'
+  },
+  {
+    id: 0,
+    name: 'Omega 5',
+    dosage: '500mg',
+    frequency: 1,
+    time: '6 PM'
+  },
+];
 
 export const mockSpecialities = [
   'Gynecologist',

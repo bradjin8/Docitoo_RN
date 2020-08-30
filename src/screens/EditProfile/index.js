@@ -31,7 +31,7 @@ const EditProfile = (props) => {
                      onChangeText={(val) => vm.setEmailAddress(val)}/>
           <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
                      onChangeText={(val) => vm.setPhoneNumber(val)}/>
-          <GreyInput placeholder={__('password')} value={vm.password} onChangeText={(val) => vm.setPassword(val)}/>
+          <GreyInput placeholder={__('password')} value={vm.password} onChangeText={(val) => vm.setPassword(val)} secureTextEntry={true}/>
         </KeyboardAvoidingView>
         <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 50})}}>
           <DropDownPicker
@@ -50,12 +50,7 @@ const EditProfile = (props) => {
         </View>
         <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 40})}}>
           <DropDownPicker
-            items={[
-              {label: 'A', value: 'A'},
-              {label: 'B', value: 'B'},
-              {label: 'O', value: 'O'},
-              {label: 'AB', value: 'AB'}
-            ]}
+            items={vm.bloodTypes}
             style={styles.dropDownBack}
             containerStyle={styles.dropDownContainer}
             itemStyle={styles.dropDownItem}

@@ -34,6 +34,8 @@ const en = {
   'ratings': 'ratings',
 
   'search_doctors': 'Search Doctors',
+  'search_for_doctors': 'Search for Doctors',
+  'browse_doctors_by_category': 'Browse doctors by category',
   'search_by_name': 'Search by Name',
   'doctors_name': 'Doctor\'s Name',
   'speciality': 'Speciality',
@@ -56,9 +58,17 @@ const en = {
 
   'notifications': 'Notifications',
 
-  'pill_reminder': 'Pill Reminder',
+  'pill_reminder': 'Pill Reminder', // 10
+  'pill_at': 'pill at',
+  'add_the_relevant_details_below': 'Add the relevant details below',
+  'medicine_name': 'Medicine Name',
+  'dosage': 'Dosage',
+  'frequency': 'Frequency',
+  'select_time_to_take_pill': 'Select time to take pill',
+  'set_pill_reminder': 'Set Pill Reminder',
 
   'more': 'More', // 14
+  'More': 'More',
   'english': 'English',
   'account_settings': 'Account Settings',
   'logout': 'Logout',
@@ -81,13 +91,13 @@ const en = {
   'update_profile': 'Update Profile',
 
   'gynecologist': 'Gynecologist',
-  'skin specialist': 'Skin Specialist',
-  'child specialist': 'Child Specialist',
-  'orthopedic surgeon': 'Orthopedic Surgeon',
-  'ent specialist': 'ENT Specialist',
+  'skin_specialist': 'Skin Specialist',
+  'child_specialist': 'Child Specialist',
+  'orthopedic_surgeon': 'Orthopedic Surgeon',
+  'ent_specialist': 'ENT Specialist',
   'diagnostics': 'Diagnostics',
-  'diabetes specialist': 'Diabetes Specialist',
-  'eye specialist': 'Eye Specialist',
+  'diabetes_specialist': 'Diabetes Specialist',
+  'eye_specialist': 'Eye Specialist',
 };
 
 export default en;

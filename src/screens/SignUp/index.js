@@ -2,7 +2,7 @@ import React from 'react';
 import useViewModel from './methods';
 import {observer} from 'mobx-react';
 import Colors from '@/styles/Colors';
-import {StyleSheet, TouchableHighlight, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableHighlight, KeyboardAvoidingView, View, Text, TouchableOpacity} from 'react-native';
 import __ from '@/assets/lang';
 import BoardWithHeader from '@/components/Panel/BoardWithHeader';
 import GreyInput from '@/components/Input/GreyInput';
@@ -19,13 +19,14 @@ import {scale} from '@/styles/Sizes';
 const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
-    width: '90%',
+    width: '100%',
     justifyContent: 'center',
     marginVertical: 18 * scale,
   },
   container: {
     flexDirection: 'column',
     width: '90%',
+    justifyContent: 'flex-start'
   },
 });
 
@@ -42,12 +43,15 @@ const SignUp = (props) => {
           <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
         </View>
         <BlackText text={__('or_sign_up_using_email')}/>
-        <Space height={20 * scale}/>
-        <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
-        <GreyInput placeholder={__('email_address')} value={vm.emailAddress} onChangeText={vm.setEmailAddress}/>
-        <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
-                   onChangeText={vm.setPhoneNumber}/>
-        <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}/>
+        {/*<Space height={20 * scale}/>*/}
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
+          <GreyInput placeholder={__('email_address')} value={vm.emailAddress} onChangeText={vm.setEmailAddress}/>
+          <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
+                     onChangeText={vm.setPhoneNumber}/>
+          <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}
+                     secureTextEntry={true}/>
+        </KeyboardAvoidingView>
         <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up')}/>
         <GreyText text={__('sign_up_note')}/>
         <Space height={26 * scale}/>

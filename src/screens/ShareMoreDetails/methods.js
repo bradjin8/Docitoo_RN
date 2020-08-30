@@ -4,9 +4,19 @@ import {Screens} from '@/constants/Navigation';
 import ImagePicker from 'react-native-image-picker';
 import __ from '@/assets/lang';
 import {Platform, PermissionsAndroid} from 'react-native';
+import {mockBloodTypes} from '@/constants/MockUpData';
 
 function useViewModel(props) {
   const nav = useNavigation();
+
+  let bloodTypes = [];
+
+  mockBloodTypes.map(item => {
+    bloodTypes.push({
+      label: item,
+      value: item,
+    })
+  });
 
   const [gender, setGender] = useState('');
   const [bloodType, setBloodType] = useState('');
@@ -73,6 +83,7 @@ function useViewModel(props) {
   };
 
   return {
+    bloodTypes,
     gender, setGender,
     bloodType, setBloodType,
     avatarSource, setAvatarSource,

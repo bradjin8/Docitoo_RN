@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     marginVertical: 20 * scale,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   imageContainer: {
     width: '100%',
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     padding: 25 * scale,
+    textAlignVertical: 'center',
   }
 });
 

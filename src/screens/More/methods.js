@@ -22,7 +22,7 @@ function useViewModel(props) {
   };
 
   const onPressPillReminder = () => {
-    nav.navigate(TabStackScreens.pillReminder)
+    nav.navigate(TabStackScreens.pillReminderStack)
   };
 
   const onPressAccountSettings = () => {
@@ -38,7 +38,7 @@ function useViewModel(props) {
   };
 
   const onPressLogout = () => {
-    nav.navigate(Screens.logIn);
+    nav.navigate(Screens.home);
   };
 
   return {

@@ -14,7 +14,7 @@ const BlackText = ({text}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '100%',
     marginVertical: 10 * scale
   },
   text: {

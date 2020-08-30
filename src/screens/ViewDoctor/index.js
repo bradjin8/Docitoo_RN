@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
   blueButtonLabel: {
     color: Colors.white2,
     textAlign: 'center',
+    textAlignVertical: 'center',
     fontWeight: 'bold',
     fontSize: 18 * scale,
   },
@@ -173,6 +174,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: Colors.blue2,
     alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   reviewContainer: {
     // backgroundColor: '#111',

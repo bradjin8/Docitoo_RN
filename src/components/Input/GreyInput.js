@@ -3,16 +3,17 @@ import {TextInput, View, StyleSheet, Platform} from 'react-native';
 import Colors from '@/styles/Colors';
 import {scale} from '@/styles/Sizes';
 
-const GreyInput = ({onChangeText, value, placeholder, numberOfLines, multiline}) => {
+const GreyInput = ({onChangeText, value, placeholder, numberOfLines, multiline, secureTextEntry = false}) => {
   return (
     <View style={styles.container}>
       <TextInput
-        style={{textAlignVertical: multiline ? 'top': 'center', ...{height: multiline ? 100 : 50}, ...styles.textInput}}
+        style={{textAlignVertical: multiline ? 'top' : 'center', ...{height: multiline ? 100 : 50}, ...styles.textInput}}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
         multiline={multiline}
         numberOfLines={numberOfLines}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );

@@ -13,7 +13,7 @@ function useViewModel(props) {
   };
 
   const onPressLogin = () => {
-
+    nav.navigate(Screens.tabStack);
   };
 
   const onPressFacebook = () => {

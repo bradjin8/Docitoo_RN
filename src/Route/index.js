@@ -3,12 +3,13 @@ import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {MoreStackScreens, DoctorStackScreens, TabStackScreens, Screens} from '@/constants/Navigation';
+import {MoreStackScreens, DoctorStackScreens, TabStackScreens, Screens, PillStackScreens} from '@/constants/Navigation';
 
 import Home from '@/screens/Home';
 import SignUp from '@/screens/SignUp';
 import Login from '@/screens/Login';
 import ShareMoreDetails from '@/screens/ShareMoreDetails';
+import DoctorsByCategory from '@/screens/DoctorsByCategory';
 import Doctors from '@/screens/Doctors';
 import ViewDoctor from '@/screens/ViewDoctor';
 import BookDoctor from '@/screens/BookDoctor';
@@ -17,6 +18,9 @@ import TermsAndConditions from '@/screens/TermsAndConditions';
 import ContactUs from '@/screens/ContactUs';
 import MyProfile from '@/screens/MyProfile';
 import EditProfile from '@/screens/EditProfile';
+import PillReminder from '@/screens/PillReminder';
+import AddPillReminder from '@/screens/AddPillReminder';
+import Notifications from '@/screens/Notifications';
 import Splash from '@/screens/Splash';
 
 import Colors from '@/styles/Colors';
@@ -68,7 +72,7 @@ function TabStack() {
         />
         <Tab.Screen
           name={TabStackScreens.notifications}
-          component={Doctors}
+          component={Notifications}
           options={{
             title: __(TabStackScreens.notifications),
             tabBarIcon: ({color, size}) => (
@@ -77,8 +81,8 @@ function TabStack() {
           }}
         />
         <Tab.Screen
-          name={TabStackScreens.pillReminder}
-          component={Doctors}
+          name={TabStackScreens.pillReminderStack}
+          component={PillReminderStack}
           options={{
             title: __('pill_reminder'),
             tabBarIcon: ({color, size}) => (
@@ -87,7 +91,7 @@ function TabStack() {
           }}
         />
         <Tab.Screen
-          name={TabStackScreens.more}
+          name={TabStackScreens.moreStack}
           component={MoreStack}
           options={{
             title: __(MoreStackScreens.more),
@@ -107,9 +111,23 @@ function DoctorStack() {
         headerShown: false,
         gestureEnabled: false,
       }}>
+      <Stack.Screen name={DoctorStackScreens.doctorsByCategory} component={DoctorsByCategory}/>
       <Stack.Screen name={DoctorStackScreens.doctors} component={Doctors}/>
       <Stack.Screen name={DoctorStackScreens.viewDoctor} component={ViewDoctor}/>
       <Stack.Screen name={DoctorStackScreens.bookDoctor} component={BookDoctor}/>
+    </Stack.Navigator>
+  )
+}
+
+function PillReminderStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
+      }}>
+      <Stack.Screen name={PillStackScreens.pillReminder} component={PillReminder}/>
+      <Stack.Screen name={PillStackScreens.addPillReminder} component={AddPillReminder}/>
     </Stack.Navigator>
   )
 }
@@ -140,7 +158,7 @@ const Route = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={DoctorStackScreens.viewDoctor}
+          initialRouteName={Screens.home}
           screenOptions={{
             headerShown: false,
             gestureEnabled: false,
@@ -150,9 +168,6 @@ const Route = () => {
           <Stack.Screen name={Screens.logIn} component={Login}/>
           <Stack.Screen name={Screens.shareMoreDetails} component={ShareMoreDetails}/>
           <Stack.Screen name={Screens.tabStack} component={TabStack}/>
-
-          <Stack.Screen name={DoctorStackScreens.viewDoctor} component={TabStack}/>
-
         </Stack.Navigator>
       </NavigationContainer>
     );

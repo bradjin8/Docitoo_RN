@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   blueButtonLabel: {
     color: Colors.white2,
     textAlign: 'center',
+    textAlignVertical: 'center',
     fontWeight: 'bold',
     fontSize: 18 * scale,
   },

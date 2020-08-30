@@ -33,11 +33,12 @@ export const Screens = {
 export const TabStackScreens = {
     doctorStack: 'DoctorStack',
     notifications: 'Notifications',
-    pillReminder: 'PillReminder',
-    more: 'More',
+    pillReminderStack: 'PillReminderStack', // 10, 11
+    moreStack: 'MoreStack',
 };
 
 export const DoctorStackScreens = {
+    doctorsByCategory: 'DoctorsByCategory', // 16
     doctors: 'Doctors', // 5
     viewDoctor: 'ViewDoctor', // 7
     bookDoctor: 'BookDoctor', // 19, 20
@@ -47,6 +48,11 @@ export const MoreStackScreens = {
     more: 'More', // 14,
     termsAndConditions: 'TermsAndConditions', // 17
     contactUs: 'ContactUs', // 18,
-    myProfile: 'myProfile', // 8
-    editProfile: 'editProfile', // 9
+    myProfile: 'MyProfile', // 8
+    editProfile: 'EditProfile', // 9
+};
+
+export const PillStackScreens = {
+   pillReminder: 'PillReminder', // 10
+   addPillReminder: 'AddPillReminder', // 11
 };

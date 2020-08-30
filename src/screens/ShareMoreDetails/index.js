@@ -65,7 +65,7 @@ const ShareModeDetails = (props) => {
       <Space height={20 * scale}/>
       <TransBlueButton onPress={vm.onPressChoose} caption={__('upload_your_photo')}/>
       <Space height={20}/>
-      <View style={{width: '90%', ...(Platform.OS !== 'android' && {zIndex: 20})}}>
+      <View style={{width: '90%', ...(Platform.OS !== 'android' && {zIndex: 20})}} key={1}>
         <DropDownPicker
           items={[
             {label: __('male'), value: 'male'},
@@ -80,14 +80,9 @@ const ShareModeDetails = (props) => {
           placeholder={__('select_gender')}
         />
       </View>
-      <View style={{width: '90%', ...(Platform.OS !== 'android' && {zIndex: 10})}}>
+      <View style={{width: '90%', ...(Platform.OS !== 'android' && {zIndex: 10})}} key={2}>
         <DropDownPicker
-          items={[
-            {label: 'A', value: 'A'},
-            {label: 'B', value: 'B'},
-            {label: 'O', value: 'O'},
-            {label: 'AB', value: 'AB'}
-          ]}
+          items={vm.bloodTypes}
           style={styles.dropDownBack}
           containerStyle={styles.dropDownContainer}
           itemStyle={styles.dropDownItem}
@@ -97,7 +92,7 @@ const ShareModeDetails = (props) => {
           placeholder={__('select_blood_type')}
         />
       </View>
-      <View style={{width: '90%'}}>
+      <View style={{width: '90%'}} key={3}>
         <BlueButton onPress={vm.onPressSubmit} caption={__('submit')}/>
       </View>
       <Space height={26}/>

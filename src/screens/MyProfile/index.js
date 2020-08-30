@@ -10,7 +10,7 @@ import Colors from "@/styles/Colors";
 import Separator from "@/components/Separator";
 import useViewModel from './methods';
 
-const ShareModeDetails = (props) => {
+const PillReminder = (props) => {
   const vm = useViewModel(props);
 
   return (
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default observer(ShareModeDetails);
+export default observer(PillReminder);

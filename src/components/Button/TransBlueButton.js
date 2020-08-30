@@ -15,7 +15,7 @@ const TransBlueButton = ({caption, onPress}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: '100%',
   },
   caption: {
     color: Colors.blue2,
