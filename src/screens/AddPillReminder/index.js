@@ -29,12 +29,14 @@ const AddPillReminder = (props) => {
     }
 
     let AMPM = 'AM';
+    let hour = i;
+
     if (i >= 12) {
       AMPM = 'PM';
+      hour = i - 12;
     }
 
-    let hour = i;
-    if (i === 0) {
+    if (hour === 0) {
       hour = 12;
     }
 

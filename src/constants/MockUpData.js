@@ -19,6 +19,7 @@ export const mockUser = {
   email: 'albertajohn@gmail.com',
   phoneNumber: '+134838222',
   gender: 'Female',
+  accountType: 'User',
   bloodType: 'O+ve',
   language: 'English',
   avatarUrl: 'https://cdn.discordapp.com/attachments/679790637868253199/749216226508800071/alberta.png',
