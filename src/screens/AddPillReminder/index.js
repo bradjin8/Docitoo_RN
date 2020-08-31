@@ -22,7 +22,7 @@ const AddPillReminder = (props) => {
     // morning, afternoon, evening, night
     // ref : https://www.speld-sa.org.au/images/Maths/12_and_24_Hour_Time_Chart.pdf
     let image = Images.time.evening;
-    if (i >= 21 && i <= 4) {
+    if (i >= 21 || i <= 4) {
       image = Images.time.night;
     } else if (i >= 5 && i <= 11) {
       image = Images.time.morning;
