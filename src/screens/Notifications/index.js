@@ -14,7 +14,7 @@ const Notifications = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('pill_reminder')}>
+    <BoardWithHeader title={__('notifications')}>
       <ScrollView style={styles.container}>
         <Space height={10 * scale}/>
         {vm.notifications.sort().map((item, index) => {

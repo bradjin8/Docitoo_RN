@@ -27,6 +27,7 @@ const PickADate = (props) => {
         <Separator color={Colors.grey}/>
         <Space height={50 * scale}/>
 
+        <View style={styles.calendarContainer}>
         {vm.mode === vm.MODE.DATE && <CalendarPicker
           previousTitle={'<'}
           nextTitle={'>'}
@@ -42,6 +43,7 @@ const PickADate = (props) => {
             vm.setDate(date)
           }}
         />}
+        </View>
 
         {vm.mode === vm.MODE.TIME && vm.timeSlots && <View style={styles.timeSlotsContainer}>
           {Object.keys(vm.timeSlots).sort().map((key) => {
@@ -162,6 +164,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 14 * scale,
     alignItems: 'center',
+  },
+  calendarContainer: {
+    padding: 10 * scale,
   }
 });
 

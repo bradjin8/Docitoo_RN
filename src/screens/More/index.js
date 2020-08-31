@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     height: 40 * scale,
     width: 100 * scale,
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 38 * scale : 19 * scale,
+    top: Platform.OS === 'ios' ? 38 * scale : 5 * scale,
     right: 20 * scale,
   },
   dropDownItem: {

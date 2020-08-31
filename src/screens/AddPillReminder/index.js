@@ -16,6 +16,40 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 
 const AddPillReminder = (props) => {
   const vm = useViewModel(props);
+  let timeSlots = [];
+  for (let i = 0; i <= 23; i++) {
+    let image = Images.time.evening;
+    // evening
+    if (i > 21 && i <= 4) {
+      image = Images.time.night;
+    } else if (i > 5 && i <= 12) {
+      image = Images.time.morning;
+    } else if (i > 12 && i <= 18) {
+      image = Images.time.afternoon;
+    }
+
+    let AMPM = 'AM';
+    if (i >= 12) {
+      AMPM = 'PM';
+    }
+
+    let hour = i;
+    if (i === 0) {
+      hour = 12;
+    }
+
+    if (hour < 10) {
+      hour = '0' + hour;
+    }
+
+    timeSlots.push({
+        label: hour + ' ' + AMPM,
+        value: i,
+        icon: () => <Image source={image} style={styles.dropDownItemImage}/>
+      }
+    )
+  }
+
 
   return (
     <Container>
@@ -33,28 +67,7 @@ const AddPillReminder = (props) => {
                      onChangeText={(val) => vm.setFrequency(val)}/>
           <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 50})}}>
             <DropDownPicker
-              items={[
-                {
-                  label: 'Morning',
-                  value: 6,
-                  icon: () => <Image source={Images.time.morning} style={styles.dropDownItemImage}/>
-                },
-                {
-                  label: 'Afternoon',
-                  value: 13,
-                  icon: () => <Image source={Images.time.afternoon} style={styles.dropDownItemImage}/>
-                },
-                {
-                  label: 'Evening',
-                  value: 1,
-                  icon: () => <Image source={Images.time.evening} style={styles.dropDownItemImage}/>
-                },
-                {
-                  label: 'Night',
-                  value: 18,
-                  icon: () => <Image source={Images.time.night} style={styles.dropDownItemImage}/>
-                },
-              ]}
+              items={timeSlots}
               style={styles.dropDownBack}
               containerStyle={styles.dropDownContainer}
               itemStyle={styles.dropDownItem}

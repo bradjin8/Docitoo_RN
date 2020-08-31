@@ -38,7 +38,7 @@ const HeaderBg = styled.Image`
 const styles = StyleSheet.create({
   title: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 18 * scale,
     fontWeight: 'bold',
   },
   header: {
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: Dimensions.get('window').height - headerHeight,
     backgroundColor: '#FFF',
-    borderRadius: 20,
+    borderRadius: 20 * scale,
     padding: '5%',
   },
   boardContainer: {

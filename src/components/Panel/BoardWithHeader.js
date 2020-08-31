@@ -30,13 +30,13 @@ const HeaderBg = styled.Image`
 const styles = StyleSheet.create({
   title: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 18 * scale,
     fontWeight: 'bold',
     position: 'absolute',
     top: Platform.OS === 'ios' ? headerHeight / 7 * 4 : headerHeight / 3 * scale,
     left: 0,
     right: 0,
-    marginLeft: 20
+    marginLeft: 20 * scale
   },
   board: {
     position: 'absolute',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: Dimensions.get('window').height - headerHeight,
     backgroundColor: '#FFF',
-    borderRadius: 20,
+    borderRadius: 20 * scale,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'

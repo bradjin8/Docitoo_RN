@@ -6,6 +6,6 @@ const Sizes = {
 };
 
 export const scale = Platform.OS === 'ios'? 1 : 0.8;
-export const headerHeight = Platform.OS === 'ios' ? 80 : 60;
+export const headerHeight = Platform.OS === 'ios' ? 80 : 40;
 
 export default Sizes;

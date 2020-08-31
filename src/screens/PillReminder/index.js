@@ -35,7 +35,7 @@ const PillReminder = (props) => {
 
         <Space height={30 * scale}/>
       </ScrollView>
-      <ImageButton image={Images.button.add_medicine} onPress={vm.onPressAdd} style={styles.addButton}/>
+      <ImageButton image={Images.button.add_medicine} onPress={vm.onPressAdd} style={styles.addButton} imageStyle={styles.addButtonImage}/>
     </BoardWithHeader>
   )
 };
@@ -101,6 +101,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 104 * scale,
     right: 24 * scale,
+  },
+  addButtonImage: {
+    width: 70 * scale,
+    height: 70 * scale,
   }
 
 });

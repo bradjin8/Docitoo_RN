@@ -28,13 +28,13 @@ const ShareModeDetails = (props) => {
 
   return (
     <BoardWithHeader title={__('doctors')}>
-      <View style={styles.searchContainer}>
-        <Icon name={'search'} size={20} color={Colors.grey}/>
-        <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
-                   onChangeText={(val) => vm.setSearchString(val)}/>
-      </View>
       <ScrollView style={styles.container}>
-        <Space height={100 * scale}/>
+        <View style={styles.searchContainer}>
+          <Icon name={'search'} size={20} color={Colors.grey}/>
+          <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
+                     onChangeText={(val) => vm.setSearchString(val)}/>
+        </View>
+        <Space height={20 * scale}/>
         <Text style={styles.note}>
           {__('browse_doctors_by_category')}
         </Text>
@@ -67,7 +67,7 @@ const ShareModeDetails = (props) => {
 export const CategoryButton = ({image, caption, onPress}) => {
   const windowWidth = Dimensions.get('window').width;
   const buttonWidth = windowWidth / 2 - 50;
-
+  const imageWidth = buttonWidth / 2.5;
 
   const cbStyles = StyleSheet.create({
     container: {
@@ -78,20 +78,24 @@ export const CategoryButton = ({image, caption, onPress}) => {
       alignItems: 'center',
       elevation: 10,
       shadowColor: Colors.grey_dark,
-      shadowRadius: 10,
-      shadowOpacity: 0.75,
+      shadowRadius: 6,
+      shadowOpacity: 0.8,
       backgroundColor: '#fff',
       paddingTop: 20 * scale,
     },
     caption: {
       color: Colors.grey_dark,
       fontWeight: 'bold',
+    },
+    image: {
+      width: imageWidth,
+      height: imageWidth,
     }
   });
 
   return (
     <TouchableOpacity style={cbStyles.container} onPress={onPress}>
-      <Image source={image}/>
+      <Image source={image} style={cbStyles.image} resizeMode={'contain'}/>
       <Text style={cbStyles.caption}>
         {caption}
       </Text>
@@ -111,15 +115,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.grey_light,
     borderRadius: 10 * scale,
     alignItems: 'center',
-    padding: 10 * scale,
-    position: 'absolute',
-    width: '90%',
-    top: '4%',
+    paddingHorizontal: 10 * scale,
+    // position: 'absolute',
+    width: '100%',
+    top: Platform.OS === 'ios' ? 20 * scale : 20 * scale,
     zIndex: 50
   },
   searchInput: {
     backgroundColor: 'transparent',
     marginLeft: 10 * scale,
+    paddingVertical: 10 * scale,
   },
   note: {
     fontSize: 18 * scale,

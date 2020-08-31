@@ -22,8 +22,12 @@ const styles = StyleSheet.create({
   searchButton: {
     zIndex: 30,
     position: 'absolute',
-    bottom: '10%',
-    right: 0,
+    bottom: 104 * scale,
+    right: 24 * scale,
+  },
+  searchButtonImage: {
+    width: 70 * scale,
+    height: 70 * scale,
   }
 });
 
@@ -40,7 +44,7 @@ const Doctors = (props) => {
         </Text>
         <Space height={16 * scale}/>
         <DoctorList doctors={vm.doctors} onPressDoctor={vm.onPressDoctor}/>
-        <ImageButton image={Images.button.search} onPress={vm.onPressSearch} style={styles.searchButton}/>
+        <ImageButton image={Images.button.search} onPress={vm.onPressSearch} style={styles.searchButton} imageStyle={styles.searchButtonImage}/>
       </BoardWithHeaderRightButton>
       <SearchDoctorsModal isVisible={vm.searchVisible} onPressClose={vm.onPressSearch} onPressOK={vm.applyFilter}/>
     </Container>

@@ -13,13 +13,14 @@ import TransBlueButton from '@/components/Button/TransBlueButton';
 import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
 import Images from '@/styles/Images';
+import {scale} from '@/styles/Sizes';
 
 const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'center',
-    marginVertical: 18,
+    marginVertical: 18 * scale,
   },
   container: {
     flexDirection: 'column',
@@ -35,17 +36,17 @@ const Login = (props) => {
       <View style={styles.container}>
         <BlackText text={__('login_with')}/>
         <View style={styles.socialContainer}>
-          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20}} onPress={vm.onPressFacebook}/>
-          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20}} onPress={vm.onPressFacebook}/>
+          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
+          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
         </View>
         <BlackText text={__('or_login_using_email')}/>
-        <Space height={20}/>
+        <Space height={20 * scale}/>
         <GreyInput placeholder={__('email_address') + ' or ' + __('phone_number')} value={vm.emailOrPhone}
                    onChangeText={vm.setEmailOrPhone}/>
         <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword} secureTextEntry={true}/>
         <BlueButton onPress={vm.onPressLogin} caption={__('login')}/>
         <GreyText text={__('sign_up_note')}/>
-        <Space height={26}/>
+        <Space height={26 * scale}/>
         <TransBlueButton onPress={vm.onPressSignUp} caption={__('dont_have_account') + ' ' + __('sign_up')}/>
       </View>
     </BoardWithHeader>

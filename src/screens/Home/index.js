@@ -7,6 +7,7 @@ import BackgroundMaskImage from '@/components/BackgroundMaskImage';
 import LogoImage from '@/components/LogoImage';
 import Images from "@/styles/Images";
 import Colors from '@/styles/Colors';
+import {scale} from '@/styles/Sizes';
 import {StyleSheet, TouchableHighlight, View, Text, TouchableOpacity} from 'react-native';
 import __ from '@/assets/lang';
 
@@ -19,7 +20,7 @@ const Home = (props) => {
       <BackgroundMaskImage source={Images.background.mask_gradient} resizeMdoe="cover" />
 
       <View style={styles.container}>
-        <View style={{marginBottom: 30}}>
+        <View style={{marginBottom: 20 * scale}}>
           <LogoImage/>
         </View>
 
@@ -54,9 +55,9 @@ const styles = StyleSheet.create({
   bottomButton: {
     position: 'absolute',
     //top: 20,
-    left: 20,
-    bottom: 30,
-    right: 20,
+    left: 20 * scale,
+    bottom: 30 * scale,
+    right: 20 * scale,
   },
   container: {
     flex: 1,
@@ -68,37 +69,37 @@ const styles = StyleSheet.create({
     color: Colors.blue2,
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16 * scale
   },
   whiteButton: {
     backgroundColor: '#FFF',
     width: '90%',
-    padding: 18,
-    margin: 10,
-    borderRadius: 5,
+    padding: 18 * scale,
+    margin: 10 * scale,
+    borderRadius: 5 * scale,
     alignContent: 'center'
   },
   whiteLabel: {
     color: '#FFF',
     fontWeight: 'bold',
-    marginVertical: 20,
-    fontSize: 17
+    marginVertical: 20 * scale,
+    fontSize: 17 * scale
   },
   description: {
     color: '#FFF',
     justifyContent: 'center',
     textAlign: 'center',
-    fontSize: 28,
-    marginVertical: 30
+    fontSize: 28 * scale,
+    marginVertical: 30 * scale
   },
   note: {
     position: 'absolute',
-    bottom: 25,
+    bottom: 25 * scale,
     color: '#FFF',
     justifyContent: 'center',
     textAlign: 'center',
-    fontSize: 17,
-    lineHeight: 25,
+    fontSize: 17 * scale,
+    lineHeight: 25 * scale,
   }
 });
 
