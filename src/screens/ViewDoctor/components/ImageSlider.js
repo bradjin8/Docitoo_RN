@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import Slideshow from 'react-native-image-slider-show';
 import {StyleSheet} from 'react-native';
 import useViewModel from './ImageSliderMethods';
-import {scale} from '@/styles/Sizes';
+import {scale, windowHeight} from '@/styles/Sizes';
 
 const ImageSlider = (props) => {
   const vm = useViewModel(props);
@@ -17,6 +17,7 @@ const ImageSlider = (props) => {
       titleStyle={styles.title}
       captionStyle={styles.caption}
       overlay={false}
+      height={windowHeight / 4}
     />
   );
 };

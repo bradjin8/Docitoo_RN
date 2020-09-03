@@ -13,7 +13,7 @@ import TransBlueButton from '@/components/Button/TransBlueButton';
 import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
 import Images from '@/styles/Images';
-import {scale} from '@/styles/Sizes';
+import {scale, windowWidth} from '@/styles/Sizes';
 
 const styles = StyleSheet.create({
   socialContainer: {
@@ -36,8 +36,12 @@ const Login = (props) => {
       <View style={styles.container}>
         <BlackText text={__('login_with')}/>
         <View style={styles.socialContainer}>
-          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
-          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}} onPress={vm.onPressFacebook}/>
+          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20 * scale}}
+                       imageStyle={{width: windowWidth / 8, height: windowWidth / 8}}
+                       onPress={vm.onPressFacebook}/>
+          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}}
+                       imageStyle={{width: windowWidth / 8, height: windowWidth / 8}}
+                       onPress={vm.onPressFacebook}/>
         </View>
         <BlackText text={__('or_login_using_email')}/>
         <Space height={20 * scale}/>

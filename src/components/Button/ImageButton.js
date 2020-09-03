@@ -7,7 +7,7 @@ const ImageButton = ({child, image, imageStyle, onPress, style}) => {
       <Image
         source={image}
         style={imageStyle}
-        resizeMode={'cover'}
+        resizeMode={'contain'}
       >
         {child}
       </Image>

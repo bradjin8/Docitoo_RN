@@ -66,7 +66,7 @@ const ShareModeDetails = (props) => {
 
 export const CategoryButton = ({image, caption, onPress}) => {
   const windowWidth = Dimensions.get('window').width;
-  const buttonWidth = windowWidth / 2 - 50;
+  const buttonWidth = (windowWidth / 2 - windowWidth / 8);
   const imageWidth = buttonWidth / 2.5;
 
   const cbStyles = StyleSheet.create({
@@ -86,6 +86,7 @@ export const CategoryButton = ({image, caption, onPress}) => {
     caption: {
       color: Colors.grey_dark,
       fontWeight: 'bold',
+      fontSize: 15 * scale,
     },
     image: {
       width: imageWidth,

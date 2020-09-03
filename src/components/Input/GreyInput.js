@@ -7,7 +7,7 @@ const GreyInput = ({onChangeText, value, placeholder, numberOfLines, multiline, 
   return (
     <View style={styles.container}>
       <TextInput
-        style={{textAlignVertical: multiline ? 'top' : 'center', ...{height: multiline ? 100 : 50}, ...styles.textInput}}
+        style={{textAlignVertical: multiline ? 'top' : 'center', ...{height: multiline ? 100 * scale : 50 * scale}, ...styles.textInput}}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}

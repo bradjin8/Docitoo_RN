@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-const tag = 'Screens::ViewDoctor::ImageSlider';
 
 function useViewModel(props) {
+  const tag = 'Screens::ViewDoctor::ImageSlider';
   const nav = useNavigation();
 
   const [dataSource, setDataSource] = useState([]);
   const [pos, setPos] = useState(0);
+  const [timeoutGoNext, setTimeoutGoNext] = useState(null);
 
   const goNext = () => {
     setPos(pos === dataSource.length - 1 ? 0 : pos + 1);
@@ -15,7 +16,8 @@ function useViewModel(props) {
   };
 
   useEffect(()=> {
-    setTimeout(goNext, 2000);
+    const timout = setTimeout(goNext, 2000);
+    setTimeoutGoNext(timout);
   }, [pos]);
 
   useEffect(() => {
@@ -31,6 +33,9 @@ function useViewModel(props) {
 
     // Component Unmount, same as componentWillUnmount
     return () => {
+      if (timeoutGoNext != null) {
+        clearTimeout(timeoutGoNext);
+      }
     }
   }, []);
 

@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
   whiteButtonLabel: {
     color: Colors.blue2,
     textAlign: 'center',
+    textAlignVertical: 'center',
     fontWeight: 'bold',
     fontSize: 18 * scale,
   },
@@ -158,6 +159,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: Colors.blue1,
     alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   blueButtonLabel: {
     color: Colors.white2,

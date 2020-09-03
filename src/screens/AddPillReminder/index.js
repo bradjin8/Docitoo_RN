@@ -83,6 +83,7 @@ const AddPillReminder = (props) => {
                 <MaterialCommunityIcon size={26} color={Colors.grey_dark} name={'clock-outline'}/>)}
               onChangeItem={item => vm.setTime(item.value)}
               placeholder={__('select_time_to_take_pill')}
+              dropDownMaxHeight={200 * scale}
             />
           </View>
           <BlueButton onPress={vm.onPressAdd} caption={__('set_pill_reminder')}/>

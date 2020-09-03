@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 18 * scale,
     fontWeight: 'bold',
     position: 'absolute',
-    top: Platform.OS === 'ios' ? headerHeight / 7 * 4 : headerHeight / 3 * scale,
+    top: Platform.OS === 'ios' ? headerHeight / 7 * 4 : headerHeight / 6 * scale,
     left: 0,
     right: 0,
     marginLeft: 20 * scale

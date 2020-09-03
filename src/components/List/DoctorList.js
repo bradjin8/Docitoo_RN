@@ -96,6 +96,10 @@ const DoctorReview = ({reviews}) => {
         allowHalfStars={true}
         accurateHalfStars={true}
         continuous={true}
+        starStyle={{
+          width: 15 * scale,
+          height: 15 * scale,
+        }}
         emptyStarImage={<Image style={styles.starImage} source={Images.star.empty}/>}
         filledStarImage={<Image style={styles.starImage} source={Images.star.filled}/>}
         scoreTextStyle={styles.starBar}
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
   },
   reviews: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     alignItems: 'center',
     width: '60%',
     // backgroundColor: Colors.grey_light,
@@ -167,13 +171,13 @@ const styles = StyleSheet.create({
     // height: 30,
   },
   starImage: {
-    width: 17 * scale,
-    height: 17 * scale,
+    width: 15 * scale,
+    height: 15 * scale,
   },
   ratingCount: {
     fontSize: 18 * scale,
-    position: 'absolute',
-    right: 0,
+    // position: 'absolute',
+    // right: 0,
   },
   address: {
     fontSize: 15 * scale,

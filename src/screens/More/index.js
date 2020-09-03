@@ -6,7 +6,7 @@ import Colors from '@/styles/Colors';
 import {StyleSheet, TouchableHighlight, View, Text, Button, TouchableOpacity, Image, Platform} from 'react-native';
 import __ from '@/assets/lang';
 import Space from '@/components/Space';
-import {scale} from '@/styles/Sizes';
+import {scale, headerHeight} from '@/styles/Sizes';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FontistoIcon from 'react-native-vector-icons/Fontisto';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 18 * scale,
   },
   dropDownContainer: {
-    height: 40 * scale,
+    height: Platform.OS === 'ios' ? 40 * scale : headerHeight * 0.8,
     width: 100 * scale,
     position: 'absolute',
     top: Platform.OS === 'ios' ? 38 * scale : 5 * scale,

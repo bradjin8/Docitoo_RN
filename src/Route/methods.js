@@ -7,17 +7,19 @@ let initState = {};
 function useViewModel() {
   const [isInitializing, setInitializing] = useState(true);
   const store = useStores();
+  const tag = 'Route::';
 
   // On Component did mount
   useEffect(() => {
     const init = async function () {
       try {
         await store.initialize();
-        console.log('Store Initialized', store);
+        console.log(tag, 'Store Initialized', store);
         // Setup appropriate route
         initState = getInitialState(store);
+        console.log(tag, 'Initial State', initState)
       } catch (e) {
-        console.log('Error Occurred while initializing');
+        console.log(tag, 'Error Occurred while initializing');
       } finally {
         setInitializing(false);
       }
