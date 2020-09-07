@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Platform, Image, TouchableHighlight} from 'react-native';
+import {View, Text, StyleSheet, Platform, Image, TouchableHighlight, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
 import Colors from '@/styles/Colors';
 import BackgroundImage from '@/components/BackgroundImage';
@@ -14,6 +14,7 @@ import SearchDoctorsModalMethods from './SearchDoctorsModalMethods';
 import {observer} from 'mobx-react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {mockSpecialities} from '@/constants/MockUpData';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
@@ -41,10 +42,12 @@ const SearchDoctorsModal = (props) => {
         <Text style={styles.title}>
           {__('search_doctors')}
         </Text>
-        <IconButton color={Colors.white2} onPress={props.onPressClose} name={'window-close'} size={hp('3.5%')}/>
+        <TouchableOpacity onPress={props.onPressClose}>
+          <MaterialCommunityIcon name={'window-close'} size={hp('3.5%')} color={Colors.white2}/>
+        </TouchableOpacity>
       </View>
       <Separator color={Colors.grey_light}/>
-      <View style={styles.body}>
+      <KeyboardAvoidingView behavior={"padding"} style={styles.body}>
         <WhiteLabel text={__('search_by_name')}/>
         <WhiteInput placeholder={__('doctors_name')} value={vm.doctorName}
                     onChangeText={(value) => vm.setDoctorName(value)}/>
@@ -78,7 +81,7 @@ const SearchDoctorsModal = (props) => {
           </Text>
         </TouchableHighlight>
 
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -170,7 +173,8 @@ const styles = StyleSheet.create({
   dropDownLabel: {
     backgroundColor: '#6ac6ed',
     color: Colors.white2,
-    fontSize: hp('2%')
+    fontSize: hp('2%'),
+    paddingHorizontal: wp('0%')
   },
   dropDownArrow: {
     // color: '#fff'
