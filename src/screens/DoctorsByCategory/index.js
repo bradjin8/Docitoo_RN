@@ -17,11 +17,9 @@ import Space from '@/components/Space';
 import {scale} from '@/styles/Sizes';
 import Colors from "@/styles/Colors";
 import Images from '@/styles/Images';
-import Separator from "@/components/Separator";
 import useViewModel from './methods';
-import ImageButton from "@/components/Button/ImageButton";
-import GreyInput from "@/components/Input/GreyInput";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const ShareModeDetails = (props) => {
   const vm = useViewModel(props);
@@ -30,7 +28,7 @@ const ShareModeDetails = (props) => {
     <BoardWithHeader title={__('doctors')}>
       <ScrollView style={styles.container}>
         <View style={styles.searchContainer}>
-          <Icon name={'search'} size={20} color={Colors.grey}/>
+          <Icon name={'search'} size={wp('5%')} color={Colors.grey}/>
           <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
                      onChangeText={(val) => vm.setSearchString(val)}/>
         </View>
@@ -46,12 +44,14 @@ const ShareModeDetails = (props) => {
         <View style={styles.categoryLine}>
           <CategoryButton image={Images.category.child} caption={__('child_specialist')}
                           onPress={vm.onPressChild}/>
-          <CategoryButton image={Images.category.orthopedic} caption={__('orthopedic_surgeon')} onPress={vm.onPressOrthopedic}/>
+          <CategoryButton image={Images.category.orthopedic} caption={__('orthopedic_surgeon')}
+                          onPress={vm.onPressOrthopedic}/>
         </View>
         <View style={styles.categoryLine}>
           <CategoryButton image={Images.category.ent} caption={__('ent_specialist')}
                           onPress={vm.onPressENT}/>
-          <CategoryButton image={Images.category.diagnostics} caption={__('diagnostics')} onPress={vm.onPressDiagnostics}/>
+          <CategoryButton image={Images.category.diagnostics} caption={__('diagnostics')}
+                          onPress={vm.onPressDiagnostics}/>
         </View>
         <View style={styles.categoryLine}>
           <CategoryButton image={Images.category.diabetes} caption={__('diabetes_specialist')}
@@ -65,9 +65,8 @@ const ShareModeDetails = (props) => {
 };
 
 export const CategoryButton = ({image, caption, onPress}) => {
-  const windowWidth = Dimensions.get('window').width;
-  const buttonWidth = (windowWidth / 2 - windowWidth / 8);
-  const imageWidth = buttonWidth / 2.5;
+  const buttonWidth = wp('40%');
+  const imageWidth = buttonWidth / 3;
 
   const cbStyles = StyleSheet.create({
     container: {
@@ -77,16 +76,17 @@ export const CategoryButton = ({image, caption, onPress}) => {
       justifyContent: 'space-evenly',
       alignItems: 'center',
       elevation: 10,
-      shadowColor: Colors.grey_dark,
-      shadowRadius: 6,
-      shadowOpacity: 0.8,
+      shadowColor: '#ddd',
+      shadowRadius: wp('1%'),
+      shadowOpacity: 0.4,
       backgroundColor: '#fff',
-      paddingTop: 20 * scale,
+      paddingTop: hp('2%'),
+      marginVertical: wp('3%')
     },
     caption: {
-      color: Colors.grey_dark,
+      color: '#777',
       fontWeight: 'bold',
-      fontSize: 15 * scale,
+      fontSize: hp('1.7%'),
     },
     image: {
       width: imageWidth,
@@ -108,37 +108,33 @@ const styles = StyleSheet.create({
   container: {
     width: '90%',
     flexDirection: 'column',
-    height: '92%',
-    // backgroundColor: '#666',
   },
   searchContainer: {
     flexDirection: 'row',
     backgroundColor: Colors.grey_light,
-    borderRadius: 10 * scale,
+    borderRadius: wp('1.5%'),
     alignItems: 'center',
-    paddingHorizontal: 10 * scale,
-    // position: 'absolute',
+    paddingHorizontal: wp('3%'),
     width: '100%',
-    top: Platform.OS === 'ios' ? 20 * scale : 20 * scale,
+    top: hp('3%'),
     zIndex: 50
   },
   searchInput: {
     backgroundColor: 'transparent',
-    marginLeft: 10 * scale,
-    paddingVertical: 10 * scale,
+    marginLeft: wp('2%'),
+    paddingVertical: hp('1.5%'),
+    fontSize: hp('2%'),
   },
   note: {
-    fontSize: 18 * scale,
-    color: '#aaa',
-    fontWeight: 'bold',
+    fontSize: hp('2%'),
+    color: '#777',
     textAlign: 'left',
-    lineHeight: 20 * scale,
-    marginVertical: 20 * scale,
+    marginVertical: hp('3%'),
   },
   categoryLine: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20 * scale,
+    paddingHorizontal: wp('2%'),
   }
 });
 
