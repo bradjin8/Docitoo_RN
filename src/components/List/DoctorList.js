@@ -9,6 +9,7 @@ import Images from '@/styles/Images';
 import Separator from '@/components/Separator';
 import Space from '@/components/Space';
 import {formatHour} from '@/utils/String';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const DoctorList = ({doctors, onPressDoctor}) => {
   return (
@@ -20,14 +21,14 @@ const DoctorListView = ({doctors, onPressDoctor}) => {
   return (
     <View style={styles.container}>
       <FlatList
-        style={{marginBottom: 80 * scale}}
+        style={{marginBottom: hp('5%')}}
         data={doctors}
         renderItem={({item}) => <DoctorRow
           onPressDoctor={onPressDoctor}
           doctor={item}
           key={item.id}
         />}
-        ItemSeparatorComponent={() => <Separator color={Colors.grey}/>}
+        ItemSeparatorComponent={() => <Separator color={'#f3f3f3'}/>}
         keyExtractor={(item) => item.id.toString()}
       />
     </View>
@@ -96,10 +97,7 @@ const DoctorReview = ({reviews}) => {
         allowHalfStars={true}
         accurateHalfStars={true}
         continuous={true}
-        starStyle={{
-          width: 15 * scale,
-          height: 15 * scale,
-        }}
+        starStyle={styles.starImage}
         emptyStarImage={<Image style={styles.starImage} source={Images.star.empty}/>}
         filledStarImage={<Image style={styles.starImage} source={Images.star.filled}/>}
         scoreTextStyle={styles.starBar}
@@ -111,59 +109,54 @@ const DoctorReview = ({reviews}) => {
   );
 };
 
-const rowHeight = 110;
+const rowHeight = hp('14%');
 const textLineHeight = rowHeight / 4;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginVertical: 14 * scale,
+    marginVertical: hp('1.5%'),
   },
   avatar: {
-    width: rowHeight * scale,
-    height: rowHeight * scale,
-    borderRadius: 5,
+    width: rowHeight,
+    height: rowHeight,
+    borderRadius: wp('1.5%'),
   },
   containerText: {
     flexDirection: 'column',
-    marginLeft: 20 * scale,
-    height: rowHeight * scale,
+    marginLeft: hp('2%'),
+    height: rowHeight,
     alignItems: 'stretch',
     width: '100%'
   },
   name: {
-    fontSize: 20 * scale,
+    fontSize: hp('2.2%'),
     fontWeight: 'bold',
-    height: textLineHeight * scale
+    height: textLineHeight
   },
   speciality: {
-    fontSize: 18 * scale,
-    height: textLineHeight * scale,
+    fontSize: hp('2%'),
+    height: textLineHeight,
     color: Colors.grey_dark,
   },
   specialityCard: {
-    fontSize: 18 * scale,
-    marginVertical: 3 * scale,
-    height: textLineHeight * scale,
+    fontSize: hp('2.2%'),
+    marginVertical: hp('0.5%'),
+    height: textLineHeight,
     color: Colors.black,
-  },
-  availableTime: {
-    fontSize: 16 * scale,
-    height: textLineHeight * scale,
-    color: '#aaa',
   },
   reviews: {
     flexDirection: 'row',
     // justifyContent: 'space-between',
     alignItems: 'center',
-    width: '60%',
+    width: wp('60%'),
     // backgroundColor: Colors.grey_light,
   },
   reviewsCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '60%',
+    width: wp('60%'),
     // backgroundColor: Colors.grey_light,
   },
   starBar: {
@@ -171,16 +164,16 @@ const styles = StyleSheet.create({
     // height: 30,
   },
   starImage: {
-    width: 15 * scale,
-    height: 15 * scale,
+    width: hp('2.5%'),
+    height: hp('2.5%'),
   },
   ratingCount: {
-    fontSize: 18 * scale,
+    fontSize: hp('1.8%'),
     // position: 'absolute',
     // right: 0,
   },
   address: {
-    fontSize: 15 * scale,
+    fontSize: hp('1.6%'),
     lineHeight: textLineHeight * scale,
     color: Colors.grey_dark,
     position: 'absolute',

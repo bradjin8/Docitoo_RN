@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
 import Colors from '@/styles/Colors';
-import {scale} from '@/styles/Sizes';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const WhiteInput = ({onChangeText, value, placeholder}) => {
   return (
@@ -20,14 +20,14 @@ const WhiteInput = ({onChangeText, value, placeholder}) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginVertical: 5 * scale,
+    marginVertical: hp('0.5%'),
   },
   textInput: {
     backgroundColor: '#6ac6ed',
-    padding: 16 * scale,
-    fontSize: 18 * scale,
+    padding: hp('1.6%'),
+    fontSize: hp('1.8%'),
     color: Colors.white2,
-    borderRadius: 4 * scale,
+    borderRadius: wp('1.5%'),
   }
 });
 

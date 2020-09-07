@@ -15,6 +15,7 @@ import {observer} from 'mobx-react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {mockSpecialities} from '@/constants/MockUpData';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 let mockSpecialityItems = [];
 mockSpecialities.map(item => {
@@ -35,12 +36,12 @@ const SearchDoctorsModal = (props) => {
       style={styles.container}
     >
       <BackgroundImage source={Images.background.search_doctor} resizeMdoe="cover"/>
-      {Platform.OS === 'ios' && <Space height={30}/>}
+      {Platform.OS === 'ios' && <Space height={hp('3.5%')}/>}
       <View style={styles.header}>
         <Text style={styles.title}>
           {__('search_doctors')}
         </Text>
-        <IconButton color={Colors.white2} onPress={props.onPressClose} name={'window-close'} size={30 * scale}/>
+        <IconButton color={Colors.white2} onPress={props.onPressClose} name={'window-close'} size={hp('3.5%')}/>
       </View>
       <Separator color={Colors.grey_light}/>
       <View style={styles.body}>
@@ -59,15 +60,15 @@ const SearchDoctorsModal = (props) => {
           onChangeItem={item => vm.setSpeciality(item.value)}
           placeholder={__('select_speciality')}
           arrowColor={'#fff'}
-          customArrowUp={({size, color}) => (<Icon size={20} color={'#fff'} name={'caret-up'}/>)}
-          customArrowDown={({size, color}) => (<Icon size={20} color={'#fff'} name={'caret-down'}/>)}
+          customArrowUp={({size, color}) => (<Icon size={hp('2.5%')} color={'#fff'} name={'caret-up'}/>)}
+          customArrowDown={({size, color}) => (<Icon size={hp('2.5%')} color={'#fff'} name={'caret-down'}/>)}
           value={vm.speciality}
           defaultValue={vm.speciality}
         />
 
         <WhiteLabel text={__('location')}/>
         <WhiteInput placeholder={__('browse_location')}/>
-        <Space height={40 * scale}/>
+        <Space height={hp('5%')}/>
         <View style={styles.logoContainer}>
           <Image source={Images.logo.grey} style={styles.logo} resizeMode={'cover'}/>
         </View>
@@ -105,24 +106,24 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 20 * scale,
+    padding: hp('2%'),
     alignItems: 'center'
   },
   title: {
     color: Colors.white2,
-    fontSize: 20 * scale,
+    fontSize: hp('2%'),
     fontWeight: 'bold',
   },
   body: {
     margin: '5%',
-    height: '82%',
+    height: hp('82%'),
     // backgroundColor: '#222'
   },
   label: {
     color: Colors.white2,
-    fontSize: 20 * scale,
-    marginTop: 12 * scale,
-    marginBottom: 8 * scale,
+    fontSize: hp('2%'),
+    marginTop: hp('1.2%'),
+    marginBottom: hp('1%'),
   },
   logoContainer: {
     flexDirection: 'row',
@@ -130,15 +131,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   logo: {
-    width: 180 * scale,
-    height: 200 * scale,
+    width: hp('18%'),
+    height: hp('20%'),
   },
   whiteButton: {
     backgroundColor: '#fff',
     width: '100%',
-    padding: 24 * scale,
+    padding: hp('2.6%'),
     margin: 0,
-    borderRadius: 5,
+    borderRadius: wp('1.5%'),
     alignContent: 'center',
     position: 'absolute',
     bottom: 0,
@@ -147,11 +148,11 @@ const styles = StyleSheet.create({
     color: Colors.blue2,
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 20 * scale,
+    fontSize: hp('2%'),
   },
   dropDownContainer: {
-    height: 60 * scale,
-    marginVertical: 10 * scale
+    height: hp('6%'),
+    marginVertical: hp('1%')
   },
   dropDownItem: {
     justifyContent: 'flex-start',
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
   dropDownLabel: {
     backgroundColor: '#6ac6ed',
     color: Colors.white2,
-    fontSize: 18 * scale
+    fontSize: hp('2%')
   },
   dropDownArrow: {
     // color: '#fff'

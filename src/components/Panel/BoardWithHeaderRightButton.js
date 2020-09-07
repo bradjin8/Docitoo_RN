@@ -7,6 +7,10 @@ import Images from '@/styles/Images';
 import Colors from "@/styles/Colors";
 import * as Styles from '@/styles'
 import {scale, headerHeight} from '@/styles/Sizes';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp
+} from "react-native-responsive-screen";
 
 
 const BoardWithHeaderRightButton = ({children, title, buttonCaption, onPressRightButton}) => {
@@ -17,8 +21,8 @@ const BoardWithHeaderRightButton = ({children, title, buttonCaption, onPressRigh
         <Text style={styles.title}>
           {title}
         </Text>
-        <ImageButton onPress={onPressRightButton} image={Images.background.header_right_button}>
-          <Text style={styles.caption}>
+        <ImageButton onPress={onPressRightButton} image={Images.background.header_right_button} style={styles.rightButton} imageStyle={styles.rightButtonImage}>
+          <Text style={styles.rightButtonCaption}>
             {buttonCaption}
           </Text>
         </ImageButton>
@@ -38,7 +42,7 @@ const HeaderBg = styled.Image`
 const styles = StyleSheet.create({
   title: {
     color: '#fff',
-    fontSize: 18 * scale,
+    fontSize: hp('2.2%'),
     fontWeight: 'bold',
   },
   header: {
@@ -46,16 +50,19 @@ const styles = StyleSheet.create({
     top: Platform.OS === 'ios' ? headerHeight / 5 : 0,
     left: 0,
     right: 0,
-    marginHorizontal: 20,
+    marginHorizontal: wp('4%'),
     height: headerHeight,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
   },
   rightButton: {
-    backgroundColor: Colors.blue2,
-    paddingVertical: 5 * scale,
-    paddingHorizontal: 20 * scale,
+    // backgroundColor: Colors.blue2,
+    paddingVertical: hp('0.5%'),
+    // paddingHorizontal: wp('5%'),
+  },
+  rightButtonImage: {
+    height: Platform.OS === 'ios' ? headerHeight * 0.5: headerHeight * 0.8,
   },
   rightButtonCaption: {
     fontSize: 18 * scale,
@@ -67,12 +74,14 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: '100%',
-    height: Dimensions.get('window').height - headerHeight,
+    height: hp('100%'),
     backgroundColor: '#FFF',
-    borderRadius: 20 * scale,
+    borderRadius: wp('4%'),
     padding: '5%',
   },
   boardContainer: {
+    flex: 1,
+    height: hp('100%'),
     justifyContent: 'flex-start',
     flexDirection: 'column',
     alignItems: 'center',
