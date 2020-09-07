@@ -14,18 +14,20 @@ import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
 import Images from '@/styles/Images';
 import {scale, windowWidth} from '@/styles/Sizes';
+import {heightPercentageToDP as hp, widthPercentageToDP as wp} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'center',
-    marginVertical: 18 * scale,
+    marginVertical: hp('2%'),
   },
   container: {
     flexDirection: 'column',
-    width: '90%',
-  }
+    width: wp('90%'),
+    justifyContent: 'flex-start'
+  },
 });
 
 const Login = (props) => {
@@ -36,21 +38,22 @@ const Login = (props) => {
       <View style={styles.container}>
         <BlackText text={__('login_with')}/>
         <View style={styles.socialContainer}>
-          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20 * scale}}
-                       imageStyle={{width: windowWidth / 8, height: windowWidth / 8}}
+          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: wp('3%'), }}
+                       imageStyle={{width: hp('7%'), height: hp('7%')}}
                        onPress={vm.onPressFacebook}/>
-          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}}
-                       imageStyle={{width: windowWidth / 8, height: windowWidth / 8}}
+          <ImageButton image={Images.logo.google} style={{marginHorizontal: wp('3%')}}
+                       imageStyle={{width: hp('7%'), height: hp('7%')}}
                        onPress={vm.onPressFacebook}/>
         </View>
         <BlackText text={__('or_login_using_email')}/>
-        <Space height={20 * scale}/>
+        <Space height={hp('6%')}/>
         <GreyInput placeholder={__('email_address') + ' or ' + __('phone_number')} value={vm.emailOrPhone}
                    onChangeText={vm.setEmailOrPhone}/>
+        <Space height={hp('1.2%')}/>
         <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword} secureTextEntry={true}/>
         <BlueButton onPress={vm.onPressLogin} caption={__('login')}/>
         <GreyText text={__('sign_up_note')}/>
-        <Space height={26 * scale}/>
+        <Space height={hp('5%')}/>
         <TransBlueButton onPress={vm.onPressSignUp} caption={__('dont_have_account') + ' ' + __('sign_up')}/>
       </View>
     </BoardWithHeader>
