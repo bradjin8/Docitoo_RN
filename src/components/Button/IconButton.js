@@ -11,7 +11,7 @@ const IconButton = ({name, size, color, style, backgroundImageStyle, iconStyle, 
         source={Images.background.blue_circle}
         style={backgroundStyle}
         imageStyle={styles.image}
-        resizeMode={'cover'}
+        resizeMode={'contain'}
       >
         <Icon name={name} size={size} color={color} style={iconStyle}/>
       </ImageBackground>

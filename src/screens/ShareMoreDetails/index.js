@@ -5,28 +5,25 @@ import Colors from '@/styles/Colors';
 import {StyleSheet, TouchableHighlight, View, Text, TouchableOpacity, Image} from 'react-native';
 import __ from '@/assets/lang';
 import BoardWithHeader from '@/components/Panel/BoardWithHeader';
-import GreyInput from '@/components/Input/GreyInput';
 import BlueButton from '@/components/Button/BlueButton';
 import TransBlueButton from '@/components/Button/TransBlueButton';
 import ImageButton from '@/components/Button/ImageButton';
 import IconButton from '@/components/Button/IconButton';
 import Space from '@/components/Space';
-import Images from '@/styles/Images';
-import {scale} from '@/styles/Sizes';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/Feather';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const styles = StyleSheet.create({
   uploadButton: {
     justifyContent: 'center',
   },
   image: {
-    width: 75 * scale,
-    height: 75 * scale,
+    width: hp('7%'),
+    height: hp('7%'),
   },
   dropDownContainer: {
-    height: 60 * scale,
-    marginVertical: 10 * scale
+    height: hp('6%'),
+    marginVertical: hp('1%')
   },
   dropDownItem: {
     justifyContent: 'flex-start',
@@ -44,7 +41,7 @@ const styles = StyleSheet.create({
   dropDownLabel: {
     backgroundColor: Colors.grey_light,
     color: Colors.grey_dark,
-    fontSize: 16 * scale
+    fontSize: hp('2.2%')
   },
 
 });
@@ -56,15 +53,15 @@ const ShareModeDetails = (props) => {
     <BoardWithHeader title={__('share_more_details')}>
       <View style={styles.socialContainer}>
         {vm.avatarSource === '' ?
-          <IconButton name={'camera'} size={50 * scale} color={Colors.white2} style={styles.uploadButton}
-                      iconStyle={{opacity: 0.7, margin: 25}} onPress={vm.onPressChoose}/>
+          <IconButton name={'camera'} size={hp('8%')} color={Colors.white2} style={styles.uploadButton}
+                      iconStyle={{opacity: 0.7, margin: hp('3%')}} onPress={vm.onPressChoose}/>
           : /*<ImageButton onPress={vm.onPressChoose} image={vm.avatarSource} style={styles.uploadButton}/>*/
           <ImageButton image={vm.avatarSource} imageStyle={styles.image} onPress={vm.onPressChoose}/>
         }
       </View>
-      <Space height={20 * scale}/>
+      <Space height={hp('2%')}/>
       <TransBlueButton onPress={vm.onPressChoose} caption={__('upload_your_photo')}/>
-      <Space height={20}/>
+      <Space height={hp('4%')}/>
       <View style={{width: '90%', ...(Platform.OS !== 'android' && {zIndex: 20})}} key={1}>
         <DropDownPicker
           items={[
