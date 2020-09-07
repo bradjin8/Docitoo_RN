@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     height: hp('100%'),
     backgroundColor: '#FFF',
     borderRadius: wp('4%'),
-    padding: '5%',
+    padding: wp('5%'),
   },
   boardContainer: {
     flex: 1,

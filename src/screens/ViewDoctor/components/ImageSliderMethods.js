@@ -18,6 +18,11 @@ function useViewModel(props) {
   useEffect(()=> {
     const timout = setTimeout(goNext, 2000);
     setTimeoutGoNext(timout);
+    return () => {
+      if (timeoutGoNext != null) {
+        clearTimeout(timeoutGoNext);
+      }
+    }
   }, [pos]);
 
   useEffect(() => {

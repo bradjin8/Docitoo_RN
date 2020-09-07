@@ -78,7 +78,6 @@ export const DoctorCard = ({doctor}) => {
 const DoctorReview = ({reviews}) => {
   const [averageRating, setAverageRating] = useState(0.0);
 
-  // On Component did mount
   useEffect(() => {
     let totalRating = 0.0;
     reviews.map(item => {
@@ -86,6 +85,9 @@ const DoctorReview = ({reviews}) => {
     });
     // console.log('DoctorList', 'TotalRating', totalRating);
     setAverageRating(totalRating / reviews.length);
+  }, [averageRating]);
+  // On Component did mount
+  useEffect(() => {
   }, []);
 
   return (
@@ -110,7 +112,7 @@ const DoctorReview = ({reviews}) => {
 };
 
 const rowHeight = hp('14%');
-const textLineHeight = rowHeight / 4;
+const textLineHeight = rowHeight / 5;
 
 const styles = StyleSheet.create({
   container: {
@@ -124,6 +126,7 @@ const styles = StyleSheet.create({
   },
   containerText: {
     flexDirection: 'column',
+    justifyContent: 'space-around',
     marginLeft: hp('2%'),
     height: rowHeight,
     alignItems: 'stretch',
@@ -174,10 +177,8 @@ const styles = StyleSheet.create({
   },
   address: {
     fontSize: hp('1.6%'),
-    lineHeight: textLineHeight * scale,
+    lineHeight: textLineHeight,
     color: Colors.grey_dark,
-    position: 'absolute',
-    bottom: 0
   },
 });
 

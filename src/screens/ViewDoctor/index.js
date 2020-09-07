@@ -5,15 +5,13 @@ import Container from '@/components/Container';
 import Colors from '@/styles/Colors';
 import {StyleSheet, TouchableHighlight, View, Text, Button, TouchableOpacity, Image} from 'react-native';
 import __ from '@/assets/lang';
-import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
-import Images from '@/styles/Images';
 import {scale} from '@/styles/Sizes';
-import * as StringUtil from '@/utils/String';
 import DoctorList, {DoctorCard} from '@/components/List/DoctorList';
 import Separator from "@/components/Separator";
 import ImageSlider from './components/ImageSlider';
 import ScrollBoardWithHeaderLBButton from "@/components/Panel/ScrollBoardWithHeaderLRButton";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const ViewDoctor = (props) => {
   const vm = useViewModel(props);
@@ -25,7 +23,7 @@ const ViewDoctor = (props) => {
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressShare}>
         <DoctorCard doctor={vm.doctor}/>
-        <Space height={5 * scale}/>
+        <Space height={hp('0.5%')}/>
         <Separator color={Colors.grey}/>
         <View style={styles.locationContainer}>
           <View style={styles.locationPicker}>
@@ -40,22 +38,22 @@ const ViewDoctor = (props) => {
           </View>
         </View>
         <Separator color={Colors.grey}/>
-        <Space height={16 * scale}/>
+        <Space height={hp('1.6%')}/>
         <Text style={styles.boldLabel}>
           {__('description')}
         </Text>
-        <Space height={10 * scale}/>
+        <Space height={hp('1%')}/>
         <Text style={styles.description}>
           {vm.doctor.hospital.description}
         </Text>
         <ImageSlider images={vm.doctor.hospital.images}/>
         <Separator color={Colors.grey}/>
-        <Space height={10 * scale}/>
+        <Space height={hp('1%')}/>
         <Text style={styles.boldLabel}>
           {__('reviews')}
         </Text>
         {vm.doctor.reviews.map((review) => <ReviewCard review={review}/>)}
-        <Space height={200 * scale}/>
+        <Space height={hp('25%')}/>
       </ScrollBoardWithHeaderLBButton>}
       <View style={{
         backgroundColor: Colors.white2,
@@ -64,15 +62,15 @@ const ViewDoctor = (props) => {
         left: 0,
         right: 0,
         width: '100%',
-        height: '10%',
+        height: hp('10%'),
         margin: 0,
         elevation: 10,
         shadowColor: Colors.grey_dark,
-        shadowRadius: 10,
+        shadowRadius: hp('10%'),
         shadowOpacity: 0.75,
       }}>
         <View style={{
-          marginHorizontal: '5%', width: '90%', flexDirection: 'row', justifyContent: 'space-between', marginTop: '2%'
+          marginHorizontal: wp('5%'), width: wp('90%'), flexDirection: 'row', justifyContent: 'space-between', marginTop: hp('1%')
         }}>
           <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressWriteReview} underlayColor={Colors.blue1}>
             <Text style={styles.whiteButtonLabel}>
@@ -117,30 +115,30 @@ export const AuthorCard = ({review}) => {
 
 const styles = StyleSheet.create({
   boldLabel: {
-    fontSize: 18 * scale,
+    fontSize: hp('2%'),
     fontWeight: 'bold',
-    marginVertical: 10 * scale
+    marginVertical: hp('1%')
   },
   locationText: {
-    fontSize: 14 * scale,
-    marginVertical: 6 * scale,
+    fontSize: hp('1.6%'),
+    marginVertical: hp('0.6%'),
   },
   description: {
-    fontSize: 18 * scale,
-    lineHeight: 30 * scale,
+    fontSize: hp('2%'),
+    lineHeight: hp('3%'),
   },
   locationContainer: {
-    marginVertical: 20 * scale,
+    marginVertical: hp('2%'),
     flexDirection: 'row',
   },
   locationPicker: {
-    width: 80 * scale,
-    height: 80 * scale,
-    borderRadius: 40 * scale,
+    width: hp('9%'),
+    height: hp('9%'),
+    borderRadius: hp('4.5%'),
     backgroundColor: Colors.grey_dark
   },
   locationTextContainer: {
-    marginLeft: 20 * scale,
+    marginLeft: wp('5%'),
     flexDirection: 'column',
     alignContent: 'center',
   },
@@ -149,13 +147,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
     fontWeight: 'bold',
-    fontSize: 18 * scale,
+    fontSize: hp('2%'),
   },
   whiteButton: {
     backgroundColor: '#FFF',
-    width: '48%',
-    padding: 18,
-    borderRadius: 5,
+    width: wp('42%'),
+    borderRadius: wp('0.5%'),
     borderWidth: 0.5,
     borderColor: Colors.blue1,
     alignContent: 'center',
@@ -167,13 +164,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
     fontWeight: 'bold',
-    fontSize: 18 * scale,
+    fontSize: hp('2%'),
   },
   blueButton: {
     backgroundColor: Colors.blue1,
-    width: '48%',
-    padding: 18 * scale,
-    borderRadius: 5,
+    width: wp('46%'),
+    padding: hp('2%'),
+    borderRadius: wp('0.5%'),
     borderWidth: 0.5,
     borderColor: Colors.blue2,
     alignContent: 'center',
@@ -182,16 +179,16 @@ const styles = StyleSheet.create({
   },
   reviewContainer: {
     // backgroundColor: '#111',
-    marginVertical: 10 * scale,
+    marginVertical: hp('1.2%'),
   },
   authorContainer: {
     flexDirection: 'row',
-    paddingVertical: 10 * scale,
+    paddingVertical: hp('0.5%'),
   },
   authorAvatar: {
-    width: 76 * scale,
-    height: 76 * scale,
-    borderRadius: 38 * scale,
+    width: hp('8%'),
+    height: hp('8%'),
+    borderRadius: hp('4%'),
   },
   authorReviewDate: {
     color: Colors.grey_dark,

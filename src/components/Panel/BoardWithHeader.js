@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     borderRadius: widthPercentageToDP('4%'),
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: widthPercentageToDP('5%'),
   },
   container: {
     flex: 1,
