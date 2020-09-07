@@ -2,33 +2,32 @@ import React from 'react';
 import {TextInput, View, StyleSheet, Platform} from 'react-native';
 import Colors from '@/styles/Colors';
 import {scale} from '@/styles/Sizes';
+import {widthPercentageToDP, heightPercentageToDP} from "react-native-responsive-screen";
 
 const GreyInput = ({onChangeText, value, placeholder, numberOfLines, multiline, secureTextEntry = false}) => {
+  const styles = StyleSheet.create({
+    textInput: {
+      backgroundColor: Colors.grey_light,
+      paddingHorizontal: widthPercentageToDP('3.5%'),
+      fontSize: heightPercentageToDP('2%'),
+      marginVertical: heightPercentageToDP('0.5%'),
+      textAlignVertical: multiline ? 'top' : 'center',
+      height: multiline ? heightPercentageToDP('15%') : heightPercentageToDP('6%'),
+    }
+  });
+
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={{textAlignVertical: multiline ? 'top' : 'center', ...{height: multiline ? 100 * scale : 50 * scale}, ...styles.textInput}}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        multiline={multiline}
-        numberOfLines={numberOfLines}
-        secureTextEntry={secureTextEntry}
-      />
-    </View>
+    <TextInput
+      style={styles.textInput}
+      placeholder={placeholder}
+      value={value}
+      onChangeText={onChangeText}
+      multiline={multiline === true}
+      numberOfLines={numberOfLines}
+      secureTextEntry={secureTextEntry}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    marginVertical: 8 * scale,
-  },
-  textInput: {
-    backgroundColor: Colors.grey_light,
-    padding: 16 * scale,
-    fontSize: 18 * scale,
-  }
-});
 
 export default GreyInput;

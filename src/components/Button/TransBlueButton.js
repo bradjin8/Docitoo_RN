@@ -2,6 +2,7 @@ import React from 'react';
 import {TouchableOpacity, Text, View, StyleSheet, ImageBackground} from "react-native";
 import Colors from '@/styles/Colors';
 import {scale} from '@/styles/Sizes';
+import {heightPercentageToDP} from "react-native-responsive-screen";
 
 const TransBlueButton = ({caption, onPress}) => {
   return (
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   caption: {
     color: Colors.blue2,
     textAlign: 'center',
-    fontSize: 18 * scale,
+    fontSize: heightPercentageToDP('2%'),
   }
 });
 

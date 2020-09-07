@@ -14,6 +14,7 @@ import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
 import Images from '@/styles/Images';
 import {windowWidth, scale} from '@/styles/Sizes';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 
 const styles = StyleSheet.create({
@@ -21,11 +22,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'center',
-    marginVertical: 18 * scale,
+    marginVertical: hp('2%'),
   },
   container: {
     flexDirection: 'column',
-    width: '90%',
+    width: wp('90%'),
     justifyContent: 'flex-start'
   },
 });
@@ -38,26 +39,27 @@ const SignUp = (props) => {
       <View style={styles.container}>
         <BlackText text={__('sign_up_with')}/>
         <View style={styles.socialContainer}>
-          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: 20 * scale, }}
-                       imageStyle={{width: windowWidth / 8, height: windowWidth / 8}}
+          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: wp('3%'), }}
+                       imageStyle={{width: hp('7%'), height: hp('7%')}}
                        onPress={vm.onPressFacebook}/>
-          <ImageButton image={Images.logo.google} style={{marginHorizontal: 20 * scale}}
-                       imageStyle={{width: windowWidth / 8, height: windowWidth / 8}}
+          <ImageButton image={Images.logo.google} style={{marginHorizontal: wp('3%')}}
+                       imageStyle={{width: hp('7%'), height: hp('7%')}}
                        onPress={vm.onPressFacebook}/>
         </View>
         <BlackText text={__('or_sign_up_using_email')}/>
-        {/*<Space height={20 * scale}/>*/}
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+          <Space height={hp('5%')}/>
           <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
           <GreyInput placeholder={__('email_address')} value={vm.emailAddress} onChangeText={vm.setEmailAddress}/>
           <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
                      onChangeText={vm.setPhoneNumber}/>
           <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}
                      secureTextEntry={true}/>
+          <Space height={hp('2%')}/>
         </KeyboardAvoidingView>
         <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up')}/>
         <GreyText text={__('sign_up_note')}/>
-        <Space height={26 * scale}/>
+        <Space height={hp('4%')}/>
         <TransBlueButton onPress={vm.onPressLogin} caption={__('already_have_account') + ' ' + __('login')}/>
       </View>
     </BoardWithHeader>

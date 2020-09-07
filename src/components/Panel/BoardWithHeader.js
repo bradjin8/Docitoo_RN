@@ -3,9 +3,9 @@ import {View, Text, KeyboardAvoidingView, StyleSheet, Dimensions, Platform} from
 import Container from '@/components/Container';
 import styled from "styled-components/native";
 import Images from '@/styles/Images';
-import Colors from "@/styles/Colors";
 import * as Styles from '@/styles'
 import {scale, headerHeight} from '@/styles/Sizes';
+import {widthPercentageToDP, heightPercentageToDP} from "react-native-responsive-screen";
 
 const BoardWithHeader = ({children, title}) => {
 
@@ -30,13 +30,13 @@ const HeaderBg = styled.Image`
 const styles = StyleSheet.create({
   title: {
     color: '#fff',
-    fontSize: 18 * scale,
+    fontSize: heightPercentageToDP('2.2%'),
     fontWeight: 'bold',
     position: 'absolute',
-    top: Platform.OS === 'ios' ? headerHeight / 7 * 4 : headerHeight / 6 * scale,
+    top: Platform.OS === 'ios' ? headerHeight / 7 * 4 : headerHeight / 6,
     left: 0,
     right: 0,
-    marginLeft: 20 * scale
+    marginLeft: widthPercentageToDP('4%')
   },
   board: {
     position: 'absolute',
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: Dimensions.get('window').height - headerHeight,
     backgroundColor: '#FFF',
-    borderRadius: 20 * scale,
+    borderRadius: widthPercentageToDP('4%'),
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center'
