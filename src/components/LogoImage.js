@@ -4,11 +4,11 @@ import {Image, StyleSheet} from 'react-native';
 import * as Styles from "@/styles";
 import Colors from "@/styles/Colors";
 import Images from "@/styles/Images";
-import {windowWidth, windowHeight, scale} from "@/styles/Sizes";
+import {widthPercentageToDP, heightPercentageToDP} from "react-native-responsive-screen";
 
 function LogoImage() {
   return (
-    <Image source={Images.logo.main} style={styles.logo} resizeMode={'contain'}/>
+    <Image source={Images.logo.main} style={styles.logo} resizeMode={'cover'}/>
   )
 }
 
@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
   logo: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: windowWidth / 2,
-    height: windowWidth / 2,
+    width: widthPercentageToDP('50%'),
+    height: widthPercentageToDP('50%'),
 }
 });
 

@@ -9,6 +9,8 @@ import Images from "@/styles/Images";
 import Colors from '@/styles/Colors';
 import {scale} from '@/styles/Sizes';
 import {StyleSheet, TouchableHighlight, View, Text, TouchableOpacity} from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import Space from '@/components/Space';
 import __ from '@/assets/lang';
 
 const Home = (props) => {
@@ -16,23 +18,21 @@ const Home = (props) => {
 
   return (
     <Container>
-      <BackgroundImage source={Images.background.mask_bg} resizeMdoe="cover" />
-      <BackgroundMaskImage source={Images.background.mask_gradient} resizeMdoe="cover" />
+      <BackgroundImage source={Images.background.mask_bg} resizeMdoe="cover"/>
+      <BackgroundMaskImage source={Images.background.mask_gradient} resizeMdoe="cover"/>
 
       <View style={styles.container}>
-        <View style={{marginBottom: 20 * scale}}>
-          <LogoImage/>
-        </View>
+        <LogoImage/>
 
         <Text style={styles.description}>
           {__('app_desc')}
         </Text>
-        <TouchableHighlight style={styles.whiteButton}  onPress={vm.onPressSignUp}>
+        <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressSignUp}>
           <Text style={styles.buttonLabel}>
             {__('sign_up')}
           </Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.whiteButton}  onPress={vm.onPressLogin}>
+        <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressLogin}>
           <Text style={styles.buttonLabel}>
             {__('login')}
           </Text>
@@ -42,6 +42,7 @@ const Home = (props) => {
             {__('skip_sign_up')}
           </Text>
         </TouchableOpacity>
+        <Space height={hp('12%')}/>
         <Text style={styles.note}>
           {__('app_note')}
         </Text>
@@ -69,37 +70,39 @@ const styles = StyleSheet.create({
     color: Colors.blue2,
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 16 * scale
+    fontSize: hp('2%')
   },
   whiteButton: {
     backgroundColor: '#FFF',
-    width: '90%',
+    width: wp('90%'),
+    height: hp('8%'),
     padding: 18 * scale,
     margin: 10 * scale,
-    borderRadius: 5 * scale,
-    alignContent: 'center'
+    borderRadius: wp('1.5%'),
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   whiteLabel: {
     color: '#FFF',
     fontWeight: 'bold',
-    marginVertical: 20 * scale,
-    fontSize: 17 * scale
+    marginVertical: hp('2%'),
+    fontSize: hp('2%')
   },
   description: {
     color: '#FFF',
     justifyContent: 'center',
     textAlign: 'center',
-    fontSize: 28 * scale,
-    marginVertical: 30 * scale
+    fontSize: hp('4%'),
+    marginVertical: hp('2%')
   },
   note: {
     position: 'absolute',
-    bottom: 25 * scale,
+    bottom: hp('2.5%'),
     color: '#FFF',
     justifyContent: 'center',
     textAlign: 'center',
-    fontSize: 17 * scale,
-    lineHeight: 25 * scale,
+    fontSize: hp('2%'),
+    lineHeight: hp('3.5%'),
   }
 });
 

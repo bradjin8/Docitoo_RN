@@ -73,8 +73,8 @@ const ViewDoctor = (props) => {
         arrowStyle={styles.dropDownArrow}
         onChangeItem={item => vm.setLang(item.value)}
         arrowColor={'#fff'}
-        customArrowUp={({size, color}) => (<Icon size={18} color={'#fff'} name={'caret-up'}/>)}
-        customArrowDown={({size, color}) => (<Icon size={18} color={'#fff'} name={'caret-down'}/>)}
+        customArrowUp={({size, color}) => (<Icon size={18 * scale} color={'#fff'} name={'caret-up'}/>)}
+        customArrowDown={({size, color}) => (<Icon size={18 * scale} color={'#fff'} name={'caret-down'}/>)}
         value={vm.lang}
         defaultValue={vm.lang}
         placeholder={''}
@@ -147,10 +147,10 @@ const styles = StyleSheet.create({
     fontSize: 18 * scale,
   },
   dropDownContainer: {
-    height: Platform.OS === 'ios' ? 40 * scale : headerHeight * 0.8,
+    height: Platform.OS === 'ios' ? 40 * scale : headerHeight * 0.9,
     width: 100 * scale,
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 38 * scale : 5 * scale,
+    top: Platform.OS === 'ios' ? 38 * scale : headerHeight * 0.05,
     right: 20 * scale,
   },
   dropDownItem: {
