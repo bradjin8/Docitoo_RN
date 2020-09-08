@@ -10,6 +10,7 @@ import Images from '@/styles/Images';
 import Separator from "@/components/Separator";
 import useViewModel from './methods';
 import ImageButton from "@/components/Button/ImageButton";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
@@ -17,7 +18,7 @@ const PillReminder = (props) => {
   return (
     <BoardWithHeader title={__('pill_reminder')}>
       <ScrollView style={styles.container}>
-        <Space height={20 * scale}/>
+        <Space height={hp('2%')}/>
         {vm.medicines.sort().map((item, index) => {
           if (index < vm.medicines.length - 1) {
             return (
@@ -33,7 +34,7 @@ const PillReminder = (props) => {
           }
         })}
 
-        <Space height={30 * scale}/>
+        <Space height={hp('3%')}/>
       </ScrollView>
       <ImageButton image={Images.button.add_medicine} onPress={vm.onPressAdd} style={styles.addButton} imageStyle={styles.addButtonImage}/>
     </BoardWithHeader>
@@ -54,57 +55,42 @@ export const MedicineCard = ({medicine, type}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: wp('90%'),
     flexDirection: 'column',
-    height: '92%',
+    height: hp('100%'),
     // backgroundColor: '#666',
   },
-  whiteButtonLabel: {
-    color: Colors.blue2,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18 * scale,
-  },
-  whiteButton: {
-    backgroundColor: '#FFF',
-    width: '100%',
-    padding: 18,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: Colors.blue1,
-    alignContent: 'center',
-  },
   medicineContainer: {
-    width: '100%',
+    width: wp('100%'),
     flexDirection: 'row',
-    marginVertical: 10 * scale,
+    marginVertical: hp('1.2%'),
   },
   medicineAvatar: {
-    width: 80 * scale,
-    height: 80 * scale,
-    borderRadius: 40 * scale,
+    width: hp('8%'),
+    height: hp('8%'),
+    borderRadius: hp('4%'),
   },
   medicineDesc: {
     flexDirection: 'column',
-    marginLeft: 30 * scale,
+    marginLeft: hp('3%'),
     justifyContent: 'space-evenly',
   },
   medicineName: {
     fontWeight: 'bold',
-    fontSize: 20 * scale,
+    fontSize: hp('2%'),
   },
   medicineDescText: {
-    fontSize: 18 * scale,
+    fontSize: hp('1.8%'),
   },
   addButton: {
     zIndex: 30,
     position: 'absolute',
-    bottom: 104 * scale,
-    right: 24 * scale,
+    bottom: hp('12%'),
+    right: wp('5%'),
   },
   addButtonImage: {
-    width: 70 * scale,
-    height: 70 * scale,
+    width: wp('15%'),
+    height: wp('15%'),
   }
 
 });
