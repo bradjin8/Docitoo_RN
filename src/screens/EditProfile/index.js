@@ -12,6 +12,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Colors from "@/styles/Colors";
 import useViewModel from './methods';
 import BlueButton from "@/components/Button/BlueButton";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const EditProfile = (props) => {
   const vm = useViewModel(props);
@@ -24,7 +25,7 @@ const EditProfile = (props) => {
                                      onPressRightButton={vm.onPressBack}>
         <ProfileCard onPressAvatar={vm.onPressAvatar}
                      user={vm.user}/>
-        <Space height={30 * scale}/>
+        <Space height={hp('3%')}/>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={(val) => vm.setFullName(val)}/>
           <GreyInput placeholder={__('email_address')} value={vm.email}
@@ -76,7 +77,7 @@ const EditProfile = (props) => {
         </View>
         <BlueButton onPress={vm.onPressUpdate} caption={__('update_profile')}/>
 
-        <Space height={200 * scale}/>
+        <Space height={hp('20%')}/>
 
       </ScrollBoardWithHeaderLBButton>}
     </Container>
@@ -99,31 +100,31 @@ const ProfileCard = ({user, onPressAvatar}) => {
 
 const styles = StyleSheet.create({
   profileContainer: {
-    width: '100%',
+    width: wp('90%'),
     // height: '100%',
     flexDirection: 'row',
     // backgroundColor: '#111',
   },
   profileAvatar: {
-    width: 80 * scale,
-    height: 80 * scale,
-    borderRadius: 5 * scale,
+    width: hp('9%'),
+    height: hp('9%'),
+    borderRadius: hp('0.5%'),
   },
   profileDesc: {
     flexDirection: 'column',
-    marginLeft: 30 * scale,
+    marginLeft: hp('3%'),
     justifyContent: 'space-evenly',
   },
   profileName: {
     fontWeight: 'bold',
-    fontSize: 20 * scale,
+    fontSize: hp('2.2%'),
   },
   profileDate: {
-    fontSize: 18 * scale,
+    fontSize: hp('2%'),
   },
   dropDownContainer: {
-    height: 60 * scale,
-    marginVertical: 10 * scale
+    height: hp('6%'),
+    marginVertical: hp('1%'),
   },
   dropDownItem: {
     justifyContent: 'flex-start',
@@ -141,7 +142,7 @@ const styles = StyleSheet.create({
   dropDownLabel: {
     backgroundColor: Colors.grey_light,
     color: Colors.grey_dark,
-    fontSize: 16 * scale
+    fontSize: hp('1.8%'),
   },
 
 });
