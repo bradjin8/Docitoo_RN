@@ -9,6 +9,7 @@ import {ProfileCard} from '@/screens/More';
 import Colors from "@/styles/Colors";
 import Separator from "@/components/Separator";
 import useViewModel from './methods';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
@@ -18,7 +19,7 @@ const PillReminder = (props) => {
       <View style={styles.container}>
         {vm.user && <ProfileCard user={vm.user}>
         </ProfileCard>}
-        <Space height={50 * scale}/>
+        <Space height={hp('5%')}/>
         <Separator color={Colors.grey} width={2}/>
         <KeyValueLabel name={__('name')} value={vm.user.fullName}/>
         <Separator color={Colors.grey} width={2}/>
@@ -31,14 +32,14 @@ const PillReminder = (props) => {
         <KeyValueLabel name={__('blood_type')} value={vm.user.bloodType}/>
         <Separator color={Colors.grey} width={2}/>
         <KeyValueLabel name={__('language')} value={vm.user.language}/>
-        <Space height={30 * scale}/>
+        <Space height={hp('3%')}/>
 
         <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressEdit} underlayColor={Colors.blue1}>
           <Text style={styles.whiteButtonLabel}>
             {__('edit_profile')}
           </Text>
         </TouchableHighlight>
-        <Space height={30 * scale}/>
+        <Space height={hp('3%')}/>
 
       </View>
     </BoardWithHeader>
@@ -52,14 +53,14 @@ export const KeyValueLabel = ({name, value}) => {
       width: '100%',
       flexDirection: 'row',
       // backgroundColor: '#ddd',
-      marginVertical: 18 * scale,
+      marginVertical: hp('1.8%'),
     },
     name: {
-      fontSize: 18 * scale,
-      width: '42%'
+      fontSize: hp('1.8%'),
+      width: wp('42%')
     },
     value: {
-      fontSize: 18 * scale,
+      fontSize: hp('1.8%'),
       fontWeight: 'bold',
     }
 
@@ -75,7 +76,7 @@ export const KeyValueLabel = ({name, value}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: wp('90%'),
     flexDirection: 'column',
     height: '92%',
     // backgroundColor: '#666',
@@ -84,13 +85,13 @@ const styles = StyleSheet.create({
     color: Colors.blue2,
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 18 * scale,
+    fontSize: hp('1.8%'),
   },
   whiteButton: {
     backgroundColor: '#FFF',
     width: '100%',
-    padding: 18,
-    borderRadius: 5,
+    padding: hp('1.8%'),
+    borderRadius: hp('0.5%'),
     borderWidth: 1,
     borderColor: Colors.blue1,
     alignContent: 'center',
