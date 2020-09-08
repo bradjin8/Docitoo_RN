@@ -13,6 +13,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BoardWithHeader from "@/components/Panel/BoardWithHeader";
 import DropDownPicker from 'react-native-dropdown-picker';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const ViewDoctor = (props) => {
   const vm = useViewModel(props);
@@ -23,41 +24,41 @@ const ViewDoctor = (props) => {
         <View style={styles.container}>
           {vm.user && <ProfileCard user={vm.user}>
           </ProfileCard>}
-          <Space height={50 * scale}/>
+          <Space height={hp('5%')}/>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressSearchDoctors}>
             <View style={styles.iconContainer}>
-              <Icon name={'search'} size={24} color={Colors.grey_dark}/>
+              <Icon name={'search'} size={hp('2.5%')} color={Colors.grey_dark}/>
             </View>
             <Text style={styles.buttonCaption}>{__('search_doctors')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressPillReminder}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'pill'} color={Colors.grey_dark} size={30} style={{transform: [{rotate: '90deg'}]}}/>
+              <MaterialCommunityIcon name={'pill'} color={Colors.grey_dark} size={hp('3.2%')} style={{transform: [{rotate: '90deg'}]}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('pill_reminder')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressAccountSettings}>
             <View style={styles.iconContainer}>
               {/*<EntypoIcon name={'cog'} size={30} color={Colors.grey_dark} style={{transform: [{rotate: '22.5deg'}]}}/>*/}
-              <FontistoIcon name={'player-settings'} size={28} color={Colors.grey_dark} style={{transform: [{rotate: '22.5deg'}]}}/>
+              <FontistoIcon name={'player-settings'} size={hp('2.9%')} color={Colors.grey_dark} style={{transform: [{rotate: '22.5deg'}]}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('account_settings')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressTermsAndConditions}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'briefcase-check-outline'} color={Colors.grey_dark} size={28} style={{/*{transform: [{scaleX: 0.5}]}*/}}/>
+              <MaterialCommunityIcon name={'briefcase-check-outline'} color={Colors.grey_dark} size={hp('2.9%')} style={{/*{transform: [{scaleX: 0.5}]}*/}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('terms_and_conditions')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressContactUs}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'contacts'} size={28} color={Colors.grey_dark}/>
+              <MaterialCommunityIcon name={'contacts'} size={hp('2.9%')} color={Colors.grey_dark}/>
             </View>
             <Text style={styles.buttonCaption}>{__('contact_us')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressLogout}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'logout'} size={30} color={Colors.grey_dark} style={{transform: [{rotateY: '180deg'}]}}/>
+              <MaterialCommunityIcon name={'logout'} size={hp('3.2%')} color={Colors.grey_dark} style={{transform: [{rotateY: '180deg'}]}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('logout')}</Text>
           </TouchableOpacity>
@@ -73,8 +74,8 @@ const ViewDoctor = (props) => {
         arrowStyle={styles.dropDownArrow}
         onChangeItem={item => vm.setLang(item.value)}
         arrowColor={'#fff'}
-        customArrowUp={({size, color}) => (<Icon size={18 * scale} color={'#fff'} name={'caret-up'}/>)}
-        customArrowDown={({size, color}) => (<Icon size={18 * scale} color={'#fff'} name={'caret-down'}/>)}
+        customArrowUp={({size, color}) => (<Icon size={hp('2%')} color={'#fff'} name={'caret-up'}/>)}
+        customArrowDown={({size, color}) => (<Icon size={hp('2%')} color={'#fff'} name={'caret-down'}/>)}
         value={vm.lang}
         defaultValue={vm.lang}
         placeholder={''}
@@ -97,7 +98,7 @@ export const ProfileCard = ({user}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: wp('90%'),
     flexDirection: 'column',
     height: '92%',
     // backgroundColor: '#666',
@@ -105,23 +106,23 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 6 * scale,
+    marginVertical: hp('0.8%'),
   },
   iconContainer: {
-    width: 56 * scale,
-    height: 56 * scale,
-    borderRadius: 28 * scale,
+    width: hp('6%'),
+    height: hp('6%'),
+    borderRadius: hp('3%'),
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#999',
-    shadowRadius: 10 * scale,
+    shadowRadius: hp('1%'),
     shadowOpacity: 0.75,
     backgroundColor: '#fff',
     elevation: 10,
   },
   buttonCaption: {
-    marginLeft: 24 * scale,
-    fontSize: 22 * scale,
+    marginLeft: hp('2.5%'),
+    fontSize: hp('2.5%'),
     color: Colors.grey_dark,
     fontWeight: 'bold',
   },
@@ -130,28 +131,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   profileAvatar: {
-    width: 80 * scale,
-    height: 80 * scale,
-    borderRadius: 5 * scale,
+    width: hp('9%'),
+    height: hp('9%'),
+    borderRadius: hp('0.5%'),
   },
   profileDesc: {
     flexDirection: 'column',
-    marginLeft: 30 * scale,
+    marginLeft: wp('5%'),
     justifyContent: 'space-evenly',
   },
   profileName: {
     fontWeight: 'bold',
-    fontSize: 20 * scale,
+    fontSize: hp('2.2%'),
   },
   profileDate: {
-    fontSize: 18 * scale,
+    fontSize: hp('2%'),
   },
   dropDownContainer: {
-    height: Platform.OS === 'ios' ? 40 * scale : headerHeight * 0.9,
-    width: 100 * scale,
+    height: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.8,
+    width: hp('11%'),
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 38 * scale : headerHeight * 0.05,
-    right: 20 * scale,
+    top: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.1,
+    right: wp('4%'),
   },
   dropDownItem: {
     justifyContent: 'flex-start',
@@ -169,7 +170,7 @@ const styles = StyleSheet.create({
   dropDownLabel: {
     backgroundColor: '#6ac6ed',
     color: Colors.white2,
-    fontSize: 16 * scale
+    fontSize: hp('1.6%')
   },
   dropDownArrow: {
     // color: '#fff'
