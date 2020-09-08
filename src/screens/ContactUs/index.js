@@ -9,8 +9,7 @@ import BlueButton from '@/components/Button/BlueButton';
 import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
 import Images from '@/styles/Images';
-import {scale} from '@/styles/Sizes';
-import BlackText from "@/components/Text/BlackText";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const Login = (props) => {
   const vm = useViewModel(props);
@@ -18,11 +17,11 @@ const Login = (props) => {
   return (
     <BoardWithHeader title={__('contact_us')}>
       <View style={styles.container}>
-        <Space height={30 * scale}/>
+        <Space height={hp('3%')}/>
         <View style={styles.socialContainer}>
-          <ImageButton image={Images.logo.contact_us} style={{marginHorizontal: 20}} onPress={vm.onPressImage}/>
+          <ImageButton image={Images.logo.contact_us} style={{marginHorizontal: hp('2%')}} onPress={vm.onPressImage}/>
         </View>
-        <Space height={20}/>
+        <Space height={hp('2%')}/>
         <Text style={styles.note}>{__('contact_us_note')} </Text>
         <GreyInput placeholder={__('subject')} value={vm.subject} onChangeText={(value) => vm.setSubject(value)}/>
         <GreyInput placeholder={__('message')} value={vm.message} onChangeText={(value) => vm.setMessage(value)}  numberOfLines={4} multiline />
@@ -35,24 +34,24 @@ const Login = (props) => {
 const styles = StyleSheet.create({
   socialContainer: {
     flexDirection: 'row',
-    width: '90%',
+    width: wp('90%'),
     justifyContent: 'center',
-    marginVertical: 18 * scale,
+    marginVertical: hp('2%'),
   },
   container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '90%',
+    // alignItems: 'center',
+    width: wp('90%'),
     height: '100%',
   },
   note: {
-    fontSize: 16 * scale,
+    fontSize: hp('1.6%'),
     fontWeight: 'bold',
     textAlign: 'left',
-    lineHeight: 20 * scale,
-    paddingVertical: 10 * scale,
+    lineHeight: hp('2%'),
+    paddingVertical: hp('1%'),
   },
 });
 

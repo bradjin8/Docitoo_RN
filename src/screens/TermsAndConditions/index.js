@@ -7,6 +7,7 @@ import BoardWithHeader from "@/components/Panel/BoardWithHeader";
 import useViewModel from './methods';
 import Space from '@/components/Space';
 import {scale} from '@/styles/Sizes';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const ViewDoctor = (props) => {
   const vm = useViewModel(props);
@@ -18,7 +19,7 @@ const ViewDoctor = (props) => {
           <Text style={styles.content}>
             {vm.content}
           </Text>
-          <Space height={150 * scale} />
+          <Space height={hp('15%')} />
         </ScrollView>
       </BoardWithHeader>
     </Container>
@@ -27,11 +28,12 @@ const ViewDoctor = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20 * scale,
-    marginVertical: 20 * scale,
+    width: wp('90%'),
+    padding: hp('2%'),
+    marginVertical: hp('2%'),
   },
   content: {
-    fontSize: 22 * scale,
+    fontSize: hp('2.4%'),
   }
 });
 
