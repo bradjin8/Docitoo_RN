@@ -12,6 +12,8 @@ import DoctorList, {DoctorCard} from '@/components/List/DoctorList';
 import Separator from "@/components/Separator";
 import ScrollBoardWithHeaderLBButton from "@/components/Panel/ScrollBoardWithHeaderLRButton";
 import CalendarPicker from 'react-native-calendar-picker';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import Icon from "../../Route";
 
 const PickADate = (props) => {
   const vm = useViewModel(props);
@@ -23,14 +25,14 @@ const PickADate = (props) => {
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <DoctorCard doctor={vm.doctor}/>
-        <Space height={20 * scale}/>
+        <Space height={hp('2%')}/>
         <Separator color={Colors.grey}/>
-        <Space height={50 * scale}/>
+        <Space height={hp('5%')}/>
 
         <View style={styles.calendarContainer}>
         {vm.mode === vm.MODE.DATE && <CalendarPicker
-          previousTitle={'<'}
-          nextTitle={'>'}
+          previousTitle={' <'}
+          nextTitle={'> '}
           startFromMonday={true}
           selectedDayColor={Colors.blue1}
           selectedDayTextColor={Colors.white2}

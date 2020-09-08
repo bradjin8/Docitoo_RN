@@ -21,7 +21,7 @@ import useViewModel from './methods';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
-const ShareModeDetails = (props) => {
+const DoctorsByCategory = (props) => {
   const vm = useViewModel(props);
 
   return (
@@ -32,7 +32,7 @@ const ShareModeDetails = (props) => {
           <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
                      onChangeText={(val) => vm.setSearchString(val)}/>
         </View>
-        <Space height={20 * scale}/>
+        <Space height={hp('2%')}/>
         <Text style={styles.note}>
           {__('browse_doctors_by_category')}
         </Text>
@@ -58,7 +58,7 @@ const ShareModeDetails = (props) => {
                           onPress={vm.onPressDiabetes}/>
           <CategoryButton image={Images.category.eye} caption={__('eye_specialist')} onPress={vm.onPressEye}/>
         </View>
-        <Space height={100 * scale}/>
+        <Space height={hp('10%')}/>
       </ScrollView>
     </BoardWithHeader>
   )
@@ -106,7 +106,7 @@ export const CategoryButton = ({image, caption, onPress}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: wp('90%'),
     flexDirection: 'column',
   },
   searchContainer: {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: wp('3%'),
     width: '100%',
-    top: hp('3%'),
+    top: hp('2%'),
     zIndex: 50
   },
   searchInput: {
@@ -138,4 +138,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default observer(ShareModeDetails);
+export default observer(DoctorsByCategory);
