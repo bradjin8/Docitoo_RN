@@ -32,7 +32,7 @@ const DoctorsByCategory = (props) => {
           <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
                      onChangeText={(val) => vm.setSearchString(val)}/>
         </View>
-        <Space height={hp('2%')}/>
+        <Space height={hp('1%')}/>
         <Text style={styles.note}>
           {__('browse_doctors_by_category')}
         </Text>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: wp('3%'),
     width: '100%',
-    top: hp('2%'),
+    top: hp('1%'),
     zIndex: 50
   },
   searchInput: {

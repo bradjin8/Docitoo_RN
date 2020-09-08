@@ -9,6 +9,7 @@ import Colors from "@/styles/Colors";
 import Images from '@/styles/Images';
 import Separator from "@/components/Separator";
 import useViewModel from './methods';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 
 const Notifications = (props) => {
   const vm = useViewModel(props);
@@ -16,7 +17,7 @@ const Notifications = (props) => {
   return (
     <BoardWithHeader title={__('notifications')}>
       <ScrollView style={styles.container}>
-        <Space height={10 * scale}/>
+        <Space height={hp('1%')}/>
         {vm.notifications.sort().map((item, index) => {
           if (index < vm.notifications.length - 1) {
             return (
@@ -32,7 +33,7 @@ const Notifications = (props) => {
           }
         })}
 
-        <Space height={30 * scale}/>
+        <Space height={hp('3%')}/>
       </ScrollView>
     </BoardWithHeader>
 
@@ -85,57 +86,35 @@ export const NotificationCard = ({notification}) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '90%',
+    width: wp('90%'),
     flexDirection: 'column',
-    height: '92%',
+    height: hp('100%'),
     // backgroundColor: '#666',
   },
-  whiteButtonLabel: {
-    color: Colors.blue2,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 18 * scale,
-  },
-  whiteButton: {
-    backgroundColor: '#FFF',
-    width: '100%',
-    padding: 18,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: Colors.blue1,
-    alignContent: 'center',
-  },
   notificationContainer: {
-    width: '100%',
+    width: wp('100%'),
     flexDirection: 'row',
-    marginVertical: 15 * scale,
+    marginVertical: hp('1.5%'),
   },
   notificationAvatar: {
-    width: 80 * scale,
-    height: 80 * scale,
-    borderRadius: 40 * scale,
+    width: hp('8%'),
+    height: hp('8%'),
+    borderRadius: hp('4% '),
   },
   notificationDesc: {
     flexDirection: 'column',
-    marginLeft: 16 * scale,
+    marginLeft: wp('4%'),
     justifyContent: 'space-evenly',
-    width: '76%'
+    width: wp('76%')
   },
   notificationName: {
     fontWeight: 'bold',
-    fontSize: 16 * scale,
+    fontSize: hp('1.8%'),
   },
   notificationDescText: {
-    fontSize: 16 * scale,
-    lineHeight: 30 * scale,
+    fontSize: hp('1.7%'),
+    lineHeight: hp('2.8%'),
   },
-  addButton: {
-    zIndex: 30,
-    position: 'absolute',
-    bottom: '10%',
-    right: 0,
-  }
-
 });
 
 export default observer(Notifications);
