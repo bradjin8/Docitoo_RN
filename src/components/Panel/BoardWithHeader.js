@@ -15,7 +15,7 @@ const BoardWithHeader = ({children, title}) => {
       <Text style={styles.title}>
         {title}
       </Text>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios'?'padding':'height'} enabled={Platform.OS === 'ios'} style={styles.board}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios'?'padding':'height'} enabled={Platform.OS === 'ios'} style={styles.board} keyboardVerticalOffset={headerHeight}>
         {children}
       </KeyboardAvoidingView>
     </Container>
