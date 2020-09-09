@@ -18,6 +18,8 @@ target 'Docitoo' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+
   target 'DocitooTests' do
     inherit! :complete
     # Pods for testing
@@ -32,6 +34,10 @@ target 'Docitoo' do
     flipper_post_install(installer)
   end
 end
+
+target 'OneSignalNotificationServiceExtension' do
+  pod 'OneSignal', '>= 2.9.3', '< 3.0'
+end 
 
 target 'Docitoo-tvOS' do
   # Pods for Docitoo-tvOS
