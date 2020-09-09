@@ -148,10 +148,10 @@ const styles = StyleSheet.create({
     fontSize: hp('2%'),
   },
   dropDownContainer: {
-    height: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.8,
-    width: hp('11%'),
+    height: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.9,
+    width: wp('20%'),
     position: 'absolute',
-    top: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.1,
+    top: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.05,
     right: wp('4%'),
   },
   dropDownItem: {
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   dropDownLabel: {
     backgroundColor: '#6ac6ed',
     color: Colors.white2,
-    fontSize: hp('1.6%')
+    fontSize: wp('3%')
   },
   dropDownArrow: {
     // color: '#fff'

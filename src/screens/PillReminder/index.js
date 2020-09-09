@@ -4,6 +4,7 @@ import {StyleSheet, TouchableHighlight, ScrollView, View, Text, TouchableOpacity
 import __ from '@/assets/lang';
 import BoardWithHeader from '@/components/Panel/BoardWithHeader';
 import Space from '@/components/Space';
+import Container from '@/components/Container';
 import {scale} from '@/styles/Sizes';
 import Colors from "@/styles/Colors";
 import Images from '@/styles/Images';
@@ -16,28 +17,31 @@ const PillReminder = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('pill_reminder')}>
-      <ScrollView style={styles.container}>
-        <Space height={hp('2%')}/>
-        {vm.medicines.sort().map((item, index) => {
-          if (index < vm.medicines.length - 1) {
-            return (
-              <View key={index}>
+    <Container>
+      <BoardWithHeader title={__('pill_reminder')}>
+        <ScrollView style={styles.container}>
+          <Space height={hp('2%')}/>
+          {vm.medicines.sort().map((item, index) => {
+            if (index < vm.medicines.length - 1) {
+              return (
+                <View key={index}>
+                  <MedicineCard medicine={item} key={index} type={index % 4}/>
+                  <Separator color={Colors.grey}/>
+                </View>
+              );
+            } else {
+              return (
                 <MedicineCard medicine={item} key={index} type={index % 4}/>
-                <Separator color={Colors.grey}/>
-              </View>
-            );
-          } else {
-            return (
-              <MedicineCard medicine={item} key={index} type={index % 4}/>
-            )
-          }
-        })}
+              )
+            }
+          })}
 
-        <Space height={hp('3%')}/>
-      </ScrollView>
-      <ImageButton image={Images.button.add_medicine} onPress={vm.onPressAdd} style={styles.addButton} imageStyle={styles.addButtonImage}/>
-    </BoardWithHeader>
+          <Space height={hp('3%')}/>
+        </ScrollView>
+      </BoardWithHeader>
+      <ImageButton image={Images.button.add_medicine} onPress={vm.onPressAdd} style={styles.addButton}
+                   imageStyle={styles.addButtonImage}/>
+    </Container>
   )
 };
 
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     width: wp('90%'),
     flexDirection: 'column',
-    height: hp('100%'),
+    height: hp('92%'),
     // backgroundColor: '#666',
   },
   medicineContainer: {
@@ -85,7 +89,7 @@ const styles = StyleSheet.create({
   addButton: {
     zIndex: 30,
     position: 'absolute',
-    bottom: hp('12%'),
+    bottom: hp('3%'),
     right: wp('5%'),
   },
   addButtonImage: {
