@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {PillStackScreens} from '@/constants/Navigation';
 import {mockMedicines} from '@/constants/MockUpData';
 import {getPillReminders} from '@/Services/Api';
+import {useStores} from "@/hooks";
 
 function useViewModel(props) {
   const tag = 'Screens::PillReminder::';
@@ -10,6 +11,7 @@ function useViewModel(props) {
   const nav = useNavigation();
 
   const [medicines, setMedicines] = useState(mockMedicines);
+  const {user} = useStores();
 
   const onPressAdd = () => {
     console.log(tag, 'onPressAdd()');
@@ -18,7 +20,7 @@ function useViewModel(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getPillReminders();
+      const res = await getPillReminders(user.sessionToken);
       console.log(res);
     };
     fetchData();

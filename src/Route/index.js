@@ -158,7 +158,7 @@ const Route = () => {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={Screens.home}
+          initialRouteName={Screens.shareMoreDetails}
           screenOptions={{
             headerShown: false,
             gestureEnabled: false,

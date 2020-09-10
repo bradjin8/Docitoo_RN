@@ -24,4 +24,15 @@ export const logOut = (userToken) =>
     }
   );
 
-export const getPillReminders = () => api.get(ApiUrl.getPillReminders);
+export const register = (email, fullName, password, phoneNumber) =>
+  api.post(
+    ApiUrl.register,
+    {
+      email,
+      fullName,
+      password,
+      phoneNumber
+    }
+  );
+
+export const getPillReminders = (userToken) => api.get(ApiUrl.getPillReminders, {}, {headers: {userToken}});

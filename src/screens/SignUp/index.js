@@ -50,7 +50,7 @@ const SignUp = (props) => {
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
           <Space height={hp('5%')}/>
           <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
-          <GreyInput placeholder={__('email_address')} value={vm.emailAddress} onChangeText={vm.setEmailAddress}/>
+          <GreyInput placeholder={__('email_address')} value={vm.email} onChangeText={vm.setEmail}/>
           <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
                      onChangeText={vm.setPhoneNumber}/>
           <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}

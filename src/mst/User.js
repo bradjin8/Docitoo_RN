@@ -84,6 +84,29 @@ const User = types
       });
     });
 
+    const signUp = flow(function* signUp(email, fullName, password, phoneNumber = "") {
+      if (self.isValid) {
+        yield logOut()
+      }
+
+      self.setLoggingIn(true);
+      try {
+        const response = yield Api.register(email, fullName, password, phoneNumber);
+        console.log(tag, 'Response from SignUp', response);
+        const {data, ok} = response;
+        self.setLoggingIn(false);
+        if (!ok) {
+          self.statusCode = response.status;
+          return;
+        }
+        _updateFromLoginResponse(data);
+      } catch (e) {
+        console.log(tag, 'SignUp Failed --', e.message);
+      } finally {
+        self.setLoggingIn(false);
+      }
+    });
+
     const load = (snapshot) => {
       try {
         applySnapshot(self, snapshot);
@@ -92,7 +115,7 @@ const User = types
       }
     };
 
-    return {logIn, logOut, load}
+    return {logIn, logOut, signUp, load}
   })
   .extend((self) => {
     const localState = observable.box(false);

@@ -1,6 +1,6 @@
 export default {
   logIn: 'user/login',
-  signUp: 'user/register',
+  register: 'user/register',
   logOut: 'user/logout',
 
   getPillReminders: 'pill',
