@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 Icon.loadFont();
 
 import OneSignal from 'react-native-onesignal';
+import Config from "@/config/AppConfig";
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +32,7 @@ const App: () => React$Node = () => {
   OneSignal.setLogLevel(6, 0);
 
   // Replace 'YOUR_ONESIGNAL_APP_ID' with your OneSignal App ID.
-  OneSignal.init('59c80d9f-7824-4202-9ddb-83a4d779926e', {kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption: 2});
+  OneSignal.init(Config.oneSignalAppID, {kOSSettingsKeyAutoPrompt: false, kOSSettingsKeyInAppLaunchURL: false, kOSSettingsKeyInFocusDisplayOption: 2});
   OneSignal.inFocusDisplaying(2); // Controls what should happen if a notification is received while the app is open. 2 means that the notification will go directly to the device's notification center.
 
 

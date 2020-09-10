@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {DoctorStackScreens, MoreStackScreens, Screens, TabStackScreens} from '@/constants/Navigation';
 import {mockUser} from '@/constants/MockUpData';
+import {useStores} from "@/hooks";
 import __ from '@/assets/lang';
 
 const tag = 'Screens::ViewDoctor';
@@ -15,7 +16,8 @@ function useViewModel(props) {
     { label: __('english'), value: 'en'},
     { label: __('english'), value: 'en'},
   ];
-  const [user, setUser] = useState(mockUser);
+  // const [user, setUser] = useState(mockUser);
+  const {user} = useStores();
 
   const onPressSearchDoctors = () => {
     nav.navigate(TabStackScreens.doctorStack);
@@ -37,8 +39,15 @@ function useViewModel(props) {
     nav.navigate(MoreStackScreens.contactUs)
   };
 
-  const onPressLogout = () => {
-    nav.navigate(Screens.home);
+  const onPressLogout = async () => {
+    // nav.navigate(Screens.home);
+    try {
+      await user.logOut();
+    } catch (e) {
+      console.log(tag, 'OnPressLogout, Ex', e.message)
+    } finally {
+      nav.navigate(Screens.home);
+    }
   };
 
   return {

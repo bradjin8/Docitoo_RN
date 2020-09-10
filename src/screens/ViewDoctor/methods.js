@@ -6,7 +6,7 @@ import {mockDoctors} from '@/constants/MockUpData';
 const tag = 'Screens::ViewDoctor';
 
 function useViewModel(props) {
-  const nav = useNavigation();
+  const nav = useNavigation(props);
   const [doctor, setDoctor] = useState(null);
 
   const onPressBack = () => {

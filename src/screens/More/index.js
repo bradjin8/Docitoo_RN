@@ -14,6 +14,8 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import BoardWithHeader from "@/components/Panel/BoardWithHeader";
 import DropDownPicker from 'react-native-dropdown-picker';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import Images from "@/styles/Images";
+import * as datetime from 'node-datetime';
 
 const ViewDoctor = (props) => {
   const vm = useViewModel(props);
@@ -33,20 +35,23 @@ const ViewDoctor = (props) => {
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressPillReminder}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'pill'} color={Colors.grey_dark} size={hp('3.2%')} style={{transform: [{rotate: '90deg'}]}}/>
+              <MaterialCommunityIcon name={'pill'} color={Colors.grey_dark} size={hp('3.2%')}
+                                     style={{transform: [{rotate: '90deg'}]}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('pill_reminder')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressAccountSettings}>
             <View style={styles.iconContainer}>
               {/*<EntypoIcon name={'cog'} size={30} color={Colors.grey_dark} style={{transform: [{rotate: '22.5deg'}]}}/>*/}
-              <FontistoIcon name={'player-settings'} size={hp('2.9%')} color={Colors.grey_dark} style={{transform: [{rotate: '22.5deg'}]}}/>
+              <FontistoIcon name={'player-settings'} size={hp('2.9%')} color={Colors.grey_dark}
+                            style={{transform: [{rotate: '22.5deg'}]}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('account_settings')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressTermsAndConditions}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'briefcase-check-outline'} color={Colors.grey_dark} size={hp('2.9%')} style={{/*{transform: [{scaleX: 0.5}]}*/}}/>
+              <MaterialCommunityIcon name={'briefcase-check-outline'} color={Colors.grey_dark} size={hp('2.9%')}
+                                     style={{/*{transform: [{scaleX: 0.5}]}*/}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('terms_and_conditions')}</Text>
           </TouchableOpacity>
@@ -58,7 +63,8 @@ const ViewDoctor = (props) => {
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressLogout}>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'logout'} size={hp('3.2%')} color={Colors.grey_dark} style={{transform: [{rotateY: '180deg'}]}}/>
+              <MaterialCommunityIcon name={'logout'} size={hp('3.2%')} color={Colors.grey_dark}
+                                     style={{transform: [{rotateY: '180deg'}]}}/>
             </View>
             <Text style={styles.buttonCaption}>{__('logout')}</Text>
           </TouchableOpacity>
@@ -87,10 +93,11 @@ const ViewDoctor = (props) => {
 export const ProfileCard = ({user}) => {
   return (
     <View style={styles.profileContainer}>
-      <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/>
+      {user.avatarUrl ? <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/> : <Image
+        source={Images.placeholder.avatar_default} style={styles.profileAvatar}/>}
       <View style={styles.profileDesc}>
         <Text style={styles.profileName}>{user.fullName}</Text>
-        <Text style={styles.profileDate}>{'User since ' + user.joinDate}</Text>
+        <Text style={styles.profileDate}>{'User since ' + datetime.create(user.createdAt).format('f Y')}</Text>
       </View>
     </View>
   );

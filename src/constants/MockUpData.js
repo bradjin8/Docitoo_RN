@@ -26,7 +26,7 @@ export const mockUser = {
   country: '',
   language: 'English',
   avatarUrl: 'https://cdn.discordapp.com/attachments/679790637868253199/749216226508800071/alberta.png',
-  joinDate: 'July 2020',
+  createdAt: '2020-09-04T01:31:22.968Z',
 };
 
 export const mockNotifications = [

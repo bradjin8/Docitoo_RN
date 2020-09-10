@@ -3,6 +3,7 @@ import {observable} from "mobx";
 import {isEmpty} from 'lodash';
 import {defNumber, defString} from './Types';
 import 'mobx-react-lite/batchingForReactDom';
+import * as Api from '@/Services/Api';
 
 // import * as Api from '@services/Api';
 
@@ -10,27 +11,79 @@ const tag = 'MST.User::';
 let statusCode = 0;
 const User = types
   .model('User', {
-    id: 0,
+    sessionToken: defString,
+    id: defString,
     email: defString,
     fullName: defString,
-    token: defString,
-    profilePicture: defString,
+    gender: defString,
+    avatarUrl: defString,
+    phoneNumber: defString,
+    city: defString,
+    street: defString,
+    accountType: defString,
     hadSignedUp: false,
     statusCode: 0,
-    doctor: defString,
+    createdAt: defString,
   })
   .views((self) => ({
     get isValid() {
-      return self.id > 0 && !isEmpty(self.token)
+      return !isEmpty(self.id) && !isEmpty(self.sessionToken)
     },
     get getStatusCode() {
       return self.statusCode;
     },
-    get getDoctor(){
-      return self.doctor;
-    }
   }))
   .actions((self) => {
+    const _updateFromLoginResponse = (data) => {
+      // Copy data to store
+      const {userDetails, sessionToken} = data;
+      self.sessionToken = sessionToken;
+      if (userDetails) {
+        self.id = userDetails.id;
+        self.fullName = userDetails.fullName;
+        self.gender = userDetails.gender;
+        self.email = userDetails.email;
+        self.phoneNumber = userDetails.phoneNumber;
+        self.avatarUrl = userDetails.avatarUrl;
+        self.bloodType = userDetails.bloodType;
+        self.city = userDetails.city;
+        self.street = userDetails.street;
+        self.createdAt = userDetails.createdAt;
+      }
+    };
+
+    const logIn = flow(function* logIn(email, password) {
+      self.setLoggingIn(true);
+      try {
+        const response = yield Api.logIn(email, password);
+        console.log(tag, 'Response from Login', response);
+        const {data, ok} = response;
+        self.setLoggingIn(false);
+        if (!ok) {
+          return;
+        }
+        _updateFromLoginResponse(data);
+      } catch (e) {
+        console.log(tag, 'Login Filed --', e.message)
+      } finally {
+        self.setLoggingIn(false);
+      }
+    });
+
+    const logOut = flow(function* logOut() {
+      try {
+        const response = yield Api.logOut(self.sessionToken);
+        console.log(tag, 'Response from Logout', response)
+      } catch (e) {
+
+      }
+
+      // Just simply apply snapshot of empty object
+      applySnapshot(self, {
+        hadSignedUp: true,
+      });
+    });
+
     const load = (snapshot) => {
       try {
         applySnapshot(self, snapshot);
@@ -39,10 +92,7 @@ const User = types
       }
     };
 
-    const updateDoctor = (v) => {
-      self.doctor = v;
-    };
-    return {load, updateDoctor}
+    return {logIn, logOut, load}
   })
   .extend((self) => {
     const localState = observable.box(false);

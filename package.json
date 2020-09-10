@@ -16,6 +16,7 @@
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
+    "apisauce": "^1.1.2",
     "babel-plugin-dotenv-import": "^2.1.0",
     "babel-plugin-ignite-ignore-reactotron": "^0.3.0",
     "babel-plugin-module-resolver": "^4.0.0",
@@ -28,6 +29,7 @@
     "mobx-react": "^6.2.5",
     "mobx-state-tree": "^3.17.2",
     "moment": "^2.27.0",
+    "node-datetime": "^2.1.2",
     "numbro": "^2.3.1",
     "react": "16.13.1",
     "react-dom": "^16.13.1",
@@ -51,7 +53,8 @@
     "react-native-star-rating-view": "^0.0.12",
     "react-native-vector-icons": "^7.0.0",
     "styled-components": "^5.1.1",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "yup": "^0.29.3"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
