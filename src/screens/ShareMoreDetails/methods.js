@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Screens} from '@/constants/Navigation';
 import ImagePicker from 'react-native-image-picker';
 import __ from '@/assets/lang';
 import {Platform, PermissionsAndroid} from 'react-native';
 import {mockBloodTypes} from '@/constants/MockUpData';
+import {useStores} from "@/hooks";
 
 function useViewModel(props) {
-  const nav = useNavigation();
+  const nav = useNavigation(props);
+  const tag = 'Screens::ShareMoreDetails';
 
   let bloodTypes = [];
 
@@ -18,12 +20,18 @@ function useViewModel(props) {
     })
   });
 
-  const [gender, setGender] = useState('');
-  const [bloodType, setBloodType] = useState('');
+  const {user} = useStores();
+  const [gender, setGender] = useState(user.gender);
+  const [bloodType, setBloodType] = useState(user.bloodType);
   const [avatarSource, setAvatarSource] = useState('');
 
-  const onPressSubmit = () => {
-    nav.navigate(Screens.tabStack)
+  const onPressSubmit = async () => {
+    try {
+      // await user.updateProfile(avatarSource, gender, bloodType);
+      nav.navigate(Screens.tabStack)
+    } catch (e) {
+      console.log(tag, 'OnPressSubmit, Ex', e.message)
+    }
   };
 
   const onPressChoose = async () => {
@@ -71,8 +79,8 @@ function useViewModel(props) {
       } else if (response.customButton) {
         console.log(tag, 'User tapped custom button: ', response.customButton);
       } else {
-        const source = {uri: response.uri};
-        console.log(tag, 'User selected a photo: ', response.uri);
+        const source = {response};
+        console.log(tag, 'User selected a photo: ', response);
 
         // You can also display the image using data:
         // const source = {uri: 'data:image/jpeg:base64,' + response.data};
@@ -81,6 +89,12 @@ function useViewModel(props) {
       }
     })
   };
+
+  useEffect(() => {
+    if (user.avatarUrl) {
+      setAvatarSource({uri: user.avatarUrl})
+    }
+  }, []);
 
   return {
     bloodTypes,

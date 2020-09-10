@@ -4,20 +4,21 @@ import {mockBloodTypes, mockUser} from '@/constants/MockUpData';
 import {PermissionsAndroid, Platform} from "react-native";
 import __ from "@/assets/lang";
 import ImagePicker from "react-native-image-picker";
+import {useStores} from "@/hooks";
 
 function useViewModel(props) {
   const tag = 'Screens::EditProfile::';
-  const nav = useNavigation();
+  const nav = useNavigation(props);
 
-  const [user, setUser] = useState(mockUser);
-  const [avatarUrl, setAvatarUrl] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [emailAddress, setEmailAddress] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const {user} = useStores();
+  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
+  const [fullName, setFullName] = useState(user.fullName);
+  const [email, setEmail] = useState(user.email);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
   const [password, setPassword] = useState('');
-  const [gender, setGender] = useState('');
-  const [bloodType, setBloodType] = useState('');
-  const [language, setLanguage] = useState('');
+  const [gender, setGender] = useState(user.gender);
+  const [bloodType, setBloodType] = useState(user.bloodType);
+  const [language, setLanguage] = useState(user.language);
 
   let bloodTypes = [];
 
@@ -96,14 +97,13 @@ function useViewModel(props) {
   };
 
   useEffect(() => {
-    setUser(mockUser);
   }, []);
 
   return {
-    user, setUser,
+    user,
     avatarUrl, setAvatarUrl,
     fullName, setFullName,
-    emailAddress, setEmailAddress,
+    email, setEmail,
     phoneNumber, setPhoneNumber,
     password, setPassword,
     gender, setGender,

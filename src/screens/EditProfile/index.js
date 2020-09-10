@@ -6,13 +6,13 @@ import Space from '@/components/Space';
 import GreyInput from '@/components/Input/GreyInput';
 import __ from "@/assets/lang";
 import ScrollBoardWithHeaderLBButton from "@/components/Panel/ScrollBoardWithHeaderLRButton";
-import {scale} from "@/styles/Sizes";
-import {default_avatar_url} from "@/constants/MockUpData";
 import DropDownPicker from 'react-native-dropdown-picker';
 import Colors from "@/styles/Colors";
 import useViewModel from './methods';
 import BlueButton from "@/components/Button/BlueButton";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import Images from "@/styles/Images";
+import * as datetime from "node-datetime";
 
 const EditProfile = (props) => {
   const vm = useViewModel(props);
@@ -29,7 +29,7 @@ const EditProfile = (props) => {
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={(val) => vm.setFullName(val)}/>
           <GreyInput placeholder={__('email_address')} value={vm.email}
-                     onChangeText={(val) => vm.setEmailAddress(val)}/>
+                     onChangeText={(val) => vm.setEmail(val)}/>
           <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
                      onChangeText={(val) => vm.setPhoneNumber(val)}/>
           <GreyInput placeholder={__('password')} value={vm.password} onChangeText={(val) => vm.setPassword(val)} secureTextEntry={true}/>
@@ -46,6 +46,7 @@ const EditProfile = (props) => {
             dropDownStyle={styles.dropDown}
             labelStyle={styles.dropDownLabel}
             onChangeItem={item => vm.setGender(item.value)}
+            defaultValue={vm.user.gender}
             placeholder={__('select_gender')}
           />
         </View>
@@ -59,6 +60,7 @@ const EditProfile = (props) => {
             labelStyle={styles.dropDownLabel}
             onChangeItem={item => vm.setGender(item.value)}
             placeholder={__('select_blood_type')}
+            defaultValue={vm.user.bloodType}
           />
         </View>
         <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 30})}}>
@@ -88,11 +90,12 @@ const ProfileCard = ({user, onPressAvatar}) => {
   return (
     <View style={styles.profileContainer}>
       <TouchableOpacity onPress={onPressAvatar}>
-        <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/>
+        {user.avatarUrl ? <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/> : <Image
+          source={Images.placeholder.avatar_default} style={styles.profileAvatar}/>}
       </TouchableOpacity>
       <View style={styles.profileDesc}>
         <Text style={styles.profileName}>{user.fullName}</Text>
-        <Text style={styles.profileDate}>{'User since ' + user.joinDate}</Text>
+        <Text style={styles.profileDate}>{'User since ' + datetime.create(user.createdAt).format('f Y')}</Text>
       </View>
     </View>
   );

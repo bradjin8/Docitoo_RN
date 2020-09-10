@@ -20,6 +20,8 @@ const User = types
     phoneNumber: defString,
     city: defString,
     street: defString,
+    language: defString,
+    bloodType: defString,
     accountType: defString,
     hadSignedUp: false,
     statusCode: 0,
@@ -46,6 +48,7 @@ const User = types
         self.phoneNumber = userDetails.phoneNumber;
         self.avatarUrl = userDetails.avatarUrl;
         self.bloodType = userDetails.bloodType;
+        self.language = userDetails.language;
         self.city = userDetails.city;
         self.street = userDetails.street;
         self.createdAt = userDetails.createdAt;
@@ -105,6 +108,36 @@ const User = types
       } finally {
         self.setLoggingIn(false);
       }
+    });
+
+    const updateProfile = flow(function* updateProfile(
+      avatarSource,
+      gender,
+      bloodType,
+      fullName,
+      email,
+      phoneNumber,
+      language,
+      password
+    ) {
+
+      self.setLoggingIn(true);
+      try {
+        const response = yield Api.updateProfile(fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource);
+        console.log(tag, 'Response from updateProfile', response);
+        const {data, ok} = response;
+        self.setLoggingIn(false);
+        if (!ok) {
+          self.statusCode = response.status;
+          return;
+        }
+        _updateFromLoginResponse(data);
+      } catch (e) {
+        console.log(tag, 'UpdateProfile Failed --', e.message);
+      } finally {
+        self.setLoggingIn(false);
+      }
+
     });
 
     const load = (snapshot) => {

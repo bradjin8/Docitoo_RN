@@ -56,7 +56,7 @@ const ShareModeDetails = (props) => {
           <IconButton name={'camera'} size={hp('8%')} color={Colors.white2} style={styles.uploadButton}
                       iconStyle={{opacity: 0.7, margin: hp('3%')}} onPress={vm.onPressChoose}/>
           : /*<ImageButton onPress={vm.onPressChoose} image={vm.avatarSource} style={styles.uploadButton}/>*/
-          <ImageButton image={vm.avatarSource} imageStyle={styles.image} onPress={vm.onPressChoose}/>
+          <ImageButton image={{uri: vm.avatarSource.uri}} imageStyle={styles.image} onPress={vm.onPressChoose}/>
         }
       </View>
       <Space height={hp('2%')}/>
