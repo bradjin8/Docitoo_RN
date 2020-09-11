@@ -13,21 +13,23 @@ const api = apisauce.create({
 
 const createFormData = (avatarSource, body) => {
   const data = new FormData();
-  if (avatarSource) {
-    const uriSnippet = avatarSource.uri.split('/');
-    const fileName = uriSnippet[uriSnippet.length - 1];
-
-    data.append("avatar", {
-      name: fileName,
-      type: avatarSource.type,
-      uri: Platform.OS === 'android' ? avatarSource.uri : avatarSource.uri.replace('file://', '')
-    });
-  }
 
   Object.keys(body).forEach(key => {
     data.append(key, body[key])
   });
 
+  if (avatarSource && avatarSource.uri) {
+    const uriSnippet = avatarSource.uri.split('/');
+    const fileName = uriSnippet[uriSnippet.length - 1];
+    const file = {
+      name: fileName + '.jpg',
+      type: avatarSource.type,
+      uri: Platform.OS === 'android' ? avatarSource.uri : avatarSource.uri.replace('file://', '')
+    };
+    console.log(file);
+    data.append('avatar', file);
+    data.append('Content-Type', avatarSource.type);
+  }
   return data;
 };
 
@@ -54,21 +56,42 @@ export const register = (email, fullName, password, phoneNumber) =>
     }
   );
 
-export const updateProfile = (
-  fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource
+export const updateProfile = async (
+  userToken,
+  fullName, email, phoneNumber, password, gender, bloodType, language, avatarUrl, avatarSource
 ) => {
-  let body = {
-    fullName,
-    email,
-    phoneNumber,
-    password,
-    gender,
-    bloodType,
-    language
-  };
+  return new Promise(async (resolve, reject) => {
+    let body = {
+      fullName,
+      email,
+      phoneNumber,
+      password,
+      gender,
+      bloodType,
+      language,
+      avatarUrl,
+    };
 
+    let params = createFormData(avatarSource, body);
 
-  return api.patch(ApiUrl.details, createFormData(avatarSource, body), {headers: {'Content-TYpe': 'multipart/form-data'}})
+    //return api.post(ApiUrl.details, params, {headers: {'Accept': 'multipart/form-data', 'Content-Type': 'multipart/form-data', userToken}})
+    fetch(Config.apiBaseUrl + ApiUrl.details, {
+      method: 'POST',
+      headers: {
+        Accept: 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
+        userToken: userToken
+      },
+      body: params
+    }).then((response) => response.json())
+      .then((data) => {
+      console.log('Service/Api/updateProfile', 'Success', data);
+      resolve({ok: true, data: data});
+    }).catch(err => {
+      console.log('Service/Api/updateProfile', 'Failed', err.message);
+      resolve({ok: false, data: err});
+    });
+  });
 };
 
 export const getPillReminders = (userToken) => api.get(ApiUrl.getPillReminders, {}, {headers: {userToken}});

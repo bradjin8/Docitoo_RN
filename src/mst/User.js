@@ -2,6 +2,7 @@ import {applySnapshot, flow, types} from "mobx-state-tree";
 import {observable} from "mobx";
 import {isEmpty} from 'lodash';
 import {defNumber, defString} from './Types';
+import Config from '@/config/AppConfig';
 import 'mobx-react-lite/batchingForReactDom';
 import * as Api from '@/Services/Api';
 
@@ -15,6 +16,7 @@ const User = types
     id: defString,
     email: defString,
     fullName: defString,
+    password: defString,
     gender: defString,
     avatarUrl: defString,
     phoneNumber: defString,
@@ -43,10 +45,11 @@ const User = types
       if (userDetails) {
         self.id = userDetails.id;
         self.fullName = userDetails.fullName;
+        self.password = data.password;
         self.gender = userDetails.gender;
         self.email = userDetails.email;
         self.phoneNumber = userDetails.phoneNumber;
-        self.avatarUrl = userDetails.avatarUrl;
+        self.avatarUrl = userDetails.avatarUrl.startsWith('http') ? userDetails.avatarUrl : Config.apiBaseUrl + userDetails.avatarUrl;
         self.bloodType = userDetails.bloodType;
         self.language = userDetails.language;
         self.city = userDetails.city;
@@ -59,12 +62,13 @@ const User = types
       self.setLoggingIn(true);
       try {
         const response = yield Api.logIn(email, password);
-        console.log(tag, 'Response from Login', response);
-        const {data, ok} = response;
+        let {data, ok} = response;
+        console.log(tag, 'Response from Login', data);
         self.setLoggingIn(false);
         if (!ok) {
           return;
         }
+        data.password = password;
         _updateFromLoginResponse(data);
       } catch (e) {
         console.log(tag, 'Login Filed --', e.message)
@@ -96,12 +100,13 @@ const User = types
       try {
         const response = yield Api.register(email, fullName, password, phoneNumber);
         console.log(tag, 'Response from SignUp', response);
-        const {data, ok} = response;
+        let {data, ok} = response;
         self.setLoggingIn(false);
         if (!ok) {
           self.statusCode = response.status;
           return;
         }
+        data.password = password;
         _updateFromLoginResponse(data);
       } catch (e) {
         console.log(tag, 'SignUp Failed --', e.message);
@@ -111,26 +116,36 @@ const User = types
     });
 
     const updateProfile = flow(function* updateProfile(
-      avatarSource,
-      gender,
-      bloodType,
       fullName,
       email,
       phoneNumber,
+      password,
+      gender,
+      bloodType,
       language,
-      password
+      avatarSource,
     ) {
 
-      self.setLoggingIn(true);
+      // self.setLoggingIn(true);
       try {
-        const response = yield Api.updateProfile(fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource);
-        console.log(tag, 'Response from updateProfile', response);
-        const {data, ok} = response;
-        self.setLoggingIn(false);
+        fullName = fullName ? fullName : self.fullName;
+        email = email ? email : self.email;
+        phoneNumber = phoneNumber ? phoneNumber : self.phoneNumber;
+        password = password ? password : self.password;
+        gender = gender ? gender : self.gender;
+        bloodType = bloodType ? bloodType : self.bloodType;
+        language = language ? language : self.language;
+        const response = yield Api.updateProfile(self.sessionToken, fullName, email, phoneNumber, password, gender, bloodType, language, self.avatarUrl, avatarSource);
+        let {data, ok} = response;
+        console.log(tag, 'Response from updateProfile', data);
+
+        // self.setLoggingIn(false);
         if (!ok) {
-          self.statusCode = response.status;
+          self.statusCode = parseInt(response.status);
           return;
         }
+
+        data.password = password;
         _updateFromLoginResponse(data);
       } catch (e) {
         console.log(tag, 'UpdateProfile Failed --', e.message);
@@ -148,7 +163,7 @@ const User = types
       }
     };
 
-    return {logIn, logOut, signUp, load}
+    return {logIn, logOut, signUp, updateProfile, load}
   })
   .extend((self) => {
     const localState = observable.box(false);

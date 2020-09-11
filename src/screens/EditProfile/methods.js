@@ -11,7 +11,6 @@ function useViewModel(props) {
   const nav = useNavigation(props);
 
   const {user} = useStores();
-  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl);
   const [fullName, setFullName] = useState(user.fullName);
   const [email, setEmail] = useState(user.email);
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
@@ -19,6 +18,7 @@ function useViewModel(props) {
   const [gender, setGender] = useState(user.gender);
   const [bloodType, setBloodType] = useState(user.bloodType);
   const [language, setLanguage] = useState(user.language);
+  const [avatarSource, setAvatarSource] = useState(null);
 
   let bloodTypes = [];
 
@@ -80,20 +80,25 @@ function useViewModel(props) {
         console.log(tag, 'User tapped custom button: ', response.customButton);
       } else {
         const source = {uri: response.uri};
-        console.log(tag, 'User selected a photo: ', response.uri);
+        // setAvatarUrl(source);
+        console.log(tag, 'User selected a photo: ', response);
 
         // You can also display the image using data:
         // const source = {uri: 'data:image/jpeg:base64,' + response.data};
 
-        setAvatarUrl(source);
+        setAvatarSource(response);
       }
     })
 
   };
 
-  const onPressUpdate = () => {
+  const onPressUpdate = async () => {
     console.log(tag, 'onPressUpdate()');
+    try {
+      await user.updateProfile(fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource)
+    } catch (e) {
 
+    }
   };
 
   useEffect(() => {
@@ -101,7 +106,7 @@ function useViewModel(props) {
 
   return {
     user,
-    avatarUrl, setAvatarUrl,
+    avatarSource, setAvatarSource,
     fullName, setFullName,
     email, setEmail,
     phoneNumber, setPhoneNumber,

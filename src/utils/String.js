@@ -24,3 +24,10 @@ export const formatHour = (hour) => {
 
   return `${hour} ${AMPM}`;
 };
+
+export const capitalizeString = (string) => {
+  if (!string || string.length < 1) {
+    return "";
+  }
+  return string[0].toUpperCase() + string.slice(1);
+};

@@ -10,15 +10,16 @@ import Colors from "@/styles/Colors";
 import Separator from "@/components/Separator";
 import useViewModel from './methods';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import {capitalizeString} from "@/utils/String";
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
 
   return (
     <BoardWithHeader title={__('my_profile')}>
-      <View style={styles.container}>
-        {vm.user && <ProfileCard user={vm.user}>
-        </ProfileCard>}
+      {vm.user && <View style={styles.container}>
+        <ProfileCard user={vm.user}>
+        </ProfileCard>
         <Space height={hp('5%')}/>
         <Separator color={Colors.grey} width={2}/>
         <KeyValueLabel name={__('name')} value={vm.user.fullName}/>
@@ -31,7 +32,7 @@ const PillReminder = (props) => {
         <Separator color={Colors.grey} width={2}/>
         <KeyValueLabel name={__('blood_type')} value={vm.user.bloodType}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('language')} value={vm.user.language}/>
+        <KeyValueLabel name={__('language')} value={capitalizeString(vm.user.language)}/>
         <Space height={hp('3%')}/>
 
         <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressEdit} underlayColor={Colors.blue1}>
@@ -41,7 +42,7 @@ const PillReminder = (props) => {
         </TouchableHighlight>
         <Space height={hp('3%')}/>
 
-      </View>
+      </View>}
     </BoardWithHeader>
 
   )

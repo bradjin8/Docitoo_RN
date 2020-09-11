@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontWeight: 'bold',
+    color: '#111',
     fontSize: hp('2.2%'),
   },
   profileDate: {

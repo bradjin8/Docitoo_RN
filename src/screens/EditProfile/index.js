@@ -17,6 +17,21 @@ import * as datetime from "node-datetime";
 const EditProfile = (props) => {
   const vm = useViewModel(props);
 
+  const ProfileCard = ({user, onPressAvatar}) => {
+    return (
+      <View style={styles.profileContainer}>
+        <TouchableOpacity onPress={onPressAvatar}>
+          {user.avatarSource && user.avatarSource.uri ? <Image source={{uri: user.avatarSource.uri}} style={styles.profileAvatar}/> : <Image
+            source={Images.placeholder.avatar_default} style={styles.profileAvatar}/>}
+        </TouchableOpacity>
+        <View style={styles.profileDesc}>
+          <Text style={styles.profileName}>{user.fullName}</Text>
+          <Text style={styles.profileDate}>{'User since ' + datetime.create(user.createdAt).format('f Y')}</Text>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <Container>
       {vm.user &&
@@ -24,7 +39,7 @@ const EditProfile = (props) => {
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <ProfileCard onPressAvatar={vm.onPressAvatar}
-                     user={vm.user}/>
+                     user={{fullName: vm.user.fullName, createdAt: vm.user.createdAt, avatarSource: vm.avatarSource ? vm.avatarSource : {uri: vm.user.avatarUrl}}}/>
         <Space height={hp('3%')}/>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={(val) => vm.setFullName(val)}/>
@@ -58,7 +73,7 @@ const EditProfile = (props) => {
             itemStyle={styles.dropDownItem}
             dropDownStyle={styles.dropDown}
             labelStyle={styles.dropDownLabel}
-            onChangeItem={item => vm.setGender(item.value)}
+            onChangeItem={item => vm.setBloodType(item.value)}
             placeholder={__('select_blood_type')}
             defaultValue={vm.user.bloodType}
           />
@@ -73,7 +88,7 @@ const EditProfile = (props) => {
             itemStyle={styles.dropDownItem}
             dropDownStyle={styles.dropDown}
             labelStyle={styles.dropDownLabel}
-            onChangeItem={item => vm.setGender(item.value)}
+            onChangeItem={item => vm.setLanguage(item.value)}
             placeholder={__('language')}
           />
         </View>
@@ -83,21 +98,6 @@ const EditProfile = (props) => {
 
       </ScrollBoardWithHeaderLBButton>}
     </Container>
-  );
-};
-
-const ProfileCard = ({user, onPressAvatar}) => {
-  return (
-    <View style={styles.profileContainer}>
-      <TouchableOpacity onPress={onPressAvatar}>
-        {user.avatarUrl ? <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/> : <Image
-          source={Images.placeholder.avatar_default} style={styles.profileAvatar}/>}
-      </TouchableOpacity>
-      <View style={styles.profileDesc}>
-        <Text style={styles.profileName}>{user.fullName}</Text>
-        <Text style={styles.profileDate}>{'User since ' + datetime.create(user.createdAt).format('f Y')}</Text>
-      </View>
-    </View>
   );
 };
 
