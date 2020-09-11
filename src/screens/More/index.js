@@ -167,13 +167,11 @@ const styles = StyleSheet.create({
   },
   dropDown: {
     backgroundColor: '#6ac6ed',
-    color: Colors.grey_dark,
     borderWidth: 1,
   },
   dropDownBack: {
     borderWidth: 0,
     backgroundColor: '#6ac6ed',
-    color: Colors.grey_dark
   },
   dropDownLabel: {
     backgroundColor: '#6ac6ed',

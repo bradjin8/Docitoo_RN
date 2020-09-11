@@ -94,5 +94,7 @@ export const updateProfile = async (
   });
 };
 
-export const getPillReminders = (userToken) => api.get(ApiUrl.getPillReminders, {}, {headers: {userToken}});
+export const getPillReminders = (userToken) => api.get(ApiUrl.pillReminder, {}, {headers: {userToken}});
+
+export const addPillReminder = (userToken, medicineName, dosage, frequency, timeToTake) => api.post(ApiUrl.pillReminder, {medicineName, dosage, frequency, timeToTake}, {headers: {userToken}});
 

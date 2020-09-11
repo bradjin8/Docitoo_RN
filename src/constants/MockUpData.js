@@ -59,39 +59,25 @@ export const mockNotifications = [
 export const mockMedicines = [
   {
     id: 0,
-    name: 'Omega 3',
+    medicineName: 'Omega 3',
     dosage: '500mg',
     frequency: 1,
-    time: '6 PM'
+    timeToTake: '6 PM'
   },
   {
     id: 1,
-    name: 'Aspirin',
+    medicineName: 'Aspirin',
     dosage: '500mg',
     frequency: 1,
-    time: '1 PM'
+    timeToTake: '1 PM'
   },
   {
     id: 0,
-    name: 'Vitamin D',
+    medicineName: 'Vitamin D',
     dosage: '500mg',
     frequency: 1,
-    time: '6 PM'
-  },
-  {
-    id: 0,
-    name: 'Neumercazole',
-    dosage: '500mg',
-    frequency: 1,
-    time: '6 PM'
-  },
-  {
-    id: 0,
-    name: 'Omega 5',
-    dosage: '500mg',
-    frequency: 1,
-    time: '6 PM'
-  },
+    timeToTake: '6 PM'
+  }
 ];
 
 export const mockSpecialities = [

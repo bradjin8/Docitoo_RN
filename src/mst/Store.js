@@ -1,11 +1,11 @@
 import {types} from 'mobx-state-tree';
 import User from './User';
-import Settings from './Settings';
+import Data from './Data';
 
 const Store = types
   .model({
     user: User,
-    settings: Settings,
+    data: Data,
   })
   .actions((self) => {
     const updateUser = (json) => {

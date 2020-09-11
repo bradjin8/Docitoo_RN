@@ -6,8 +6,7 @@ import {toJS} from 'mobx';
 
 const store = Store.create({
   user: {},
-  notification: {},
-  settings: {}
+  data: {},
 });
 
 const storageKey = 'auth';

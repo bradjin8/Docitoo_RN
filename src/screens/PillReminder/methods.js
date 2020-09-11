@@ -6,12 +6,12 @@ import {getPillReminders} from '@/Services/Api';
 import {useStores} from "@/hooks";
 
 function useViewModel(props) {
-  const tag = 'Screens::PillReminder::';
+  const tag = 'Screens::PillReminder';
 
-  const nav = useNavigation();
+  const nav = useNavigation(props);
 
-  const [medicines, setMedicines] = useState(mockMedicines);
-  const {user} = useStores();
+  const [medicines, setMedicines] = useState([]);
+  const {user, data} = useStores();
 
   const onPressAdd = () => {
     console.log(tag, 'onPressAdd()');
@@ -20,8 +20,9 @@ function useViewModel(props) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getPillReminders(user.sessionToken);
-      console.log(res);
+      await data.getPillReminders(user.sessionToken);
+      // console.log(tag, data.pillReminders);
+      setMedicines(data.getPills)
     };
     fetchData();
   }, []);

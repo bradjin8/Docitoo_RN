@@ -12,6 +12,7 @@ import Separator from "@/components/Separator";
 import useViewModel from './methods';
 import ImageButton from "@/components/Button/ImageButton";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import * as util from '@/utils/String';
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
@@ -21,7 +22,7 @@ const PillReminder = (props) => {
       <BoardWithHeader title={__('pill_reminder')}>
         <ScrollView style={styles.container}>
           <Space height={hp('2%')}/>
-          {vm.medicines.sort().map((item, index) => {
+          {vm.medicines.slice().sort().map((item, index) => {
             if (index < vm.medicines.length - 1) {
               return (
                 <View key={index}>
@@ -50,8 +51,8 @@ export const MedicineCard = ({medicine, type}) => {
     <View style={styles.medicineContainer}>
       <Image source={Images.medicines[type]} style={styles.medicineAvatar}/>
       <View style={styles.medicineDesc}>
-        <Text style={styles.medicineName}>{medicine.name + ' - ' + medicine.dosage}</Text>
-        <Text style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + medicine.time}</Text>
+        <Text style={styles.medicineName}>{medicine.medicineName + ' - ' + medicine.dosage}</Text>
+        <Text style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + util.formatHour(medicine.timeToTake)}</Text>
       </View>
     </View>
   );
