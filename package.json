@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.0",
+    "@react-native-community/google-signin": "^4.0.3",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
@@ -52,6 +53,7 @@
     "react-native-screens": "^2.10.1",
     "react-native-star-rating-view": "^0.0.12",
     "react-native-vector-icons": "^7.0.0",
+    "react-native-webview": "^10.9.0",
     "styled-components": "^5.1.1",
     "typescript": "^4.0.2",
     "yup": "^0.29.3"

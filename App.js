@@ -36,7 +36,7 @@ const App: () => React$Node = () => {
   OneSignal.inFocusDisplaying(2); // Controls what should happen if a notification is received while the app is open. 2 means that the notification will go directly to the device's notification center.
 
 
-  const myiOSPromptCallback = (permisssion) => {
+  const myiOSPromptCallback = (permission) => {
     // do something with permission value
   };
 

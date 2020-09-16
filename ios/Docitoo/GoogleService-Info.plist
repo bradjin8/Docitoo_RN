@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>756867398063-hd39m6ruq0apfmoliudua8998vbq7s2l.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.756867398063-hd39m6ruq0apfmoliudua8998vbq7s2l</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>756867398063-p47pmev7i6it18d9f9pd45givnasidch.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD04MaMzBDT0DTQIja4x7fGIbETBR75FE8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>756867398063</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>UWYV4W2495.com.techvision.docitoo</string>
+	<key>PROJECT_ID</key>
+	<string>docitoo-d2c92</string>
+	<key>STORAGE_BUCKET</key>
+	<string>docitoo-d2c92.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:756867398063:ios:8c721ecf199889c2d7d75a</string>
+	<key>DATABASE_URL</key>
+	<string>https://docitoo-d2c92.firebaseio.com</string>
+</dict>
+</plist>

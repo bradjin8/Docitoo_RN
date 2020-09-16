@@ -20,6 +20,10 @@ target 'Docitoo' do
 
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
+  pod 'OneSignal', '>= 2.9.3', '< 3.0'
+  
+  pod 'Firebase/Analytics'
+  
   target 'DocitooTests' do
     inherit! :complete
     # Pods for testing
@@ -30,14 +34,18 @@ target 'Docitoo' do
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
   use_flipper!
+  
   post_install do |installer|
     flipper_post_install(installer)
+
   end
+  
 end
 
 target 'OneSignalNotificationServiceExtension' do
   pod 'OneSignal', '>= 2.9.3', '< 3.0'
-end 
+end
+
 
 target 'Docitoo-tvOS' do
   # Pods for Docitoo-tvOS
