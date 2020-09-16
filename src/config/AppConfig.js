@@ -1,6 +1,6 @@
 export default {
   // apiBaseUrl: 'https://docitoo.herokuapp.com/api/',
-  // apiBaseUrl: 'http://127.0.0.1:3000/api/',
+  appBaseUrl: 'http://192.168.101.92:3000',
   apiBaseUrl: 'http://192.168.101.92:3000/api/',
   oneSignalAppID: '59c80d9f-7824-4202-9ddb-83a4d779926e',
 
@@ -20,6 +20,16 @@ export default {
       // 'https://www.googleapis.com/auth/user.birthday.read',
       // 'https://www.googleapis.com/auth/user.gender.read',
       // 'https://www.googleapis.com/auth/user.phonenumbers.read',
+    ]
+  },
+  facebookLogin: {
+    appId: '996548157529077',
+    scopes: [
+      'public_profile',
+      'email',
+      // 'user_address',
+      // 'user_mobile_phone',
+      // 'user_gender'
     ]
   }
 };

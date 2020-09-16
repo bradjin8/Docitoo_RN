@@ -3,7 +3,7 @@ const en = {
   'login': 'Login',
   'skip_sign_up': 'Skip Sign Up',
   'app_desc': 'Search for medical \n professionals nearby',
-  'app_note': 'By using this application, you agree to our \n privacy policy and terms of service.',
+  'app_note': 'By using this application, you agree to our privacy policy and terms of service.',
 
   'sign_up_with': 'Sign up with',
   'or_sign_up_using_email': 'or sign up using email',
@@ -12,7 +12,7 @@ const en = {
   'phone_number': 'Phone Number',
   'optional': 'Optional',
   'password': 'Password',
-  'sign_up_note': 'By signing up, you agree to our Privacy Policy\n and Terms of Service',
+  'sign_up_note': 'By signing up, you agree to our Privacy Policy and Terms of Service',
   'already_have_account': 'Already have an account?',
 
   'login_with': 'Login with',

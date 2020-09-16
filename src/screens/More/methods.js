@@ -8,7 +8,7 @@ import __ from '@/assets/lang';
 const tag = 'Screens::ViewDoctor';
 
 function useViewModel(props) {
-  const nav = useNavigation();
+  const nav = useNavigation(props);
 
   const [lang, setLang] = useState('en');
   const langItems = [

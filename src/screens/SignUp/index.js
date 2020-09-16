@@ -44,7 +44,7 @@ const SignUp = (props) => {
                        onPress={vm.onPressFacebook}/>
           <ImageButton image={Images.logo.google} style={{marginHorizontal: wp('3%')}}
                        imageStyle={{width: hp('7%'), height: hp('7%')}}
-                       onPress={vm.onPressFacebook}/>
+                       onPress={vm.onPressGoogle}/>
         </View>
         <BlackText text={__('or_sign_up_using_email')}/>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>

@@ -5,9 +5,7 @@ import {useStores} from '@/hooks';
 import {object, string} from 'yup';
 import {errorMessage} from '@/utils/Yup';
 import {Alert} from 'react-native';
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
-import Config from '@/config/AppConfig';
-import {LoginManager} from 'react-native-fbsdk';
+import * as SocialApi from '@/Services/SocialApi';
 
 // define YupModel
 const yup = object().shape({
@@ -26,12 +24,6 @@ function useViewModel(props) {
   const [password, setPassword] = useState('');
   const {user} = useStores();
 
-  GoogleSignin.configure({
-    scopes: Config.googleSignIn.scopes,
-    // webClientId: Config.googleSignIn.webClient.id,
-    // offlineAccess: false,
-    iosClientId: Config.googleSignIn.iosClientId
-  });
 
   const go2Main = () => {
     nav.navigate(Screens.tabStack);
@@ -41,88 +33,65 @@ function useViewModel(props) {
     nav.navigate(Screens.signUp)
   };
 
-  const onPressLogin = async () => {
-    // nav.navigate(Screens.tabStack);
-    try {
-      const params = await yup.validate({email: emailOrPhone, password}, {abortEarly: false});
-      // hud.show()
+  const _login = (_email, _pwd) => {
+    setTimeout(async (_email, _pwd) => {
+      try {
+        const params = await yup.validate({email: _email.toString(), password: _pwd.toString()}, {abortEarly: false});
+        console.log(tag, 'Login', params);
+        // hud.show()
 
-      await user.logIn(params.email, params.password);
+        await user.logIn(params.email, params.password);
 
-      // When user became valid, then it means login succeed
-      if (user.isValid) {
-        go2Main();
-      } else {
-        // Login Failed, Display Some Error Message
-        Alert.alert(
-          "Error",
-          "Login Failed, try again",
-          [
-            {
-              text: 'OK',
-              onPress: () => console.log(tag, 'onPressLogin', 'OK pressed')
-            }
-          ],
-          {cancelable: false}
-        )
+        // When user became valid, then it means login succeed
+        if (user.isValid) {
+          go2Main();
+        } else {
+          // Login Failed, Display Some Error Message
+          Alert.alert(
+            "Login Failed",
+            '' + user.lastError,
+            [
+              {
+                text: 'OK',
+                onPress: () => console.log(tag, 'Login', 'OK pressed')
+              }
+            ],
+            {cancelable: false}
+          )
+        }
+
+      } catch (e) {
+        console.log(tag, 'Login, Ex:', e);
+        Alert.alert('Login Error', e.name + ': ' + e.message);
       }
+    }, 10, _email, _pwd);
+  };
 
-    } catch (e) {
-
-    }
+  const onPressLogin = () => {
+    _login(emailOrPhone, password);
   };
 
   const onPressFacebook = async () => {
-    try {
-      let result = await LoginManager.logInWithPermissions(['public_profile']);
-      if (result.isCancelled) {
-        alert('Login was cancelled');
-      } else {
-        alert('Login was successful with permissions: ' + result.grantedPermissions.toString());
-        console.log(tag, 'FBLogin, Success:', result)
-      }
-    } catch (e) {
-      console.log(tag, 'FBLogin, Ex:', e.message)
+    const {data, error} = await SocialApi.facebookAuth();
+    if (error) {
+      Alert.alert('Facebook Login Error', error.name + ': ' + error.message);
+      return;
     }
+
+    const {email, id} = data;
+    _login(email, id);
+
   };
 
   const onPressGoogle = async () => {
-    try {
-      const hasPlayServices = await GoogleSignin.hasPlayServices();
-
-      if (!hasPlayServices) {
-        console.log(tag, 'onPressGoogle', 'Device doesn\'t have PlayServices');
-      }
-
-      let userInfo;
-      if (GoogleSignin.isSignedIn()) {
-        // userInfo = await GoogleSignin.getCurrentUser();
-        await GoogleSignin.signOut();
-      } else {
-      }
-
-      userInfo = await GoogleSignin.signIn();
-
-      const {user} = userInfo;
-      console.log(user);
-
-      // console.log(await GoogleSignin.getTokens());
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-        console.log(tag, 'onPressGoogle()', 'Cancelled');
-
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-        console.log(tag, 'onPressGoogle()', 'In progress');
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-        console.log(tag, 'onPressGoogle()', 'Play services not available');
-      } else {
-        // some other error happened
-        console.log(tag, 'onPressGoogle()', 'other error', error.message);
-      }
+    const {data, error} = await SocialApi.googleAuth();
+    if (error) {
+      Alert.alert('Google Login Error', error.name + ': ' + error.message);
+      return;
     }
+
+    const {email, id} = data;
+    _login(email, id);
   };
 
   useEffect(() => {

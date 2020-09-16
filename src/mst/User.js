@@ -5,6 +5,7 @@ import {defNumber, defString} from './Types';
 import Config from '@/config/AppConfig';
 import 'mobx-react-lite/batchingForReactDom';
 import * as Api from '@/Services/Api';
+import * as SocialApi from '@/Services/SocialApi';
 
 // import * as Api from '@services/Api';
 
@@ -28,6 +29,7 @@ const User = types
     hadSignedUp: false,
     statusCode: 0,
     createdAt: defString,
+    lastError: defString,
   })
   .views((self) => ({
     get isValid() {
@@ -49,7 +51,7 @@ const User = types
         self.gender = userDetails.gender;
         self.email = userDetails.email;
         self.phoneNumber = userDetails.phoneNumber;
-        self.avatarUrl = userDetails.avatarUrl.startsWith('http') ? userDetails.avatarUrl : Config.apiBaseUrl + userDetails.avatarUrl;
+        self.avatarUrl = userDetails.avatarUrl.startsWith('http') ? userDetails.avatarUrl : Config.appBaseUrl + userDetails.avatarUrl;
         self.bloodType = userDetails.bloodType;
         self.language = userDetails.language;
         self.city = userDetails.city;
@@ -66,6 +68,8 @@ const User = types
         console.log(tag, 'Response from Login', data);
         self.setLoggingIn(false);
         if (!ok) {
+          self.statusCode = response.status;
+          self.lastError = data.error;
           return;
         }
         data.password = password;
@@ -74,6 +78,28 @@ const User = types
         console.log(tag, 'Login Filed --', e.message)
       } finally {
         self.setLoggingIn(false);
+      }
+    });
+
+    const loginSocial = flow(function* loginSocial(mode = 'google') {
+      let userData;
+      self.setLoggingIn(true);
+
+      try {
+        if (mode === 'google') {
+          userData = yield SocialApi.googleAuth();
+        }
+        else if (mode === 'facebook') {
+          userData = yield SocialApi.facebookAuth();
+        }
+
+        const {email, id} = userData;
+
+        return logIn(email, id);
+      } catch (e) {
+        console.log(tag, 'Social Login Failed --', e.message)
+      } finally {
+        self.setLogginIn(false);
       }
     });
 
@@ -104,6 +130,7 @@ const User = types
         self.setLoggingIn(false);
         if (!ok) {
           self.statusCode = response.status;
+          self.lastError = data.error;
           return;
         }
         data.password = password;

@@ -5,6 +5,7 @@ import {Screens} from '@/constants/Navigation';
 import {useStores} from "@/hooks";
 import {object, string} from 'yup';
 import {errorMessage} from "@/utils/Yup";
+import * as SocialApi from '@/Services/SocialApi';
 
 // define YupModel
 const yup = object().shape({
@@ -27,56 +28,76 @@ function useViewModel(props) {
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
   const [password, setPassword] = useState('');
 
-  const onPressSignUp = async () => {
-    try {
-      const params = await yup.validate(
-        {email, fullName, password, phoneNumber},
-        {abortEarly: false}
-      );
+  const _signUp = (_fullName, _email, _pwd, _phoneNumber) => {
+    setTimeout(async () => {
+      try {
+        const params = await yup.validate(
+          {email: _email, fullName: _fullName, password: _pwd, phoneNumber: _phoneNumber},
+          {abortEarly: false}
+        );
 
-      await user.signUp(params.email, params.fullName, params.password, params.phoneNumber);
+        await user.signUp(params.email, params.fullName, params.password, params.phoneNumber);
 
-      if (user.isValid) {
-        nav.navigate(Screens.shareMoreDetails);
-      } else {
-        let error = 'Unknown Error';
-        if (user.getStatusCode === 409) {
-          error = 'Email already exists'
-        } else if (user.getStatusCode === 404) {
-          error = 'Can not find the server'
+        if (user.isValid) {
+          nav.navigate(Screens.shareMoreDetails);
+        } else {
+          let error = 'Unknown Error';
+          if (user.getStatusCode === 409) {
+            error = 'Email already exists'
+          } else if (user.getStatusCode === 404) {
+            error = 'Can not find the server'
+          }
+          Alert.alert(
+            "SignUp Failed",
+            `${error}, try again`,
+            [
+              {
+                text: 'OK',
+                onPress: () => console.log(tag, 'onPressLogin', 'OK pressed')
+              }
+            ],
+            {cancelable: false}
+          )
         }
-        Alert.alert(
-          "SignUp Failed",
-          `${error}, try again`,
-          [
-            {
-              text: 'OK',
-              onPress: () => console.log(tag, 'onPressLogin', 'OK pressed')
-            }
-          ],
-          {cancelable: false}
-        )
+      } catch (e) {
+        console.log(tag, 'OnPressSignUp, Ex', e.message);
+        if (e.errors) {
+          console.log(tag, 'Validation Error', e.errors)
+        }
+      } finally {
+        //hud.hide()
       }
-    } catch (e) {
-      console.log(tag, 'OnPressSignUp, Ex', e.message);
-      if (e.errors) {
-        console.log(tag, 'Validation Error', e.errors)
-      }
-    } finally {
-      //hud.hide()
-    }
+    }, 10)
+  };
+
+  const onPressSignUp = async () => {
+    _signUp(fullName, email, password, phoneNumber)
   };
 
   const onPressLogin = () => {
     nav.navigate(Screens.logIn);
   };
 
-  const onPressFacebook = () => {
+  const onPressFacebook = async () => {
+    const {data, error} = await SocialApi.facebookAuth();
+    if (error) {
+      Alert.alert('Facebook SignUp Error', error.name + ': ' + error.message);
+      return;
+    }
 
+    const {name, email, id} = data;
+    _signUp(name, email, id);
   };
 
-  const onPressGoogle = () => {
+  const onPressGoogle = async () => {
+    const {data, error} = await SocialApi.googleAuth();
+    if (error) {
+      Alert.alert('Facebook SignUp Error', error.name + ': ' + error.message);
+      return;
+    }
 
+    const {name, email, id} = data;
+    _signUp(name, email, id);
   };
 
   return {
