@@ -24,6 +24,10 @@ target 'Docitoo' do
   
   pod 'Firebase/Analytics'
   
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
+  pod 'FBSDKLoginKit'
+  
   target 'DocitooTests' do
     inherit! :complete
     # Pods for testing
@@ -37,7 +41,11 @@ target 'Docitoo' do
   
   post_install do |installer|
     flipper_post_install(installer)
-
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+      end
+    end
   end
   
 end

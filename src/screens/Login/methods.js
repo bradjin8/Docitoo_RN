@@ -7,6 +7,7 @@ import {errorMessage} from '@/utils/Yup';
 import {Alert} from 'react-native';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 import Config from '@/config/AppConfig';
+import {LoginManager} from 'react-native-fbsdk';
 
 // define YupModel
 const yup = object().shape({
@@ -71,7 +72,18 @@ function useViewModel(props) {
     }
   };
 
-  const onPressFacebook = () => {
+  const onPressFacebook = async () => {
+    try {
+      let result = await LoginManager.logInWithPermissions(['public_profile']);
+      if (result.isCancelled) {
+        alert('Login was cancelled');
+      } else {
+        alert('Login was successful with permissions: ' + result.grantedPermissions.toString());
+        console.log(tag, 'FBLogin, Success:', result)
+      }
+    } catch (e) {
+      console.log(tag, 'FBLogin, Ex:', e.message)
+    }
   };
 
   const onPressGoogle = async () => {

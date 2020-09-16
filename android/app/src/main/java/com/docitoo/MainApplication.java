@@ -7,6 +7,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -39,6 +40,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
             //packages.add(new MainReactPackage(),
+            //packages.add(new FBSDKPackage());
             //new RNGoogleSigninPackage(),
             //packages.add(new ReactNativeOneSignalPackage());
             //packages.add(new LinearGradientPackages());
