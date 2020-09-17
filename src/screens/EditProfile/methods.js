@@ -5,6 +5,7 @@ import {PermissionsAndroid, Platform} from "react-native";
 import __ from "@/assets/lang";
 import ImagePicker from "react-native-image-picker";
 import {useStores} from "@/hooks";
+import {MoreStackScreens} from "../../constants/Navigation";
 
 function useViewModel(props) {
   const tag = 'Screens::EditProfile::';
@@ -95,9 +96,10 @@ function useViewModel(props) {
   const onPressUpdate = async () => {
     console.log(tag, 'onPressUpdate()');
     try {
-      await user.updateProfile(fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource)
+      await user.updateProfile(fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource);
+      nav.navigate(MoreStackScreens.more);
     } catch (e) {
-
+      console.log(tag, 'UpdateProfile, Ex', e.message);
     }
   };
 
