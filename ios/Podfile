@@ -28,6 +28,8 @@ target 'Docitoo' do
 
   pod 'FBSDKLoginKit'
   
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'DocitooTests' do
     inherit! :complete
     # Pods for testing

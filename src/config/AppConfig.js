@@ -31,5 +31,8 @@ export default {
       // 'user_mobile_phone',
       // 'user_gender'
     ]
+  },
+  googleMap: {
+    apiKey: 'AIzaSyC_AxHR7FG_SU-kTt4dz0YACVyH0lE6fis'
   }
 };

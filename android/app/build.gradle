@@ -200,6 +200,7 @@ dependencies {
     implementation "androidx.multidex:multidex:$multidex_version"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
@@ -211,7 +212,9 @@ dependencies {
     implementation project(':react-native-linear-gradient')
 
     compile 'com.facebook.android:facebook-android-sdk:[4,5)' // facebook sdk
-    implementation 'com.facebook.android:facebook-login:[5,6)' // facebook login
+//    implementation 'com.facebook.android:facebook-login:[5,6)' // facebook login
+
+//    implementation project(':react-native-maps')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group: 'com.facebook.fbjni'
