@@ -12,6 +12,7 @@ const Data = types
   .model( 'Data', {
     // doctors: types.frozen,
     pillReminders: types.array(PillReminder),
+    lastStatus: defNumber,
   })
   .views((self) => ({
 
@@ -33,7 +34,8 @@ const Data = types
       try {
         const response = yield Api.getPillReminders(userToken);
         const {ok, data} = response;
-        console.log(tag, 'Response from GetPillReminders API', data);
+        self.lastStatus = response.status;
+        console.log(tag, 'Response from GetPillReminders API', typeof response.status);
         if (!ok) {
           Alert.alert(
             "Error",
@@ -41,7 +43,7 @@ const Data = types
             [
               {
                 text: 'OK',
-                onPress: () => console.log(tag, 'onPressAdd', 'OK pressed')
+                onPress: () => console.log(tag, 'GetPillReminder Error', 'OK pressed')
               }
             ],
             {cancelable: false}
@@ -65,6 +67,7 @@ const Data = types
       try {
         const response = yield Api.addPillReminder(userToken, medicineName, dosage, frequency, timeToTake);
         const {ok, data} = response;
+        self.lastStatus = response.status;
         console.log(tag, 'Response from AddPillReminder API', data);
         if (!ok) {
           Alert.alert(
@@ -73,7 +76,7 @@ const Data = types
             [
               {
                 text: 'OK',
-                onPress: () => console.log(tag, 'onPressAdd', 'OK pressed')
+                onPress: () => console.log(tag, 'AddPillReminder Error', 'OK pressed')
               }
             ],
             {cancelable: false}

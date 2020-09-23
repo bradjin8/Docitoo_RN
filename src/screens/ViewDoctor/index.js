@@ -12,6 +12,7 @@ import Separator from "@/components/Separator";
 import ImageSlider from './components/ImageSlider';
 import ScrollBoardWithHeaderLBButton from "@/components/Panel/ScrollBoardWithHeaderLRButton";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import MapView, {Marker} from 'react-native-maps';
 
 const ViewDoctor = (props) => {
   const vm = useViewModel(props);
@@ -26,8 +27,22 @@ const ViewDoctor = (props) => {
         <Space height={hp('0.5%')}/>
         <Separator color={Colors.grey}/>
         <View style={styles.locationContainer}>
-          <View style={styles.locationPicker}>
-          </View>
+          <MapView
+            style={styles.locationPicker}
+            initialRegion={{
+              latitude: 37.78825,
+              longitude: -112.4324,
+              latitudeDelta: 1.0,
+              longitudeDelta: 1.0,
+            }}
+          >
+            <Marker
+              coordinate={{
+                latitude: 37.78825,
+                longitude: -112.4324,
+              }}
+            />
+          </MapView>
           <View style={styles.locationTextContainer}>
             <Text style={styles.boldLabel}>
               {vm.doctor.hospital.name}

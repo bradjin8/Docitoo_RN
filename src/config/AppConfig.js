@@ -33,6 +33,6 @@ export default {
     ]
   },
   googleMap: {
-    apiKey: 'AIzaSyC_AxHR7FG_SU-kTt4dz0YACVyH0lE6fis'
+    apiKey: 'AIzaSyASl1GnSrkVt9L2Zxu3tXRzPuOXdXgUAR4'
   }
 };

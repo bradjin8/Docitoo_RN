@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {PillStackScreens} from '@/constants/Navigation';
+import {PillStackScreens, Screens} from '@/constants/Navigation';
 import {mockMedicines} from '@/constants/MockUpData';
 import {getPillReminders} from '@/Services/Api';
 import {useStores} from "@/hooks";
@@ -21,8 +21,13 @@ function useViewModel(props) {
   useEffect(() => {
     const fetchData = async () => {
       await data.getPillReminders(user.sessionToken);
-      // console.log(tag, data.pillReminders);
-      setMedicines(data.getPills)
+      console.log(tag, 'fetch reminders', data);
+      if (data.lastStatus == "401") {
+        alert('Session expired');
+        user.logOut();
+        return;
+      }
+      setMedicines(data.getPills);
     };
     fetchData();
   }, []);
