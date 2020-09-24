@@ -45,62 +45,63 @@ const styles = StyleSheet.create({
 
 function TabStack() {
   return (
-      <Tab.Navigator
-        initialRouteName={TabStackScreens.more}
-        tabBarOptions={{
-          activeTintColor: Colors.blue1,
-          style: {
-            borderTopWidth: 0.5,
-            elevation: 10,
-            shadowColor: Colors.grey_dark,
-            shadowRadius: 10,
-            shadowOpacity: 0.75,
-          }
+    <Tab.Navigator
+      initialRouteName={TabStackScreens.more}
+      tabBarOptions={{
+        activeTintColor: Colors.blue1,
+        style: {
+          borderTopWidth: 0.5,
+          elevation: 10,
+          shadowColor: Colors.grey_dark,
+          shadowRadius: 10,
+          shadowOpacity: 0.75,
+        }
+      }}
+      tabStyle={styles.tabItem}
+      labelStyle={styles.tabLabel}
+    >
+      <Tab.Screen
+        name={TabStackScreens.doctorStack}
+        component={DoctorStack}
+        options={{
+          title: __('doctors'),
+          tabBarIcon: ({color, size}) => (
+            <Icon name={'plus-circle'} color={color} size={size}/>
+          ),
         }}
-        tabStyle={styles.tabItem}
-        labelStyle={styles.tabLabel}
-      >
-        <Tab.Screen
-          name={TabStackScreens.doctorStack}
-          component={DoctorStack}
-          options={{
-            title: __('doctors'),
-            tabBarIcon: ({color, size}) => (
-              <Icon name={'plus-circle'} color={color} size={size}/>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name={TabStackScreens.notifications}
-          component={Notifications}
-          options={{
-            title: __(TabStackScreens.notifications),
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name={TabStackScreens.pillReminderStack}
-          component={PillReminderStack}
-          options={{
-            title: __('pill_reminder'),
-            tabBarIcon: ({color, size}) => (
-              <MaterialCommunityIcon name={'pill'} color={color} size={size}  style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name={TabStackScreens.moreStack}
-          component={MoreStack}
-          options={{
-            title: __(MoreStackScreens.more),
-            tabBarIcon: ({color, size}) => (
-              <FoundationIcon name={'indent-more'} color={color} size={size}/>
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      />
+      <Tab.Screen
+        name={TabStackScreens.notifications}
+        component={Notifications}
+        options={{
+          title: __(TabStackScreens.notifications),
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={TabStackScreens.pillReminderStack}
+        component={PillReminderStack}
+        options={{
+          title: __('pill_reminder'),
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcon name={'pill'} color={color} size={size}
+                                   style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={TabStackScreens.moreStack}
+        component={MoreStack}
+        options={{
+          title: __(MoreStackScreens.more),
+          tabBarIcon: ({color, size}) => (
+            <FoundationIcon name={'indent-more'} color={color} size={size}/>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   )
 }
 
@@ -149,11 +150,11 @@ function MoreStack() {
   )
 }
 
-const Route = () => {
-  const vm = useViewModel();
-
+const Route = (props) => {
+  const vm = useViewModel(props);
+  const {isValid} = vm.store.user;
   if (vm.isInitializing) {
-    return <Splash />;
+    return <Splash/>;
   } else {
     return (
       <NavigationContainer>
@@ -163,10 +164,10 @@ const Route = () => {
             headerShown: false,
             gestureEnabled: false,
           }}>
-          <Stack.Screen name={Screens.home} component={Home}/>
+          <Stack.Screen name={Screens.home} component={isValid ? Home : Login}/>
           <Stack.Screen name={Screens.signUp} component={SignUp}/>
           <Stack.Screen name={Screens.logIn} component={Login}/>
-          <Stack.Screen name={Screens.shareMoreDetails} component={ShareMoreDetails}/>
+          <Stack.Screen name={Screens.shareMoreDetails} component={isValid ? ShareMoreDetails : Login}/>
           <Stack.Screen name={Screens.tabStack} component={TabStack}/>
         </Stack.Navigator>
       </NavigationContainer>

@@ -10,10 +10,10 @@ import * as SocialApi from '@/Services/SocialApi';
 // define YupModel
 const yup = object().shape({
   email: string()
-    .required(errorMessage('email', 'Please enter email'))
-    .email(errorMessage('email', 'Please enter a valid email')),
+    .required(errorMessage('message', 'Please enter email'))
+    .email(errorMessage('message', 'Please enter a valid email')),
   password: string()
-    .required(errorMessage('password', 'Please enter password'))
+    .required(errorMessage('message', 'Please enter password'))
 });
 
 function useViewModel(props) {
@@ -62,7 +62,11 @@ function useViewModel(props) {
 
       } catch (e) {
         console.log(tag, 'Login, Ex:', e);
-        Alert.alert('Login Error', e.name + ': ' + e.message);
+        if (e.errors && e.errors.length > 0) {
+          Alert.alert('Login Error: ' + e.errors[0].message);
+        } else {
+          Alert.alert('Login Error' + e.name + ': ' + e.message);
+        }
       }
     }, 10, _email, _pwd);
   };

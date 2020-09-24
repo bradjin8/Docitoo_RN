@@ -4,4 +4,6 @@ export default {
   logOut: 'user/logout',
   details: 'user/details',
   pillReminder: 'pill',
+  searchDoctorsByCategory: 'userDoctor/searchDoctorsByCategory',
+  userDoctor: 'userDoctor'
 }

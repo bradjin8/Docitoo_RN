@@ -7,13 +7,11 @@ import {StyleSheet, TouchableHighlight, View, Text, Button, TouchableOpacity, Im
 import __ from '@/assets/lang';
 import Space from '@/components/Space';
 import {scale} from '@/styles/Sizes';
-import * as StringUtil from '@/utils/String';
 import DoctorList, {DoctorCard} from '@/components/List/DoctorList';
 import Separator from "@/components/Separator";
 import ScrollBoardWithHeaderLBButton from "@/components/Panel/ScrollBoardWithHeaderLRButton";
 import CalendarPicker from 'react-native-calendar-picker';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
-import Icon from "../../Route";
 
 const PickADate = (props) => {
   const vm = useViewModel(props);
@@ -41,16 +39,23 @@ const PickADate = (props) => {
           }}
           // scrollable={true}
           minDate={new Date()}
+          // selectedStartDate={vm.date}
+          // selectedEndDate={vm.date}
           onDateChange={(date) => {
-            vm.setDate(date)
+            vm.setDate(date);
+            vm.setHour(-1);
           }}
         />}
         </View>
 
         {vm.mode === vm.MODE.TIME && vm.timeSlots && <View style={styles.timeSlotsContainer}>
-          {Object.keys(vm.timeSlots).sort().map((key) => {
-            return (<TimeSlot slot={vm.timeSlots[key]} onPress={vm.selectTimeSlot} key={key}/>)
-          })}
+          {Object.keys(vm.timeSlots).length > 0 ? Object.keys(vm.timeSlots).sort().map((key) => {
+            return (<TimeSlot slot={vm.timeSlots[key]} onPress={vm.selectTimeSlot} key={key} value={key}/>)
+          }):
+            <Text>
+              {__('no_available_time_slot')}
+            </Text>
+          }
         </View>}
         <Space height={200 * scale}/>
       </ScrollBoardWithHeaderLBButton>}
@@ -82,13 +87,13 @@ const PickADate = (props) => {
   )
 };
 
-export const TimeSlot = ({slot, onPress}) => {
+export const TimeSlot = ({slot, onPress, value}) => {
   return (
     <TouchableOpacity
       style={styles.timeSlot}
       onPress={() => {
         if (slot.available === true)
-          onPress(slot.hour)
+          onPress(value)
       }}
     >
       <Text style={slot.available ? slot.selected ? styles.timeSlotTextSelected : styles.timeSlotText : styles.timeSlotTextDisabled}>

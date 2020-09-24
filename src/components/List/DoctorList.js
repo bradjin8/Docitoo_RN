@@ -44,7 +44,7 @@ export const DoctorRow = ({doctor, onPressDoctor}) => {
           Dr. {doctor.fullName}
         </Text>
         <Text style={styles.speciality}>
-          {doctor.speciality}
+          {__(doctor.speciality)}
         </Text>
         <DoctorReview style={styles.reviews} reviews={doctor.reviews}/>
         <Text style={styles.address}>
@@ -64,10 +64,10 @@ export const DoctorCard = ({doctor}) => {
           Dr. {doctor.fullName}
         </Text>
         <Text style={styles.specialityCard}>
-          {doctor.speciality}
+          {__(doctor.speciality)}
         </Text>
         <Text style={styles.availableTime}>
-          {formatHour(doctor.availableTime.from) + ' - ' + formatHour(doctor.availableTime.to)}
+          {(doctor.availableTime && (formatHour(doctor.availableTime.from) + ' - ' + formatHour(doctor.availableTime.to))) || '-'}
         </Text>
         <DoctorReview style={styles.reviewsCard} reviews={doctor.reviews}/>
       </View>

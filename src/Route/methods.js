@@ -31,7 +31,8 @@ function useViewModel() {
 
   return {
     isInitializing,
-    initState
+    initState,
+    store,
   }
 }
 
@@ -45,11 +46,11 @@ export function getInitialState(store) {
     };
   };
 
-  if (1 /*user.isValid*/) {
+  if (user.isValid) {
     return _getRoutes([Screens.home])
   }
 
-  return _getRoutes([Screens.home])
+  return _getRoutes([Screens.logIn])
 }
 
 export default useViewModel;

@@ -3,22 +3,26 @@ import {useNavigation} from '@react-navigation/native';
 import {DoctorStackScreens, Screens} from '@/constants/Navigation';
 import {mockDoctors} from '@/constants/MockUpData';
 import __ from '@/assets/lang';
+import {useStores} from "@/hooks";
 
 const tag = 'Screens::ViewDoctor::PickADate';
 const mockDoctor = mockDoctors[0];
 
 
 function useViewModel(props) {
-  const nav = useNavigation();
+  const nav = useNavigation(props);
 
   const MODE = {DATE: 'DATE', TIME: 'TIME'};
 
   const [date, setDate] = useState(new Date());
-  const [doctor, setDoctor] = useState(mockDoctor);
+  const [hour, setHour] = useState(-1);
+
+  const [doctor, setDoctor] = useState(null);
   const [mode, setMode] = useState(MODE.DATE);
   const [confirmCaption, setConfirmCaption] = useState(__('confirm_selection'));
   const [title, setTitle] = useState(__('pick_a_date'));
-  const [timeSlots, setTimeSlots] = useState(null);
+  const [timeSlots, setTimeSlots] = useState({});
+  const {user, data} = useStores();
 
   const onPressBack = () => {
     if (mode === MODE.DATE) {
@@ -30,13 +34,33 @@ function useViewModel(props) {
     }
   };
 
-  const onPressConfirm = () => {
-    console.log(tag, 'onPressConfirm()', mode, date);
+  const onPressConfirm = async () => {
+    console.log(tag, 'onPressConfirm()', mode, date, hour);
     if (mode === MODE.DATE) {
       _toggleMode();
     }
     if (mode === MODE.TIME) {
-      nav.navigate(DoctorStackScreens.doctors)
+      // request Book ...
+      if (hour < 0) {
+        return;
+      }
+
+      const selectedDate = new Date(date);
+      let bookDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), Math.floor(hour), (hour - Math.floor(hour)) * 60);
+      try {
+        console.log(tag, 'bookDate', bookDate.getTime(), bookDate.getTimezoneOffset())
+        await data.requestBook(user.sessionToken, doctor.id, bookDate.getTime());
+        if (data.lastStatus == '401') {
+          nav.navigate(Screens.logIn);
+          await user.logOut();
+          alert('Session expired');
+          return;
+        }
+      } catch (e) {
+
+      }
+
+      nav.navigate(DoctorStackScreens.doctors);
     }
   };
 
@@ -89,6 +113,13 @@ function useViewModel(props) {
     return valSlot;
   };
 
+  const _formatKey = (val, length) => {
+    while (val.length < length) {
+      val = '0' + val;
+    }
+    return val;
+  };
+
   const selectTimeSlot = (hour) => {
     let newTimeSlots = {..._deselectAllTimeSlots(timeSlots)};
 
@@ -97,26 +128,51 @@ function useViewModel(props) {
     }
 
     setTimeSlots(newTimeSlots);
+    setHour(newTimeSlots[hour].hour);
     console.log(tag, 'SelectTimeSlot()', newTimeSlots[hour]);
   };
 
-  useEffect(() => {
+  const updateTimeSlots = () => {
     if (doctor) {
-      let initTimeSlots = {};
-      for (let i = parseInt(doctor.availableTime.from); i < parseInt(doctor.availableTime.to); i += 0.5) {
-        initTimeSlots[i.toString()] = {
+      let availableTimeSlot = {};
+
+      let from = doctor.availableTime.from;
+      const cd = new Date();
+      const sd = new Date(date);
+      if (
+        sd.getFullYear() === cd.getFullYear() &&
+        sd.getMonth() === cd.getMonth() &&
+        sd.getDate() === cd.getDate() &&
+        cd.getHours() > from
+      ) {
+        from = cd.getHours() + 1;
+      }
+
+      for (let i = parseInt(from); i < parseInt(doctor.availableTime.to); i += 0.5) {
+        availableTimeSlot[_formatKey((i * 10).toString(), 3)] = {
           hour: i,
           label: _getLabel(i),
           available: true,
           selected: false,
         };
       }
-      setTimeSlots(initTimeSlots)
+      console.log(tag, 'UpdateTimeSlots', availableTimeSlot);
+      setTimeSlots(availableTimeSlot)
     }
-  }, [doctor]);
+  };
+
+  useEffect(() => {
+    updateTimeSlots();
+  }, [date]);
+
+  useEffect(() => {
+    setDoctor(data.getSelectedDoctor);
+    updateTimeSlots();
+  }, []);
 
   return {
     date, setDate,
+    hour, setHour,
     doctor, setDoctor,
     mode, setMode,
     confirmCaption, setConfirmCaption,

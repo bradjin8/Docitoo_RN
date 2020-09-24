@@ -60,9 +60,10 @@ function useViewModel(props) {
           )
         }
       } catch (e) {
-        console.log(tag, 'OnPressSignUp, Ex', e.message);
-        if (e.errors) {
-          console.log(tag, 'Validation Error', e.errors)
+        if (e.errors && e.errors.length > 0) {
+          Alert.alert('Login Error: ' + e.errors[0].message);
+        } else {
+          Alert.alert('Login Error' + e.name + ': ' + e.message);
         }
       } finally {
         //hud.hide()

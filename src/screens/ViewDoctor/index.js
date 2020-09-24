@@ -26,48 +26,71 @@ const ViewDoctor = (props) => {
         <DoctorCard doctor={vm.doctor}/>
         <Space height={hp('0.5%')}/>
         <Separator color={Colors.grey}/>
-        <View style={styles.locationContainer}>
-          <MapView
-            style={styles.locationPicker}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -112.4324,
-              latitudeDelta: 1.0,
-              longitudeDelta: 1.0,
-            }}
-          >
-            <Marker
-              coordinate={{
-                latitude: 37.78825,
-                longitude: -112.4324,
-              }}
-            />
-          </MapView>
-          <View style={styles.locationTextContainer}>
+
+        {vm.doctor.hospital ?
+          <View>
+            <View style={styles.locationContainer}>
+              <MapView
+                style={styles.locationPicker}
+                initialRegion={{
+                  latitude: 37.78825,
+                  longitude: -112.4324,
+                  latitudeDelta: 1.0,
+                  longitudeDelta: 1.0,
+                }}
+              >
+                <Marker
+                  coordinate={{
+                    latitude: 37.78825,
+                    longitude: -112.4324,
+                  }}
+                />
+              </MapView>
+              <View style={styles.locationTextContainer}>
+                <Text style={styles.boldLabel}>
+                  {(vm.doctor.hospital && vm.doctor.hospital.name) || ''}
+                </Text>
+                <Text style={styles.locationText}>
+                  {(vm.doctor.hospital && vm.doctor.hospital.location) || ''}
+                </Text>
+              </View>
+            </View>
+            <Separator color={Colors.grey}/>
+            <Space height={hp('1.6%')}/>
             <Text style={styles.boldLabel}>
-              {vm.doctor.hospital.name}
+              {__('description')}
             </Text>
-            <Text style={styles.locationText}>
-              {vm.doctor.hospital.location}
+            <Space height={hp('1%')}/>
+            <Text style={styles.description}>
+              {(vm.doctor.hospital && vm.doctor.hospital.description) || ''}
             </Text>
+            <ImageSlider images={(vm.doctor.hospital && vm.doctor.hospital.images) || []}/>
+          </View> :
+          <View>
+            <Space height={hp('1%')}/>
+            <Text style={styles.description}>
+              {__('no_hospital')}
+            </Text>
+            <Space height={hp('1%')}/>
           </View>
-        </View>
-        <Separator color={Colors.grey}/>
-        <Space height={hp('1.6%')}/>
-        <Text style={styles.boldLabel}>
-          {__('description')}
-        </Text>
-        <Space height={hp('1%')}/>
-        <Text style={styles.description}>
-          {vm.doctor.hospital.description}
-        </Text>
-        <ImageSlider images={vm.doctor.hospital.images}/>
+        }
+
         <Separator color={Colors.grey}/>
         <Space height={hp('1%')}/>
         <Text style={styles.boldLabel}>
           {__('reviews')}
         </Text>
-        {vm.doctor.reviews.map((review) => <ReviewCard review={review}/>)}
+        {vm.doctor.reviews.length > 0 ?
+          vm.doctor.reviews.map((review) => <ReviewCard review={review}/>)
+          :
+          <View>
+            <Space height={hp('1%')}/>
+            <Text style={styles.description}>
+              {__('no_review')}
+            </Text>
+            <Space height={hp('1%')}/>
+          </View>
+        }
         <Space height={hp('25%')}/>
       </ScrollBoardWithHeaderLBButton>}
       <View style={{
@@ -85,7 +108,11 @@ const ViewDoctor = (props) => {
         shadowOpacity: 0.75,
       }}>
         <View style={{
-          marginHorizontal: wp('5%'), width: wp('90%'), flexDirection: 'row', justifyContent: 'space-between', marginTop: hp('1%')
+          marginHorizontal: wp('5%'),
+          width: wp('90%'),
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginTop: hp('1%')
         }}>
           <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressWriteReview} underlayColor={Colors.blue1}>
             <Text style={styles.whiteButtonLabel}>

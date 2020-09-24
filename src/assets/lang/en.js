@@ -55,6 +55,9 @@ const en = {
   'confirm_selection': 'Confirm Selection',
   'pick_a_time': 'Pick a Time',
   'book_appointment': 'Book Appointment',
+  'no_hospital': 'There is no hospital for this doctor.',
+  'no_review': 'There is no review for this doctor.',
+  'no_available_time_slot': 'There is no available time on this date, please select another date.',
 
   'notifications': 'Notifications',
 

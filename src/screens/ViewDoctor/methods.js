@@ -2,12 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {DoctorStackScreens, Screens} from '@/constants/Navigation';
 import {mockDoctors} from '@/constants/MockUpData';
+import {useStores} from "@/hooks";
 
 const tag = 'Screens::ViewDoctor';
 
 function useViewModel(props) {
   const nav = useNavigation(props);
   const [doctor, setDoctor] = useState(null);
+  const {user, data} = useStores();
 
   const onPressBack = () => {
     if (nav.canGoBack())
@@ -29,7 +31,10 @@ function useViewModel(props) {
   };
 
   useEffect(()=>{
-    setDoctor(mockDoctors[0])
+    setDoctor(data.getSelectedDoctor);
+    return () => {
+      setDoctor(null)
+    }
   }, []);
 
   return {

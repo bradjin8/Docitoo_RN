@@ -1,21 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {DoctorStackScreens, Screens} from '@/constants/Navigation';
-import ImagePicker from 'react-native-image-picker';
-import __ from '@/assets/lang';
 import {Platform, PermissionsAndroid} from 'react-native';
-import Images from '@/styles/Images';
-import {mockDoctors} from '@/constants/MockUpData';
+import {useStores} from "@/hooks";
 
 const tag = 'Screens::Doctors';
 
 function useViewModel(props) {
-  const nav = useNavigation();
+  const nav = useNavigation(props);
 
 
-  const [doctors, setDoctors] = useState(mockDoctors);
-  const [totalDoctorCount, setTotalDoctorCount] = useState(128289);
+  const [doctors, setDoctors] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
+  const {user, data} = useStores();
 
   const onPressSort = () => {
     // nav.goBack()
@@ -28,6 +25,7 @@ function useViewModel(props) {
 
   const onPressDoctor = (doctor) => {
     console.log(tag, 'onPressDoctor()', doctor);
+    data.selectDoctor(doctor.id);
 
     nav.navigate(DoctorStackScreens.viewDoctor);
   };
@@ -37,9 +35,17 @@ function useViewModel(props) {
     onPressSearch();
   };
 
+  useEffect(() => {
+    if (data.lastStatus == '401') {
+      nav.navigate(Screens.logIn);
+      user.logOut();
+      alert('Session expired');
+    }
+    setDoctors(data.doctors);
+  }, []);
+
   return {
     doctors, setDoctors,
-    totalDoctorCount, setTotalDoctorCount,
     searchVisible, setSearchVisible,
     onPressSort,
     onPressSearch,

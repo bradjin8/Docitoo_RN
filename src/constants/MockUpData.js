@@ -91,6 +91,18 @@ export const mockSpecialities = [
   'eye_specialist'
 ];
 
+export const SPECIALITIES = {
+  gynecologist: 'gynecologist',
+  skin_specialist: 'skin_specialist',
+  child_specialist: 'child_specialist',
+  orthopedic_surgeon: 'orthopedic_surgeon',
+  ent_specialist: 'ent_specialist',
+  diagnostics: 'diagnostics',
+  diabetes_specialist: 'diabetes_specialist',
+  eye_specialist: 'eye_specialist',
+};
+
+
 export const mockDoctors = [
   {
     id: 0,

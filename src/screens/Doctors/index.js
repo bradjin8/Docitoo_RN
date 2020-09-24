@@ -41,7 +41,7 @@ const Doctors = (props) => {
         vm.onPressSort(vm.doctors)
       }}>
         <Text style={styles.resultCount}>
-          {StringUtil.formatInteger(vm.totalDoctorCount) + ' ' + __('results_found')}
+          {StringUtil.formatInteger(vm.doctors.length) + ' ' + __('results_found')}
         </Text>
         <Space height={hp('1%')}/>
         <DoctorList doctors={vm.doctors} onPressDoctor={vm.onPressDoctor}/>
