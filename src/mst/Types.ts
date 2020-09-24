@@ -12,9 +12,19 @@ export const PillReminder = types.model('PillReminder', {
     frequency: types.string,
     timeToTake: types.number,
 });
+export const ReviewAuthor = types.model('ReviewAuthor', {
+    fullName: defString,
+    createdAt: defString,
+    avatarUrl: defString,
+});
+
 export const Review = types.model('Review', {
-    author: defString,
-    doctor: defString,
+    rating: defNumber,
+    description: defString,
+});
+
+export const ReviewDetails = types.model('Review', {
+    author: ReviewAuthor,
     rating: defNumber,
     description: defString,
 });
@@ -28,10 +38,7 @@ export const AvailableTime = types.model('AvailableTime', {
     from: defNumber,
     to: defNumber,
 });
-export const ReviewOverview = types.model('ReviewOverview', {
-    reviewCount: defNumber,
-    averageRating: defNumber
-});
+
 export const Doctor = types.model('Doctor', {
     id: defString,
     fullName: defString,
@@ -42,11 +49,27 @@ export const Doctor = types.model('Doctor', {
     city: defString,
     country: defString,
     speciality: defString,
-    // reviewOverview: ReviewOverview,
-    hospital: Hospital,
+    language: defString,
     reviews: types.array(Review),
     availableTime: AvailableTime,
 });
+
+export const DoctorDetails = types.model('DoctorDetails', {
+    id: defString,
+    fullName: defString,
+    avatarUrl: defString,
+    email: defString,
+    phoneNumber: defString,
+    street: defString,
+    city: defString,
+    country: defString,
+    speciality: defString,
+    language: defString,
+    hospital: Hospital,
+    reviews: types.array(ReviewDetails),
+    availableTime: AvailableTime,
+});
+
 export const defPillReminders = types.array(PillReminder);
 export default {
     defString,

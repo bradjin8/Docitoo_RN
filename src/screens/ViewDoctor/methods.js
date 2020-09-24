@@ -9,7 +9,18 @@ const tag = 'Screens::ViewDoctor';
 function useViewModel(props) {
   const nav = useNavigation(props);
   const [doctor, setDoctor] = useState(null);
+  const [isReviewMode, setReviewMode] = useState(false);
+
+  const [rating, setRating] = useState(5);
+  const [description, setDescription] = useState(null);
+
+
   const {user, data} = useStores();
+
+  const fetchDoctor = async () => {
+    await data.fetchDoctorById(user.sessionToken, data.selectedDoctorId);
+    setDoctor(data.getSelectedDoctor);
+  };
 
   const onPressBack = () => {
     if (nav.canGoBack())
@@ -22,7 +33,8 @@ function useViewModel(props) {
   };
 
   const onPressWriteReview = () => {
-    console.log(tag, 'onPressWriteReview()', doctor.id)
+    setReviewMode(true);
+    console.log(tag, 'onPressWriteReview()', isReviewMode);
   };
 
   const onPressBook = () => {
@@ -30,8 +42,24 @@ function useViewModel(props) {
     nav.navigate(DoctorStackScreens.bookDoctor)
   };
 
+  const onSubmitReview = async () => {
+    console.log(tag, 'submitReview', rating, description);
+    try {
+      await data.submitReview(user.sessionToken, doctor.id, rating, description);
+      await fetchDoctor();
+    } catch (e) {
+
+    }
+    setReviewMode(false);
+  };
+
+  const onPressCancel = () => {
+    setReviewMode(false);
+  };
+
+
   useEffect(()=>{
-    setDoctor(data.getSelectedDoctor);
+    fetchDoctor();
     return () => {
       setDoctor(null)
     }
@@ -39,10 +67,15 @@ function useViewModel(props) {
 
   return {
     doctor, setDoctor,
+    isReviewMode, setReviewMode,
+    rating, setRating,
+    description, setDescription,
     onPressBack,
     onPressShare,
     onPressWriteReview,
     onPressBook,
+    onSubmitReview,
+    onPressCancel
   }
 }
 

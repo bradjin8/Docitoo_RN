@@ -58,6 +58,8 @@ const en = {
   'no_hospital': 'There is no hospital for this doctor.',
   'no_review': 'There is no review for this doctor.',
   'no_available_time_slot': 'There is no available time on this date, please select another date.',
+  'rating': 'Rating',
+  'cancel': 'Cancel',
 
   'notifications': 'Notifications',
 

@@ -1,7 +1,7 @@
 import {applySnapshot, flow, types} from "mobx-state-tree";
 import {observable} from "mobx";
 import {isEmpty} from 'lodash';
-import {defNumber, defString, defObjString, PillReminder, Doctor} from './Types';
+import {defNumber, defString, defObjString, PillReminder, Doctor, DoctorDetails} from './Types';
 import 'mobx-react-lite/batchingForReactDom';
 import * as Api from '@/Services/Api';
 import {Alert} from "react-native";
@@ -16,6 +16,7 @@ const Data = types
     doctors: types.array(Doctor),
     lastStatus: defNumber,
     selectedDoctorId: defString,
+    selectedDoctor: types.array(DoctorDetails),
   })
   .views((self) => ({
 
@@ -29,11 +30,8 @@ const Data = types
       return self.doctors;
     },
     get getSelectedDoctor() {
-      for (let doctor of self.doctors) {
-        if (doctor.id === self.selectedDoctorId) {
-          return doctor;
-        }
-      }
+      if (self.selectedDoctor && self.selectedDoctor.length > 0)
+        return self.selectedDoctor[0];
       return null;
     }
   }))
@@ -145,6 +143,26 @@ const Data = types
       self.selectedDoctorId = id;
     };
 
+    const fetchDoctorById = flow(function* fetchDoctorById(userToken, doctorId) {
+      try {
+        const response = yield Api.fetchDoctorById(userToken, doctorId);
+        const {ok, data} = response;
+        self.lastStatus = response.status;
+        console.log(tag, 'Response from DoctorByID API', data);
+        if (!ok) {
+          return;
+        }
+        let {doctor} = data;
+        doctor.avatarUrl = Config.appBaseUrl + doctor.avatarUrl;
+        for (let i = 0; i < doctor.reviews.length; i ++) {
+          doctor.reviews[i].author.avatarUrl = Config.appBaseUrl + doctor.reviews[i].author.avatarUrl;
+        }
+        self.selectedDoctor = [doctor];
+      } catch (e) {
+
+      }
+    });
+
     const requestBook = flow(function* requestBook(
       userToken, doctorId, timestamp
     ) {
@@ -156,14 +174,33 @@ const Data = types
         if (!ok) {
           return;
         }
-        _updateDoctors(data);
+
       } catch (e) {
 
       }
 
     });
 
-    return {getPillReminders, addPillReminder, fetchDoctorsByCategory, selectDoctor, requestBook}
+    const submitReview = flow(function* submitReview(
+      userToken, doctorId, rating, description
+    ) {
+      try {
+        const response = yield Api.submitReview(userToken, doctorId, rating, description);
+        const {ok, data} = response;
+        self.lastStatus = response.status;
+        console.log(tag, 'Response from SubmitReview API', data);
+        if (!ok) {
+          return;
+        }
+        _updateDoctors(data);
+        selectDoctor(doctorId);
+      } catch (e) {
+
+      }
+
+    });
+
+    return {getPillReminders, addPillReminder, fetchDoctorsByCategory, selectDoctor, requestBook, submitReview, fetchDoctorById}
   })
   .extend((self) => {
     const localState = observable.box(false);

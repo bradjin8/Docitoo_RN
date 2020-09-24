@@ -24,7 +24,7 @@ function useViewModel(props) {
   };
 
   const onPressDoctor = (doctor) => {
-    console.log(tag, 'onPressDoctor()', doctor);
+    console.log(tag, 'onPressDoctor()', doctor.id);
     data.selectDoctor(doctor.id);
 
     nav.navigate(DoctorStackScreens.viewDoctor);

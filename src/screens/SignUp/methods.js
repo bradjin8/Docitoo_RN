@@ -10,12 +10,12 @@ import * as SocialApi from '@/Services/SocialApi';
 // define YupModel
 const yup = object().shape({
   email: string()
-    .required(errorMessage('email', 'Please enter email'))
-    .email(errorMessage('email', 'Please enter a valid email')),
+    .required(errorMessage('message', 'Please enter email'))
+    .email(errorMessage('message', 'Please enter a valid email')),
   fullName: string()
-    .required(errorMessage('fullName', 'Please enter full name')),
+    .required(errorMessage('message', 'Please enter full name')),
   password: string()
-    .required(errorMessage('password', 'Please enter password')),
+    .required(errorMessage('message', 'Please enter password')),
   phoneNumber: string()
 });
 

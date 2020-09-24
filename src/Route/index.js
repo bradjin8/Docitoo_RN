@@ -152,7 +152,8 @@ function MoreStack() {
 
 const Route = (props) => {
   const vm = useViewModel(props);
-  const {isValid} = vm.store.user;
+  const {isValid} = vm.store.user && vm.store.data.lastStatus == '401';
+
   if (vm.isInitializing) {
     return <Splash/>;
   } else {
