@@ -91,6 +91,7 @@ const ViewDoctor = (props) => {
 };
 
 export const ProfileCard = ({user}) => {
+  console.log(user.avatarUrl);
   return (
     <View style={styles.profileContainer}>
       {user.avatarUrl ? <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/> : <Image

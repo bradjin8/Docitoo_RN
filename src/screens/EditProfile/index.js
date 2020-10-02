@@ -13,16 +13,17 @@ import BlueButton from "@/components/Button/BlueButton";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import Images from "@/styles/Images";
 import * as datetime from "node-datetime";
+const tag = 'Screen::EditProfile';
 
 const EditProfile = (props) => {
   const vm = useViewModel(props);
 
   const ProfileCard = ({user, onPressAvatar}) => {
+    console.log(tag, 'ProfileCard->AvatarSource', user.avatarSource);
     return (
       <View style={styles.profileContainer}>
         <TouchableOpacity onPress={onPressAvatar}>
-          {user.avatarSource && user.avatarSource.uri ? <Image source={{uri: user.avatarSource.uri}} style={styles.profileAvatar}/> : <Image
-            source={Images.placeholder.avatar_default} style={styles.profileAvatar}/>}
+          {user.avatarSource && <Image source={{uri: user.avatarSource}} style={styles.profileAvatar}/>}
         </TouchableOpacity>
         <View style={styles.profileDesc}>
           <Text style={styles.profileName}>{user.fullName}</Text>
@@ -39,7 +40,7 @@ const EditProfile = (props) => {
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <ProfileCard onPressAvatar={vm.onPressAvatar}
-                     user={{fullName: vm.user.fullName, createdAt: vm.user.createdAt, avatarSource: vm.avatarSource ? vm.avatarSource : {uri: vm.user.avatarUrl}}}/>
+                     user={{fullName: vm.user.fullName, createdAt: vm.user.createdAt, avatarSource: vm.avatarSource ? vm.avatarSource : vm.user.avatarUrl}}/>
         <Space height={hp('3%')}/>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={(val) => vm.setFullName(val)}/>

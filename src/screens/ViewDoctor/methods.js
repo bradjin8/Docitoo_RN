@@ -15,11 +15,20 @@ function useViewModel(props) {
   const [description, setDescription] = useState(null);
 
 
+  const [isLoading, setLoading] = useState(false);
+
   const {user, data} = useStores();
 
   const fetchDoctor = async () => {
-    await data.fetchDoctorById(user.sessionToken, data.selectedDoctorId);
-    setDoctor(data.getSelectedDoctor);
+    setLoading(true);
+    try {
+      await data.fetchDoctorById(user.sessionToken, data.selectedDoctorId);
+      setDoctor(data.getSelectedDoctor);
+    } catch (e) {
+
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onPressBack = () => {
@@ -45,11 +54,13 @@ function useViewModel(props) {
   const onSubmitReview = async () => {
     console.log(tag, 'submitReview', rating, description);
     try {
+      setLoading(true);
       await data.submitReview(user.sessionToken, doctor.id, rating, description);
       await fetchDoctor();
     } catch (e) {
 
     }
+    setLoading(false);
     setReviewMode(false);
   };
 
@@ -70,6 +81,7 @@ function useViewModel(props) {
     isReviewMode, setReviewMode,
     rating, setRating,
     description, setDescription,
+    isLoading, setLoading,
     onPressBack,
     onPressShare,
     onPressWriteReview,

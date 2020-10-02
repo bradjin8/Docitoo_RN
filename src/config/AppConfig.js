@@ -1,7 +1,9 @@
+// const ServerURL = 'https://docitoo.herokuapp.com';
+const ServerURL = 'https://docitoo.herokuapp.com';
+
 export default {
-  // apiBaseUrl: 'https://docitoo.herokuapp.com/api/',
-  appBaseUrl: 'http://192.168.101.92:3000',
-  apiBaseUrl: 'http://192.168.101.92:3000/api/',
+  appBaseUrl: ServerURL,
+  apiBaseUrl: ServerURL + '/api/',
   oneSignalAppID: '59c80d9f-7824-4202-9ddb-83a4d779926e',
 
   googleSignIn: {

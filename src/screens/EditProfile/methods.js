@@ -80,14 +80,15 @@ function useViewModel(props) {
       } else if (response.customButton) {
         console.log(tag, 'User tapped custom button: ', response.customButton);
       } else {
-        const source = {uri: response.uri};
+        // const source = {uri: response.uri};
         // setAvatarUrl(source);
-        console.log(tag, 'User selected a photo: ', response);
+        console.log(tag, 'User selected a photo: ', response.data);
 
         // You can also display the image using data:
-        // const source = {uri: 'data:image/jpeg:base64,' + response.data};
+        // const source = {uri: response.uri, data: 'data:image/jpeg;base64,' + response.data};
 
-        setAvatarSource(response);
+        setAvatarSource('data:image/jpeg;base64,' + response.data);
+        // setAvatarSource(source);
       }
     })
 

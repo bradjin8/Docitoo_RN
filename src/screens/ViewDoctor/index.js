@@ -3,7 +3,16 @@ import useViewModel from './methods';
 import {observer} from 'mobx-react';
 import Container from '@/components/Container';
 import Colors from '@/styles/Colors';
-import {StyleSheet, TouchableHighlight, View, Text, Button, TouchableOpacity, Image} from 'react-native';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  Text,
+  Button,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator
+} from 'react-native';
 import __ from '@/assets/lang';
 import Space from '@/components/Space';
 import {DoctorCard} from '@/components/List/DoctorList';
@@ -22,112 +31,122 @@ const ViewDoctor = (props) => {
 
   return (
     <Container>
-      {vm.doctor &&
-      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('share')}
-                                     onPressLeftButton={vm.onPressBack}
-                                     onPressRightButton={vm.onPressShare}>
-        <DoctorCard doctor={vm.doctor}/>
-        <Space height={hp('0.5%')}/>
-        <Separator color={Colors.grey}/>
+      {vm.doctor && !vm.isLoading ?
+        <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('share')}
+                                       onPressLeftButton={vm.onPressBack}
+                                       onPressRightButton={vm.onPressShare}>
+          <DoctorCard doctor={vm.doctor}/>
+          <Space height={hp('0.5%')}/>
+          <Separator color={Colors.grey}/>
 
-        {!vm.isReviewMode && <View>
-          {vm.doctor.hospital ?
-            <View>
-              <View style={styles.locationContainer}>
-                <MapView
-                  style={styles.locationPicker}
-                  initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -112.4324,
-                    latitudeDelta: 1.0,
-                    longitudeDelta: 1.0,
-                  }}
-                >
-                  <Marker
-                    coordinate={{
+          {!vm.isReviewMode && <View>
+            {vm.doctor.hospital ?
+              <View>
+                <View style={styles.locationContainer}>
+                  <MapView
+                    style={styles.locationPicker}
+                    initialRegion={{
                       latitude: 37.78825,
                       longitude: -112.4324,
+                      latitudeDelta: 1.0,
+                      longitudeDelta: 1.0,
                     }}
-                  />
-                </MapView>
-                <View style={styles.locationTextContainer}>
-                  <Text style={styles.boldLabel}>
-                    {(vm.doctor.hospital && vm.doctor.hospital.name) || ''}
-                  </Text>
-                  <Text style={styles.locationText}>
-                    {(vm.doctor.hospital && vm.doctor.hospital.location) || ''}
-                  </Text>
+                  >
+                    <Marker
+                      coordinate={{
+                        latitude: 37.78825,
+                        longitude: -112.4324,
+                      }}
+                    />
+                  </MapView>
+                  <View style={styles.locationTextContainer}>
+                    <Text style={styles.boldLabel}>
+                      {(vm.doctor.hospital && vm.doctor.hospital.name) || ''}
+                    </Text>
+                    <Text style={styles.locationText}>
+                      {(vm.doctor.hospital && vm.doctor.hospital.location) || ''}
+                    </Text>
+                  </View>
                 </View>
+                <Separator color={Colors.grey}/>
+                <Space height={hp('1.6%')}/>
+                <Text style={styles.boldLabel}>
+                  {__('description')}
+                </Text>
+                <Space height={hp('1%')}/>
+                <Text style={styles.description}>
+                  {(vm.doctor.hospital && vm.doctor.hospital.description) || ''}
+                </Text>
+                <ImageSlider images={(vm.doctor.hospital && vm.doctor.hospital.images) || []}/>
+              </View> :
+              <View>
+                <Space height={hp('1%')}/>
+                <Text style={styles.description}>
+                  {__('no_hospital')}
+                </Text>
+                <Space height={hp('1%')}/>
               </View>
-              <Separator color={Colors.grey}/>
-              <Space height={hp('1.6%')}/>
-              <Text style={styles.boldLabel}>
-                {__('description')}
-              </Text>
-              <Space height={hp('1%')}/>
-              <Text style={styles.description}>
-                {(vm.doctor.hospital && vm.doctor.hospital.description) || ''}
-              </Text>
-              <ImageSlider images={(vm.doctor.hospital && vm.doctor.hospital.images) || []}/>
-            </View> :
-            <View>
-              <Space height={hp('1%')}/>
-              <Text style={styles.description}>
-                {__('no_hospital')}
-              </Text>
-              <Space height={hp('1%')}/>
-            </View>
-          }
+            }
 
-          <Separator color={Colors.grey}/>
-          <Space height={hp('1%')}/>
-          <Text style={styles.boldLabel}>
-            {__('reviews')}
-          </Text>
-          {vm.doctor.reviews.length > 0 ?
-            vm.doctor.reviews.map((review, index) => <ReviewCard review={review} key={index}/>)
-            :
-            <View>
-              <Space height={hp('1%')}/>
-              <Text style={styles.description}>
-                {__('no_review')}
-              </Text>
-              <Space height={hp('1%')}/>
-            </View>
-          }
-          <Space height={hp('25%')}/>
-        </View>}
-        {vm.isReviewMode &&
-        <View>
-          <Space height={hp('2%')}/>
-          <View style={{flexDirection: 'row', justifyContent: 'center', width: wp('90%')}}>
-            <Text style={{...styles.boldLabel, marginRight: hp('10%')}}>
-              {__('rating')}:
+            <Separator color={Colors.grey}/>
+            <Space height={hp('1%')}/>
+            <Text style={styles.boldLabel}>
+              {__('reviews')}
             </Text>
-            <StarRatingBar
-              readOnly={false}
-              score={vm.rating}
-              accurateHalfStars={false}
-              continuous={true}
-              starStyle={styles.starImage}
-              emptyStarImage={<Image style={styles.starImage} source={Images.star.empty}/>}
-              filledStarImage={<Image style={styles.starImage} source={Images.star.filled}/>}
-              scoreTextStyle={styles.starBar}
-              onStarValueChanged={(val) => vm.setRating(val)}
+            {vm.doctor.reviews.length > 0 ?
+              vm.doctor.reviews.map((review, index) => <ReviewCard review={review} key={index}/>)
+              :
+              <View>
+                <Space height={hp('1%')}/>
+                <Text style={styles.description}>
+                  {__('no_review')}
+                </Text>
+                <Space height={hp('1%')}/>
+              </View>
+            }
+            <Space height={hp('25%')}/>
+          </View>}
+          {vm.isReviewMode &&
+          <View>
+            <Space height={hp('2%')}/>
+            <View style={{flexDirection: 'row', justifyContent: 'center', width: wp('90%')}}>
+              <Text style={{...styles.boldLabel, marginRight: hp('10%')}}>
+                {__('rating')}:
+              </Text>
+              <StarRatingBar
+                readOnly={false}
+                score={vm.rating}
+                accurateHalfStars={false}
+                continuous={true}
+                starStyle={styles.starImage}
+                emptyStarImage={<Image style={styles.starImage} source={Images.star.empty}/>}
+                filledStarImage={<Image style={styles.starImage} source={Images.star.filled}/>}
+                scoreTextStyle={styles.starBar}
+                onStarValueChanged={(val) => vm.setRating(val)}
+              />
+            </View>
+            <Space height={hp('2%')}/>
+            <Text style={styles.boldLabel}>
+              {__('description')}
+            </Text>
+            <GreyInput placeholder={__('description')} value={vm.description}
+                       onChangeText={vm.setDescription} numberOfLines={8} multiline
+              // onFocus={(event) => {
+              //   vm.scrollToInput(ReactNative.findNodeHandle(event.target))
+              // }}
             />
+          </View>}
+        </ScrollBoardWithHeaderLBButton>
+        :
+        <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('share')}
+                                       onPressLeftButton={vm.onPressBack}
+                                       onPressRightButton={vm.onPressShare}>
+          <View style={{height: hp('90%'), flexDirection: 'column', justifyContent: 'center'}}>
+            <ActivityIndicator size={"large"} color={Colors.blue1}/>
           </View>
-          <Space height={hp('2%')}/>
-          <Text style={styles.boldLabel}>
-            {__('description')}
-          </Text>
-          <GreyInput placeholder={__('description')} value={vm.description}
-                     onChangeText={vm.setDescription} numberOfLines={8} multiline
-            // onFocus={(event) => {
-            //   vm.scrollToInput(ReactNative.findNodeHandle(event.target))
-            // }}
-          />
-        </View>}
-      </ScrollBoardWithHeaderLBButton>}
+        </ScrollBoardWithHeaderLBButton>
+
+      }
 
       <View style={{
         backgroundColor: Colors.white2,

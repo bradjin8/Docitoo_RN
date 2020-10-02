@@ -56,7 +56,7 @@ export const register = (email, fullName, password, phoneNumber) =>
     }
   );
 
-export const updateProfile = async (
+export const _updateProfile = async (
   userToken,
   fullName, email, phoneNumber, password, gender, bloodType, language, avatarUrl, avatarSource
 ) => {
@@ -93,6 +93,9 @@ export const updateProfile = async (
     });
   });
 };
+
+export const updateProfile = (userToken, fullName, email, phoneNumber, password, gender, bloodType, language, avatarUrl) =>
+  api.post(ApiUrl.details, {fullName, email, phoneNumber, password, gender, bloodType, language, avatarUrl}, {headers: {userToken}});
 
 export const getPillReminders = (userToken) => api.get(ApiUrl.pillReminder, {}, {headers: {userToken}});
 

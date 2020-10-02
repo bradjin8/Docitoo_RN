@@ -162,7 +162,7 @@ const User = types
         gender = gender ? gender : self.gender;
         bloodType = bloodType ? bloodType : self.bloodType;
         language = language ? language : self.language;
-        const response = yield Api.updateProfile(self.sessionToken, fullName, email, phoneNumber, password, gender, bloodType, language, self.avatarUrl, avatarSource);
+        const response = yield Api.updateProfile(self.sessionToken, fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource);
         let {data, ok} = response;
         console.log(tag, 'Response from updateProfile', data);
 
