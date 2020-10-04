@@ -103,7 +103,7 @@ export const addPillReminder = (userToken, medicineName, dosage, frequency, time
 
 export const searchDoctorsByCategory = (userToken, category) => api.post(ApiUrl.searchDoctorsByCategory, {category}, {headers: {userToken}});
 
-export const searchDoctors = (userToken, category) => api.post(ApiUrl.searchDoctors, {category}, {headers: {userToken}});
+export const searchDoctors = (userToken, name, speciality, address) => api.post(ApiUrl.searchDoctors, {name, speciality, address}, {headers: {userToken}});
 
 export const requestBook = (userToken, doctorId, timestamp) => api.put(ApiUrl.userDoctor + '/' + doctorId + '/booking', {doctorId, timestamp}, {headers: {userToken}});
 

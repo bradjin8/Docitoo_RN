@@ -30,6 +30,10 @@ import GreyText from "@/components/Text/GreyText";
 import MapView, {Marker} from 'react-native-maps';
 
 let mockSpecialityItems = [];
+mockSpecialityItems.push({
+  label: 'All',
+  value: ''
+})
 mockSpecialities.map(item => {
   mockSpecialityItems.push(
     {

@@ -39,7 +39,7 @@ const Doctors = (props) => {
 
   return (
     <Container>
-      {vm.data.isPrcessing === true ?
+      {vm.data.isPrcessing || vm.isLoading ?
         <Loading/>
         :
         <BoardWithHeaderRightButton title={__('doctors')} buttonCaption={__('sort')} onPressRightButton={() => {
@@ -50,6 +50,7 @@ const Doctors = (props) => {
           </Text>
           <Space height={hp('1%')}/>
           <DoctorList doctors={vm.doctors} onPressDoctor={vm.onPressDoctor}/>
+
           {/*<MapView
           initialRegion={{
             latitude: 37.78825,

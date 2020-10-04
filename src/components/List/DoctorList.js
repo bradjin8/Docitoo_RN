@@ -10,6 +10,7 @@ import Separator from '@/components/Separator';
 import Space from '@/components/Space';
 import {formatHour} from '@/utils/String';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import BoardWithHeaderRightButton from "../../screens/Doctors";
 
 const DoctorList = ({doctors, onPressDoctor}) => {
   return (
@@ -19,7 +20,7 @@ const DoctorList = ({doctors, onPressDoctor}) => {
 
 const DoctorListView = ({doctors, onPressDoctor}) => {
   return (
-    <View style={styles.container}>
+    <View style={{paddingBottom: hp('10%')}}>
       <FlatList
         style={{marginBottom: hp('5%')}}
         data={doctors}

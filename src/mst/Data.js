@@ -120,7 +120,7 @@ const Data = types
         const response = yield Api.searchDoctors(userToken, name, speciality, address);
         const {ok, data} = response;
         self.lastStatus = response.status;
-        console.log(tag, 'Response from SearchDoctorsByCategory API', data);
+        console.log(tag, 'Response from SearchDoctors API', data);
         if (ok) {
           _updateDoctors(data);
         }

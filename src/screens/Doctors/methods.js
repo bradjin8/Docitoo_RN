@@ -12,6 +12,7 @@ function useViewModel(props) {
 
   const [doctors, setDoctors] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const {user, data} = useStores();
 
   const onPressSort = () => {
@@ -60,9 +61,23 @@ function useViewModel(props) {
     nav.navigate(DoctorStackScreens.viewDoctor);
   };
 
-  const applyFilter = (filter) => {
+  const applyFilter = async (filter) => {
     console.log(tag, 'applyFilter()', filter);
     toggleModal();
+    setLoading(true);
+    try {
+      await data.searchDoctors(user.sessionToken, filter.name, filter.speciality, filter.address);
+      if (data.lastStatus == '401') {
+        nav.navigate(Screens.logIn);
+        user.logOut();
+        alert('Session expired');
+      }
+      setDoctors(data.doctors);
+    } catch (e) {
+
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -77,6 +92,7 @@ function useViewModel(props) {
   return {
     doctors, setDoctors,
     searchVisible, setSearchVisible,
+    isLoading,
     user, data,
     onPressSort,
     onPressSearch,
