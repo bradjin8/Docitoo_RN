@@ -16,7 +16,33 @@ function useViewModel(props) {
 
   const onPressSort = () => {
     // nav.goBack()
+    let newDoctors = doctors.slice();
+    newDoctors.sort((a, b) => {
+      let _getAverageRating = (_doc) => {
+        let _total = 0;
+        for (let _item of _doc.reviews) {
+          _total += _item.rating;
+        }
+        return _total > 0 ? _total / _doc.reviews.length : _total;
+      };
 
+      const a_R = _getAverageRating(a);
+      const b_R = _getAverageRating(b);
+
+      // Sort by Rating DESC
+      if (a_R < b_R) {
+        return 1;
+      }
+      else if (a_R > b_R) {
+        return -1;
+      }
+      // Sub compare is FullName
+      else {
+        return a.fullName.localeCompare(b.fullName);
+      }
+    });
+
+    setDoctors(newDoctors);
   };
 
   const onPressSearch = () => {
