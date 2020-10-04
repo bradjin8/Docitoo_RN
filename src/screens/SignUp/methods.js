@@ -106,6 +106,7 @@ function useViewModel(props) {
     email, setEmail,
     phoneNumber, setPhoneNumber,
     password, setPassword,
+    user,
     onPressSignUp,
     onPressLogin,
     onPressFacebook,

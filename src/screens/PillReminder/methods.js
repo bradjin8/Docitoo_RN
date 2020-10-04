@@ -34,6 +34,7 @@ function useViewModel(props) {
 
   return {
     medicines,
+    data,
     onPressAdd
   }
 }

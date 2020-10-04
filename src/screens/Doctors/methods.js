@@ -45,8 +45,12 @@ function useViewModel(props) {
     setDoctors(newDoctors);
   };
 
-  const onPressSearch = () => {
+  const toggleModal = () => {
     setSearchVisible(!searchVisible);
+  };
+
+  const onPressSearch = () => {
+    toggleModal();
   };
 
   const onPressDoctor = (doctor) => {
@@ -58,7 +62,7 @@ function useViewModel(props) {
 
   const applyFilter = (filter) => {
     console.log(tag, 'applyFilter()', filter);
-    onPressSearch();
+    toggleModal();
   };
 
   useEffect(() => {
@@ -73,6 +77,7 @@ function useViewModel(props) {
   return {
     doctors, setDoctors,
     searchVisible, setSearchVisible,
+    user, data,
     onPressSort,
     onPressSearch,
     onPressDoctor,

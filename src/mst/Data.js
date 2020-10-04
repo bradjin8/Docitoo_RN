@@ -52,29 +52,19 @@ const Data = types
     const getPillReminders = flow(function* updatePillReminders(
       userToken
     ) {
+      self.setProcessing(true);
       try {
         const response = yield Api.getPillReminders(userToken);
         const {ok, data} = response;
         self.lastStatus = response.status;
         console.log(tag, 'Response from GetPillReminders API', typeof response.status);
-        if (!ok) {
-          /*Alert.alert(
-            "Error",
-            "Getting Failed, try again",
-            [
-              {
-                text: 'OK',
-                onPress: () => console.log(tag, 'GetPillReminder Error', 'OK pressed')
-              }
-            ],
-            {cancelable: false}
-          );*/
-          return;
+        if (ok) {
+          _updatePillReminders(data);
         }
-        _updatePillReminders(data);
-
       } catch (e) {
-
+      }
+      finally {
+        self.setProcessing(false);
       }
     });
 
@@ -85,59 +75,62 @@ const Data = types
       frequency,
       timeToTake
     ) {
+      self.setProcessing(true);
+
       try {
         const response = yield Api.addPillReminder(userToken, medicineName, dosage, frequency, timeToTake);
         const {ok, data} = response;
         self.lastStatus = response.status;
         console.log(tag, 'Response from AddPillReminder API', data);
-        if (!ok) {
-          // Alert.alert(
-          //   "Error",
-          //   "Adding Failed, try again",
-          //   [
-          //     {
-          //       text: 'OK',
-          //       onPress: () => console.log(tag, 'AddPillReminder Error', 'OK pressed')
-          //     }
-          //   ],
-          //   {cancelable: false}
-          // );
-          return;
+        if (ok) {
+          yield getPillReminders(userToken);
         }
-        yield getPillReminders(userToken);
       } catch (e) {
         console.log(tag, 'Adding Pill Exception', e.message)
+      } finally {
+        self.setProcessing(false);
       }
     });
 
     const fetchDoctorsByCategory = flow(function* fetchDoctorsByCategory(
       userToken, category
     ) {
+      self.setProcessing(true);
+
       try {
         const response = yield Api.searchDoctorsByCategory(userToken, category);
         const {ok, data} = response;
         self.lastStatus = response.status;
         console.log(tag, 'Response from SearchDoctorsByCategory API', data);
-        if (!ok) {
-          // Alert.alert(
-          //   "Error",
-          //   "Getting Failed, try again",
-          //   [
-          //     {
-          //       text: 'OK',
-          //       onPress: () => console.log(tag, 'SearchDoctorsByCategory Error', 'OK pressed')
-          //     }
-          //   ],
-          //   {cancelable: false}
-          // );
-          return;
+        if (ok) {
+          _updateDoctors(data);
         }
-        _updateDoctors(data);
-
       } catch (e) {
-
+      } finally {
+        self.setProcessing(false);
       }
     });
+
+    const searchDoctors = flow(function* searchDoctors(
+      userToken, name, speciality, address
+    ) {
+      self.setProcessing(true);
+
+      try {
+        const response = yield Api.searchDoctors(userToken, name, speciality, address);
+        const {ok, data} = response;
+        self.lastStatus = response.status;
+        console.log(tag, 'Response from SearchDoctorsByCategory API', data);
+        if (ok) {
+          _updateDoctors(data);
+        }
+      } catch (e) {
+      } finally {
+        self.setProcessing(false);
+      }
+    });
+
+
 
     const selectDoctor = (id) => {
       self.selectedDoctorId = id;
@@ -149,17 +142,18 @@ const Data = types
         const {ok, data} = response;
         self.lastStatus = response.status;
         console.log(tag, 'Response from DoctorByID API', data);
-        if (!ok) {
-          return;
+        if (ok) {
+          let {doctor} = data;
+          doctor.avatarUrl = Config.appBaseUrl + doctor.avatarUrl;
+          for (let i = 0; i < doctor.reviews.length; i ++) {
+            doctor.reviews[i].author.avatarUrl = Config.appBaseUrl + doctor.reviews[i].author.avatarUrl;
+          }
+          self.selectedDoctor = [doctor];
         }
-        let {doctor} = data;
-        doctor.avatarUrl = Config.appBaseUrl + doctor.avatarUrl;
-        for (let i = 0; i < doctor.reviews.length; i ++) {
-          doctor.reviews[i].author.avatarUrl = Config.appBaseUrl + doctor.reviews[i].author.avatarUrl;
-        }
-        self.selectedDoctor = [doctor];
       } catch (e) {
 
+      } finally {
+        self.setProcessing(false);
       }
     });
 
@@ -171,12 +165,13 @@ const Data = types
         const {ok, data} = response;
         self.lastStatus = response.status;
         console.log(tag, 'Response from RequestBook API', data);
-        if (!ok) {
-          return;
+        if (ok) {
         }
 
       } catch (e) {
 
+      } finally {
+        self.setProcessing(false);
       }
 
     });
@@ -189,29 +184,30 @@ const Data = types
         const {ok, data} = response;
         self.lastStatus = response.status;
         console.log(tag, 'Response from SubmitReview API', data);
-        if (!ok) {
-          return;
+        if (ok) {
+          _updateDoctors(data);
+          selectDoctor(doctorId);
         }
-        _updateDoctors(data);
-        selectDoctor(doctorId);
       } catch (e) {
 
+      } finally {
+        self.setProcessing(false);
       }
 
     });
 
-    return {getPillReminders, addPillReminder, fetchDoctorsByCategory, selectDoctor, requestBook, submitReview, fetchDoctorById}
+    return {getPillReminders, addPillReminder, fetchDoctorsByCategory, searchDoctors, selectDoctor, requestBook, submitReview, fetchDoctorById}
   })
   .extend((self) => {
     const localState = observable.box(false);
     return {
       views: {
-        get isLoggingIn() {
+        get isProcessing() {
           return localState.get();
         },
       },
       actions: {
-        setLoggingIn(value) {
+        setProcessing(value) {
           localState.set(value)
         },
       },

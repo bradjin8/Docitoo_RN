@@ -20,46 +20,51 @@ import Images from '@/styles/Images';
 import useViewModel from './methods';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import Loading from '@/components/Loading';
 
 const DoctorsByCategory = (props) => {
   const vm = useViewModel(props);
 
   return (
     <BoardWithHeader title={__('doctors')}>
-      <ScrollView style={styles.container}>
-        <View style={styles.searchContainer}>
-          <Icon name={'search'} size={wp('5%')} color={Colors.grey}/>
-          <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
-                     onChangeText={(val) => vm.setSearchString(val)}/>
-        </View>
-        <Space height={hp('1%')}/>
-        <Text style={styles.note}>
-          {__('browse_doctors_by_category')}
-        </Text>
-        <View style={styles.categoryLine}>
-          <CategoryButton image={Images.category.gynecologist} caption={__('gynecologist')}
-                          onPress={vm.onPressGynecologist}/>
-          <CategoryButton image={Images.category.skin} caption={__('skin_specialist')} onPress={vm.onPressSkin}/>
-        </View>
-        <View style={styles.categoryLine}>
-          <CategoryButton image={Images.category.child} caption={__('child_specialist')}
-                          onPress={vm.onPressChild}/>
-          <CategoryButton image={Images.category.orthopedic} caption={__('orthopedic_surgeon')}
-                          onPress={vm.onPressOrthopedic}/>
-        </View>
-        <View style={styles.categoryLine}>
-          <CategoryButton image={Images.category.ent} caption={__('ent_specialist')}
-                          onPress={vm.onPressENT}/>
-          <CategoryButton image={Images.category.diagnostics} caption={__('diagnostics')}
-                          onPress={vm.onPressDiagnostics}/>
-        </View>
-        <View style={styles.categoryLine}>
-          <CategoryButton image={Images.category.diabetes} caption={__('diabetes_specialist')}
-                          onPress={vm.onPressDiabetes}/>
-          <CategoryButton image={Images.category.eye} caption={__('eye_specialist')} onPress={vm.onPressEye}/>
-        </View>
-        <Space height={hp('10%')}/>
-      </ScrollView>
+      {vm.data.isProcessing ?
+        <Loading/>
+        :
+        <ScrollView style={styles.container}>
+          <View style={styles.searchContainer}>
+            <Icon name={'search'} size={wp('5%')} color={Colors.grey}/>
+            <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
+                       onChangeText={(val) => vm.setSearchString(val)}/>
+          </View>
+          <Space height={hp('1%')}/>
+          <Text style={styles.note}>
+            {__('browse_doctors_by_category')}
+          </Text>
+          <View style={styles.categoryLine}>
+            <CategoryButton image={Images.category.gynecologist} caption={__('gynecologist')}
+                            onPress={vm.onPressGynecologist}/>
+            <CategoryButton image={Images.category.skin} caption={__('skin_specialist')} onPress={vm.onPressSkin}/>
+          </View>
+          <View style={styles.categoryLine}>
+            <CategoryButton image={Images.category.child} caption={__('child_specialist')}
+                            onPress={vm.onPressChild}/>
+            <CategoryButton image={Images.category.orthopedic} caption={__('orthopedic_surgeon')}
+                            onPress={vm.onPressOrthopedic}/>
+          </View>
+          <View style={styles.categoryLine}>
+            <CategoryButton image={Images.category.ent} caption={__('ent_specialist')}
+                            onPress={vm.onPressENT}/>
+            <CategoryButton image={Images.category.diagnostics} caption={__('diagnostics')}
+                            onPress={vm.onPressDiagnostics}/>
+          </View>
+          <View style={styles.categoryLine}>
+            <CategoryButton image={Images.category.diabetes} caption={__('diabetes_specialist')}
+                            onPress={vm.onPressDiabetes}/>
+            <CategoryButton image={Images.category.eye} caption={__('eye_specialist')} onPress={vm.onPressEye}/>
+          </View>
+          <Space height={hp('10%')}/>
+        </ScrollView>
+      }
     </BoardWithHeader>
   )
 };

@@ -11,7 +11,6 @@ import {
   Button,
   TouchableOpacity,
   Image,
-  ActivityIndicator
 } from 'react-native';
 import __ from '@/assets/lang';
 import Space from '@/components/Space';
@@ -21,10 +20,11 @@ import ImageSlider from './components/ImageSlider';
 import ScrollBoardWithHeaderLBButton from "@/components/Panel/ScrollBoardWithHeaderLRButton";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import MapView, {Marker} from 'react-native-maps';
-import Images from "../../styles/Images";
+import Images from "@/styles/Images";
 import StarRatingBar from "react-native-star-rating-view";
 import GreyInput from "@/components/Input/GreyInput";
 import * as datetime from "node-datetime";
+import Loading from "@/components/Loading";
 
 const ViewDoctor = (props) => {
   const vm = useViewModel(props);
@@ -141,9 +141,7 @@ const ViewDoctor = (props) => {
         <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('share')}
                                        onPressLeftButton={vm.onPressBack}
                                        onPressRightButton={vm.onPressShare}>
-          <View style={{height: hp('90%'), flexDirection: 'column', justifyContent: 'center'}}>
-            <ActivityIndicator size={"large"} color={Colors.blue1}/>
-          </View>
+          <Loading/>
         </ScrollBoardWithHeaderLBButton>
 
       }

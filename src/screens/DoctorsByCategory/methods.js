@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {DoctorStackScreens, PillStackScreens} from '@/constants/Navigation';
+import {DoctorStackScreens, PillStackScreens, Screens} from '@/constants/Navigation';
 import {useStores} from "@/hooks";
 import {SPECIALITIES} from '@/constants/MockUpData';
 
@@ -55,11 +55,19 @@ function useViewModel(props) {
 
   const handleSearchByCategory = async (category) => {
     await data.fetchDoctorsByCategory(user.sessionToken, category);
-    nav.navigate(DoctorStackScreens.doctors);
+    if (data.lastStatus == '401') {
+      nav.navigate(Screens.logIn);
+      user.logOut();
+      alert('Session expired');
+    } else {
+      nav.navigate(DoctorStackScreens.doctors);
+    }
   };
 
   return {
     searchString, setSearchString,
+    data,
+    SPECIALITIES,
     onPressGynecologist,
     onPressSkin,
     onPressChild,

@@ -1,7 +1,6 @@
 import React from 'react';
 import useViewModel from './methods';
 import {observer} from 'mobx-react';
-import Colors from '@/styles/Colors';
 import {StyleSheet, TouchableHighlight, KeyboardAvoidingView, View, Text, TouchableOpacity} from 'react-native';
 import __ from '@/assets/lang';
 import BoardWithHeader from '@/components/Panel/BoardWithHeader';
@@ -13,8 +12,8 @@ import TransBlueButton from '@/components/Button/TransBlueButton';
 import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
 import Images from '@/styles/Images';
-import {windowWidth, scale} from '@/styles/Sizes';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import Loading from "@/components/Loading";
 
 
 const styles = StyleSheet.create({
@@ -36,32 +35,36 @@ const SignUp = (props) => {
 
   return (
     <BoardWithHeader title={__('sign_up')}>
-      <View style={styles.container}>
-        <BlackText text={__('sign_up_with')}/>
-        <View style={styles.socialContainer}>
-          <ImageButton image={Images.logo.facebook} style={{marginHorizontal: wp('3%'), }}
-                       imageStyle={{width: hp('7%'), height: hp('7%')}}
-                       onPress={vm.onPressFacebook}/>
-          <ImageButton image={Images.logo.google} style={{marginHorizontal: wp('3%')}}
-                       imageStyle={{width: hp('7%'), height: hp('7%')}}
-                       onPress={vm.onPressGoogle}/>
+      {vm.user.isLoggingIn ?
+        <Loading/>
+        :
+        <View style={styles.container}>
+          <BlackText text={__('sign_up_with')}/>
+          <View style={styles.socialContainer}>
+            <ImageButton image={Images.logo.facebook} style={{marginHorizontal: wp('3%'),}}
+                         imageStyle={{width: hp('7%'), height: hp('7%')}}
+                         onPress={vm.onPressFacebook}/>
+            <ImageButton image={Images.logo.google} style={{marginHorizontal: wp('3%')}}
+                         imageStyle={{width: hp('7%'), height: hp('7%')}}
+                         onPress={vm.onPressGoogle}/>
+          </View>
+          <BlackText text={__('or_sign_up_using_email')}/>
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <Space height={hp('5%')}/>
+            <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
+            <GreyInput placeholder={__('email_address')} value={vm.email} onChangeText={vm.setEmail}/>
+            <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
+                       onChangeText={vm.setPhoneNumber}/>
+            <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}
+                       secureTextEntry={true}/>
+            <Space height={hp('2%')}/>
+          </KeyboardAvoidingView>
+          <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up')}/>
+          <GreyText text={__('sign_up_note')}/>
+          <Space height={hp('4%')}/>
+          <TransBlueButton onPress={vm.onPressLogin} caption={__('already_have_account') + ' ' + __('login')}/>
         </View>
-        <BlackText text={__('or_sign_up_using_email')}/>
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-          <Space height={hp('5%')}/>
-          <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
-          <GreyInput placeholder={__('email_address')} value={vm.email} onChangeText={vm.setEmail}/>
-          <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
-                     onChangeText={vm.setPhoneNumber}/>
-          <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}
-                     secureTextEntry={true}/>
-          <Space height={hp('2%')}/>
-        </KeyboardAvoidingView>
-        <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up')}/>
-        <GreyText text={__('sign_up_note')}/>
-        <Space height={hp('4%')}/>
-        <TransBlueButton onPress={vm.onPressLogin} caption={__('already_have_account') + ' ' + __('login')}/>
-      </View>
+      }
     </BoardWithHeader>
   )
 };

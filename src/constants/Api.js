@@ -5,5 +5,6 @@ export default {
   details: 'user/details',
   pillReminder: 'pill',
   searchDoctorsByCategory: 'userDoctor/searchDoctorsByCategory',
+  searchDoctors: 'userDoctor/searchDoctors',
   userDoctor: 'userDoctor'
 }

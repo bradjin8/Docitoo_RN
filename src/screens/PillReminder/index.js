@@ -13,6 +13,7 @@ import useViewModel from './methods';
 import ImageButton from "@/components/Button/ImageButton";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import * as util from '@/utils/String';
+import Loading from "@/components/Loading";
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
@@ -20,25 +21,33 @@ const PillReminder = (props) => {
   return (
     <Container>
       <BoardWithHeader title={__('pill_reminder')}>
-        <ScrollView style={styles.container}>
-          <Space height={hp('2%')}/>
-          {vm.medicines.slice().sort().map((item, index) => {
-            if (index < vm.medicines.length - 1) {
-              return (
-                <View key={index}>
+        {vm.data.isProcessing ?
+          <Loading/>
+          :
+          <ScrollView style={styles.container}>
+            <Space height={hp('2%')}/>
+            {vm.medicines.slice().sort().map((item, index) => {
+              if (index < vm.medicines.length - 1) {
+                return (
+                  <View key={index}>
+                    <MedicineCard medicine={item} key={index} type={index % 4}/>
+                    <Separator color={Colors.grey}/>
+                  </View>
+                );
+              } else {
+                return (
                   <MedicineCard medicine={item} key={index} type={index % 4}/>
-                  <Separator color={Colors.grey}/>
-                </View>
-              );
-            } else {
-              return (
-                <MedicineCard medicine={item} key={index} type={index % 4}/>
-              )
+                )
+              }
+            })}
+            {vm.medicines.length < 1 &&
+            <Text style={styles.resultCount}>
+              {util.formatInteger(vm.medicines.length) + ' ' + __('results_found')}
+            </Text>
             }
-          })}
-
-          <Space height={hp('3%')}/>
-        </ScrollView>
+            <Space height={hp('3%')}/>
+          </ScrollView>
+        }
       </BoardWithHeader>
       <ImageButton image={Images.button.add_medicine} onPress={vm.onPressAdd} style={styles.addButton}
                    imageStyle={styles.addButtonImage}/>
@@ -52,7 +61,8 @@ export const MedicineCard = ({medicine, type}) => {
       <Image source={Images.medicines[type]} style={styles.medicineAvatar}/>
       <View style={styles.medicineDesc}>
         <Text style={styles.medicineName}>{medicine.medicineName + ' - ' + medicine.dosage}</Text>
-        <Text style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + util.formatHour(medicine.timeToTake)}</Text>
+        <Text
+          style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + util.formatHour(medicine.timeToTake)}</Text>
       </View>
     </View>
   );
@@ -96,8 +106,11 @@ const styles = StyleSheet.create({
   addButtonImage: {
     width: wp('15%'),
     height: wp('15%'),
-  }
-
+  },
+  resultCount: {
+    fontWeight: 'bold',
+    fontSize: wp('4%')
+  },
 });
 
 export default observer(PillReminder);

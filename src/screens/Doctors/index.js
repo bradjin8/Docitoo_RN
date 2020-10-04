@@ -8,12 +8,12 @@ import BoardWithHeaderRightButton from '@/components/Panel/BoardWithHeaderRightB
 import ImageButton from '@/components/Button/ImageButton';
 import Space from '@/components/Space';
 import Images from '@/styles/Images';
-import {scale} from '@/styles/Sizes';
 import * as StringUtil from '@/utils/String';
 import DoctorList from '@/components/List/DoctorList';
 import SearchDoctorsModal from './components/SearchDoctorsModal';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import MapView from 'react-native-maps';
+import Loading from '@/components/Loading';
 
 const styles = StyleSheet.create({
   resultCount: {
@@ -32,20 +32,25 @@ const styles = StyleSheet.create({
   }
 });
 
+const tag = 'Doctors::View';
+
 const Doctors = (props) => {
   const vm = useViewModel(props);
 
   return (
     <Container>
-      <BoardWithHeaderRightButton title={__('doctors')} buttonCaption={__('sort')} onPressRightButton={() => {
-        vm.onPressSort(vm.doctors)
-      }}>
-        <Text style={styles.resultCount}>
-          {StringUtil.formatInteger(vm.doctors.length) + ' ' + __('results_found')}
-        </Text>
-        <Space height={hp('1%')}/>
-        <DoctorList doctors={vm.doctors} onPressDoctor={vm.onPressDoctor}/>
-        {/*<MapView
+      {vm.data.isPrcessing === true ?
+        <Loading/>
+        :
+        <BoardWithHeaderRightButton title={__('doctors')} buttonCaption={__('sort')} onPressRightButton={() => {
+          vm.onPressSort(vm.doctors)
+        }}>
+          <Text style={styles.resultCount}>
+            {StringUtil.formatInteger(vm.doctors.length) + ' ' + __('results_found')}
+          </Text>
+          <Space height={hp('1%')}/>
+          <DoctorList doctors={vm.doctors} onPressDoctor={vm.onPressDoctor}/>
+          {/*<MapView
           initialRegion={{
             latitude: 37.78825,
             longitude: -112.4324,
@@ -54,8 +59,11 @@ const Doctors = (props) => {
           }}
           style={StyleSheet.absoluteFillObject}
         />*/}
-      </BoardWithHeaderRightButton>
-      <ImageButton image={Images.button.search} onPress={vm.onPressSearch} style={styles.searchButton} imageStyle={styles.searchButtonImage}/>
+        </BoardWithHeaderRightButton>
+
+      }
+      <ImageButton image={Images.button.search} onPress={vm.onPressSearch} style={styles.searchButton}
+                   imageStyle={styles.searchButtonImage}/>
       <SearchDoctorsModal isVisible={vm.searchVisible} onPressClose={vm.onPressSearch} onPressOK={vm.applyFilter}/>
     </Container>
   )
