@@ -129,24 +129,24 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     marginLeft: hp('2%'),
-    height: rowHeight,
+    // height: rowHeight,
     alignItems: 'stretch',
     width: '100%'
   },
   name: {
     fontSize: hp('2.2%'),
     fontWeight: 'bold',
-    height: textLineHeight
+    // height: textLineHeight
   },
   speciality: {
     fontSize: hp('2%'),
-    height: textLineHeight,
+    // height: textLineHeight,
     color: Colors.grey_dark,
   },
   specialityCard: {
     fontSize: hp('2.2%'),
     marginVertical: hp('0.5%'),
-    height: textLineHeight,
+    // height: textLineHeight,
     color: Colors.black,
   },
   reviews: {

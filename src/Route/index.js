@@ -30,6 +30,7 @@ import __ from '@/assets/lang';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FoundationIcon from 'react-native-vector-icons/Foundation';
+const tag = 'Route::index';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

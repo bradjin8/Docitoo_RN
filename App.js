@@ -7,11 +7,13 @@
  */
 
 import React, {useEffect} from 'react';
+import useStores from '@/hooks';
 import {
   StatusBar, SafeAreaView, StyleSheet
 } from 'react-native';
 import Route from '@/Route';
 import StoreProvider from '@/mst/StoreProvider';
+import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 Icon.loadFont();
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
 
 const App: () => React$Node = () => {
   const tag = 'App::';
+  // const {user} = useStores();
 
   // Remove this method to stop OneSignal Debugging
   OneSignal.setLogLevel(6, 0);
@@ -51,8 +54,14 @@ const App: () => React$Node = () => {
     console.log(tag, 'openResult: ', openResult);
   };
 
-  const onIds = (device) => {
+  const onIds = async (device) => {
     console.log(tag, 'Device Info:', device);
+    const {pushToken, userId} = device;
+    try {
+      await AsyncStorage.setItem(Config.oneSignalUserIDStorageKey, userId);
+    } catch (e) {
+
+    }
   };
 
   // The promptForPushNotifications function code will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step below)
@@ -69,7 +78,6 @@ const App: () => React$Node = () => {
       OneSignal.removeEventListener('ids', onIds);
     }
   }, []);
-
   return (
     <>
       <StatusBar barStyle="dark-content"/>

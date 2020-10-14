@@ -6,6 +6,8 @@ import Config from '@/config/AppConfig';
 import 'mobx-react-lite/batchingForReactDom';
 import * as Api from '@/Services/Api';
 import * as SocialApi from '@/Services/SocialApi';
+import AsyncStorage from "@react-native-community/async-storage";
+import {Platform} from "react-native";
 
 // import * as Api from '@services/Api';
 
@@ -63,7 +65,9 @@ const User = types
     const logIn = flow(function* logIn(email, password) {
       self.setLoggingIn(true);
       try {
-        const response = yield Api.logIn(email, password);
+        const deviceUserId = yield AsyncStorage.getItem(Config.oneSignalUserIDStorageKey);
+        const deviceType = Platform.OS;
+        const response = yield Api.logIn(email, password, deviceUserId, deviceType);
         let {data, ok} = response;
         console.log(tag, 'Response from Login', data);
         self.setLoggingIn(false);
@@ -124,7 +128,9 @@ const User = types
 
       self.setLoggingIn(true);
       try {
-        const response = yield Api.register(email, fullName, password, phoneNumber);
+        const deviceUserId = yield AsyncStorage.getItem(Config.oneSignalUserIDStorageKey);
+        const deviceType = Platform.OS;
+        const response = yield Api.register(email, fullName, password, phoneNumber, deviceUserId, deviceType);
         console.log(tag, 'Response from SignUp', response);
         let {data, ok} = response;
         self.setLoggingIn(false);

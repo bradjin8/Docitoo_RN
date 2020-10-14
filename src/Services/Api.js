@@ -33,7 +33,7 @@ const createFormData = (avatarSource, body) => {
   return data;
 };
 
-export const logIn = (email, password) => api.post(ApiUrl.logIn, {email, password});
+export const logIn = (email, password, deviceUserId, deviceType) => api.post(ApiUrl.logIn, {email, password, deviceUserId, deviceType});
 
 export const logOut = (userToken) =>
   api.post(
@@ -45,14 +45,16 @@ export const logOut = (userToken) =>
     }
   );
 
-export const register = (email, fullName, password, phoneNumber) =>
+export const register = (email, fullName, password, phoneNumber, deviceUserId, deviceType) =>
   api.post(
     ApiUrl.register,
     {
       email,
       fullName,
       password,
-      phoneNumber
+      phoneNumber,
+      deviceUserId,
+      deviceType,
     }
   );
 
