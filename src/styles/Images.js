@@ -40,9 +40,10 @@ const Images = {
     night: require('@/assets/images/time_night.png'),
   },
   notification: {
-    pill: require('@/assets/images/noti_pill.png'),
-    schedule: require('@/assets/images/noti_schedule.png'),
-    announcement: require('@/assets/images/noti_announce.png'),
+    REMINDER: require('@/assets/images/noti_pill.png'),
+    SCHEDULE: require('@/assets/images/noti_schedule.png'),
+    ANNOUNCEMENT: require('@/assets/images/noti_announce.png'),
+    ALERT: require('@/assets/images/noti_announce.png'),
   },
   category: {
     gynecologist: require('@/assets/images/cat_gynecologist.png'),

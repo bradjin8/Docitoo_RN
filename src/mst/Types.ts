@@ -12,6 +12,17 @@ export const PillReminder = types.model('PillReminder', {
     frequency: types.string,
     timeToTake: types.number,
 });
+
+export const Notification = types.model('Notification', {
+    id: types.string,
+    type: types.string,
+    title: types.string,
+    subTitle: types.string,
+    content: types.string,
+    // createdAt: types.string,
+    // updatedAt: types.string,
+});
+
 export const ReviewAuthor = types.model('ReviewAuthor', {
     fullName: defString,
     createdAt: defString,

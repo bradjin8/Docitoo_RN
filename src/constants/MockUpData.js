@@ -31,27 +31,27 @@ export const mockUser = {
 
 export const mockNotifications = [
   {
-    type: 'pill',
+    type: 'REMINDER',
     content: 'Omega 3 - 500mg',
   },
   {
-    type: 'schedule',
+    type: 'SCHEDULE',
     content: '4 weeks ago'
   },
   {
-    type: 'announcement',
+    type: 'ANNOUNCEMENT',
     content: 'More than a 100 new physicians have been listed in your area. Check out new listings now!'
   },
   {
-    type: 'pill',
+    type: 'REMINDER',
     content: 'Omega 3 - 500mg',
   },
   {
-    type: 'schedule',
+    type: 'SCHEDULE',
     content: '4 weeks ago'
   },
   {
-    type: 'announcement',
+    type: 'ANNOUNCEMENT',
     content: 'More than a 100 new physicians have been listed in your area. Check out new listings now!'
   },
 ];

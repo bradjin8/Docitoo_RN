@@ -6,19 +6,47 @@ import Images from '@/styles/Images';
 import * as Styles from '@/styles'
 import {scale, headerHeight} from '@/styles/Sizes';
 import {widthPercentageToDP, heightPercentageToDP} from "react-native-responsive-screen";
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+const tag = 'Component::Panel::BoardWithHeader';
 
-const BoardWithHeader = ({children, title}) => {
+
+const BoardWithHeader = ({children, title, onSwipeUp}) => {
+
+  const handleSwipeUp = (state) => {
+    // console.log(tag, 'OnSwipeUp', state);
+    if (onSwipeUp)
+      onSwipeUp();
+  };
+
+  const onSwipe = (gestureName, gestureState) => {
+    // console.log(tag, 'OnSwipe', gestureName, gestureState);
+    const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
+    switch (gestureName) {
+      case SWIPE_UP:
+        if (onSwipeUp)
+          onSwipeUp();
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
-    <Container style={styles.container}>
-      <HeaderBg source={Images.background.header} resizeMode={'cover'}/>
-      <Text style={styles.title}>
-        {title}
-      </Text>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios'?'padding':'height'} enabled={Platform.OS === 'ios'} style={styles.board} keyboardVerticalOffset={headerHeight}>
-        {children}
-      </KeyboardAvoidingView>
-    </Container>
+    <GestureRecognizer
+      // onSwipe={(direction, state) => onSwipe(direction, state)}
+      // onSwipeUp={(state) => handleSwipeUp(state)}
+    >
+      <Container style={styles.container}>
+        <HeaderBg source={Images.background.header} resizeMode={'cover'}/>
+        <Text style={styles.title}>
+          {title}
+        </Text>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled={Platform.OS === 'ios'}
+                              style={styles.board} keyboardVerticalOffset={headerHeight}>
+          {children}
+        </KeyboardAvoidingView>
+      </Container>
+    </GestureRecognizer>
   )
 };
 

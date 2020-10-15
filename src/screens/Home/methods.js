@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Screens} from '@/constants/Navigation';
+import {Screens, TabStackScreens} from '@/constants/Navigation';
 
 function useViewModel(props) {
   const nav = useNavigation();
@@ -14,7 +14,7 @@ function useViewModel(props) {
   };
 
   const onPressSkipSignUp = () => {
-    nav.navigate(Screens.home)
+    nav.navigate(Screens.tabStack);
   };
 
   return {

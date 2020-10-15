@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {PillStackScreens, Screens} from '@/constants/Navigation';
-import {mockMedicines} from '@/constants/MockUpData';
-import {getPillReminders} from '@/Services/Api';
 import {useStores} from "@/hooks";
 
 function useViewModel(props) {
@@ -23,6 +21,7 @@ function useViewModel(props) {
       await data.getPillReminders(user.sessionToken);
       console.log(tag, 'fetch reminders', data);
       if (data.lastStatus == "401") {
+        nav.navigate(Screens.logIn);
         alert('Session expired');
         user.logOut();
         return;

@@ -1,7 +1,7 @@
 import {applySnapshot, flow, types} from "mobx-state-tree";
 import {observable} from "mobx";
 import {isEmpty} from 'lodash';
-import {defNumber, defString, defObjString, PillReminder, Doctor, DoctorDetails} from './Types';
+import {defNumber, defString, defObjString, PillReminder, Notification, Doctor, DoctorDetails} from './Types';
 import 'mobx-react-lite/batchingForReactDom';
 import * as Api from '@/Services/Api';
 import {Alert} from "react-native";
@@ -13,6 +13,7 @@ const Data = types
   .model('Data', {
     // doctors: types.frozen,
     pillReminders: types.array(PillReminder),
+    notifications: types.array(Notification),
     doctors: types.array(Doctor),
     lastStatus: defNumber,
     selectedDoctorId: defString,
@@ -40,6 +41,10 @@ const Data = types
       self.pillReminders = data.pillReminders;
     };
 
+    const _updateNotifications = (data) => {
+      self.notifications = data.notifications;
+    };
+
     const _updateDoctors = (data) => {
       let doctors = [];
       for (let doctor of data.doctors) {
@@ -62,8 +67,7 @@ const Data = types
           _updatePillReminders(data);
         }
       } catch (e) {
-      }
-      finally {
+      } finally {
         self.setProcessing(false);
       }
     });
@@ -89,6 +93,35 @@ const Data = types
         console.log(tag, 'Adding Pill Exception', e.message)
       } finally {
         self.setProcessing(false);
+      }
+    });
+
+    const getNotifications = flow(function* getNotifications(
+      userToken,
+    ) {
+      self.setProcessing(true);
+      try {
+        const response = yield Api.getNotifications(userToken);
+        const {ok, data} = response;
+        self.lastStatus = response.status;
+        console.log(tag, 'Response from GetNotifications API', data);
+        if (ok) {
+          _updateNotifications(data);
+        }
+      } catch (e) {
+      } finally {
+        self.setProcessing(false);
+      }
+    });
+
+    const setNotificationAsRead = flow(function* (userToken, notificationId) {
+      self.setProcessing(true);
+      try {
+        const response = yield Api.setNotificationAsRead(userToken, notificationId)
+      } catch (e) {
+
+      } finally {
+        self.setProcessing(true);
       }
     });
 
@@ -131,7 +164,6 @@ const Data = types
     });
 
 
-
     const selectDoctor = (id) => {
       self.selectedDoctorId = id;
     };
@@ -145,7 +177,7 @@ const Data = types
         if (ok) {
           let {doctor} = data;
           doctor.avatarUrl = Config.appBaseUrl + doctor.avatarUrl;
-          for (let i = 0; i < doctor.reviews.length; i ++) {
+          for (let i = 0; i < doctor.reviews.length; i++) {
             doctor.reviews[i].author.avatarUrl = Config.appBaseUrl + doctor.reviews[i].author.avatarUrl;
           }
           self.selectedDoctor = [doctor];
@@ -196,7 +228,18 @@ const Data = types
 
     });
 
-    return {getPillReminders, addPillReminder, fetchDoctorsByCategory, searchDoctors, selectDoctor, requestBook, submitReview, fetchDoctorById}
+    return {
+      getPillReminders,
+      addPillReminder,
+      getNotifications,
+      setNotificationAsRead,
+      fetchDoctorsByCategory,
+      searchDoctors,
+      selectDoctor,
+      requestBook,
+      submitReview,
+      fetchDoctorById
+    }
   })
   .extend((self) => {
     const localState = observable.box(false);

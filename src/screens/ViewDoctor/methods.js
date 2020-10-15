@@ -42,13 +42,21 @@ function useViewModel(props) {
   };
 
   const onPressWriteReview = () => {
-    setReviewMode(true);
-    console.log(tag, 'onPressWriteReview()', isReviewMode);
+    if (user.isValid) {
+      setReviewMode(true);
+      console.log(tag, 'onPressWriteReview()', isReviewMode);
+    } else {
+      nav.navigate(Screens.logIn);
+    }
   };
 
   const onPressBook = () => {
     console.log(tag, 'onPressBook()', doctor.id);
-    nav.navigate(DoctorStackScreens.bookDoctor)
+    if (user.isValid) {
+      nav.navigate(DoctorStackScreens.bookDoctor)
+    } else {
+      nav.navigate(Screens.logIn);
+    }
   };
 
   const onSubmitReview = async () => {
@@ -69,10 +77,10 @@ function useViewModel(props) {
   };
 
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchDoctor();
     return () => {
-      setDoctor(null)
+
     }
   }, []);
 

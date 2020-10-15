@@ -10,53 +10,79 @@ import Images from '@/styles/Images';
 import Separator from "@/components/Separator";
 import useViewModel from './methods';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import Loading from "@/components/Loading";
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import * as util from "@/utils/String";
 
 const Notifications = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('notifications')}>
-      <ScrollView style={styles.container}>
-        <Space height={hp('1%')}/>
-        {vm.notifications.sort().map((item, index) => {
-          if (index < vm.notifications.length - 1) {
-            return (
-              <View key={index}>
-                <NotificationCard notification={item} key={index}/>
-                <Separator color={Colors.grey} width={2}/>
-              </View>
-            );
-          } else {
-            return (
-              <NotificationCard notification={item} key={index}/>
-            )
+    <BoardWithHeader title={__('notifications')} onSwipeUp={vm.fetchData}>
+      {vm.data.isProcessing ?
+        <Loading/>
+        :
+        <ScrollView style={styles.container}>
+          <Space height={hp('1%')}/>
+          {vm.notifications && vm.notifications.length && vm.notifications.sort().map((item, index) => {
+            if (index < vm.notifications.length - 1) {
+              return (
+                <View key={index}>
+                  <NotificationCard
+                    notification={item}
+                    key={index}
+                    handleSwipeRight={() => {
+                      console.log(`Notification ${item.id} will be removed soon`);
+                      vm.setNotificationAsRead(item.id)
+                    }}
+                  />
+                  <Separator color={Colors.grey} width={2}/>
+                </View>
+              );
+            } else {
+              return (
+                <NotificationCard
+                  notification={item}
+                  key={index}
+                  handleSwipeRight={() => {
+                    console.log(`Notification ${item.id} will be removed soon`);
+                    vm.setNotificationAsRead(item.id)
+                  }}
+                />
+              )
+            }
+          })}
+          {!vm.notifications || vm.notifications.length < 1 &&
+          <Text style={styles.resultCount}>
+            {util.formatInteger(vm.notifications.length) + ' ' + __('results_found')}
+          </Text>
           }
-        })}
+          <Space height={hp('3%')}/>
+        </ScrollView>
+      }
 
-        <Space height={hp('3%')}/>
-      </ScrollView>
     </BoardWithHeader>
 
   )
 };
 
-export const NotificationCard = ({notification}) => {
+export const NotificationCard = ({notification, handleSwipeRight, handleSwipeDown}) => {
   const NotificationTypes = {
-    PILL: 'pill',
-    SCHEDULE: 'schedule',
-    ANNOUNCEMENT: 'announcement'
+    REMINDER: 'REMINDER',
+    SCHEDULE: 'SCHEDULE',
+    ALERT: 'ALERT',
+    ANNOUNCEMENT: 'ANNOUNCEMENT'
   };
 
   const renderContent = () => {
-    if (notification.type === NotificationTypes.PILL) {
+    if (notification.type === NotificationTypes.REMINDER) {
       return (
         <View style={styles.notificationDesc}>
           <Text style={styles.notificationDescText}>{'This is a reminder for you to take your pill:'}</Text>
           <Text style={styles.notificationName}>{notification.content}</Text>
         </View>
       );
-    }
-    else if (notification.type === NotificationTypes.SCHEDULE) {
+    } else if (notification.type === NotificationTypes.SCHEDULE) {
       return (
         <View style={styles.notificationDesc}>
           <Text style={styles.notificationDescText}>
@@ -66,8 +92,7 @@ export const NotificationCard = ({notification}) => {
           </Text>
         </View>
       )
-    }
-    else if (notification.type === NotificationTypes.ANNOUNCEMENT) {
+    } else {
       return (
         <View style={styles.notificationDesc}>
           <Text style={styles.notificationDescText}>{notification.content}</Text>
@@ -76,11 +101,27 @@ export const NotificationCard = ({notification}) => {
     }
   };
 
+  const config = {
+    velocityThreshold: 0.3,
+    directionalOffsetThreshold: 80
+  };
+
   return (
-    <View style={styles.notificationContainer}>
+    <GestureRecognizer
+      style={styles.notificationContainer}
+      onSwipeUp={(state) => {
+        if (handleSwipeDown)
+          handleSwipeDown()
+      }}
+      onSwipeRight={(state) => {
+        if (handleSwipeRight)
+          handleSwipeRight()
+      }}
+      config={config}
+    >
       <Image source={Images.notification[notification.type]} style={styles.notificationAvatar}/>
       {renderContent()}
-    </View>
+    </GestureRecognizer>
   );
 };
 
@@ -114,6 +155,10 @@ const styles = StyleSheet.create({
   notificationDescText: {
     fontSize: hp('1.7%'),
     lineHeight: hp('2.8%'),
+  },
+  resultCount: {
+    fontWeight: 'bold',
+    fontSize: wp('4%')
   },
 });
 

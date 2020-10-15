@@ -166,7 +166,7 @@ const Route = (props) => {
             headerShown: false,
             gestureEnabled: false,
           }}>
-          <Stack.Screen name={Screens.home} component={isValid ? Home : Login}/>
+          <Stack.Screen name={Screens.home} component={Home}/>
           <Stack.Screen name={Screens.signUp} component={SignUp}/>
           <Stack.Screen name={Screens.logIn} component={Login}/>
           <Stack.Screen name={Screens.shareMoreDetails} component={isValid ? ShareMoreDetails : Login}/>

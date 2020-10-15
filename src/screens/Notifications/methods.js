@@ -1,29 +1,51 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {PillStackScreens} from '@/constants/Navigation';
+import {Screens, PillStackScreens} from '@/constants/Navigation';
 import {mockNotifications} from '@/constants/MockUpData';
+import {useStores} from "@/hooks";
 
 function useViewModel(props) {
-  const tag = 'Screens::PillReminder::';
+  const tag = 'Screens::Notification';
 
-  const nav = useNavigation();
+  const nav = useNavigation(props);
 
-  const [notifications, setNotifications] = useState(mockNotifications);
+  const [notifications, setNotifications] = useState();
+  const {user, data} = useStores();
+
   const NotificationTypes = {
-    PILL: 'pill',
-    SCHEDULE: 'schedule',
-    ANNOUNCEMENT: 'announcement'
+    REMINDER: 'REMINDER',
+    SCHEDULE: 'SCHEDULE',
+    ALERT: 'ALERT',
+    ANNOUNCEMENT: 'ANNOUNCEMENT'
   };
 
-  const onPressAdd = () => {
-    console.log(tag, 'onPressAdd()');
-    nav.navigate(PillStackScreens.addPillReminder);
+  const fetchData = async () => {
+    await data.getNotifications(user.sessionToken);
+    console.log(tag, 'fetch notifications', data);
+    if (data.lastStatus == "401") {
+      alert('Session expired');
+      user.logOut();
+      nav.navigate(Screens.logIn);
+      return;
+    }
+    setNotifications(data.notifications);
   };
+
+  const setNotificationAsRead = async (notificationId) => {
+    await data.setNotificationAsRead(user.sessionToken, notificationId);
+    await fetchData();
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return {
+    data,
+    fetchData,
     notifications,
     NotificationTypes,
-    onPressAdd
+    setNotificationAsRead,
   }
 }
 
