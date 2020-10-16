@@ -65,6 +65,13 @@ export const Doctor = types.model('Doctor', {
     availableTime: AvailableTime,
 });
 
+export const Speciality = types.model('Speciality', {
+    id: defString,
+    value: defString,
+    label: defString,
+    iconUrl: defString
+});
+
 export const DoctorDetails = types.model('DoctorDetails', {
     id: defString,
     fullName: defString,

@@ -22,30 +22,30 @@ import {observer} from 'mobx-react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {mockSpecialities} from '@/constants/MockUpData';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import LocationView from 'react-native-location-view';
 import Config from '@/config/AppConfig';
 import GreyText from "@/components/Text/GreyText";
 import MapView, {Marker} from 'react-native-maps';
 
-let mockSpecialityItems = [];
-mockSpecialityItems.push({
-  label: 'All',
-  value: ''
-})
-mockSpecialities.map(item => {
-  mockSpecialityItems.push(
-    {
-      label: __(item.toString().toLowerCase()),
-      value: item.toString()
-    }
-  );
-});
-
 const SearchDoctorsModal = (props) => {
   const vm = SearchDoctorsModalMethods(props);
-  console.log('Location', vm.location);
+  // console.log('Location', vm.location);
+
+
+  let mockSpecialityItems = [];
+  mockSpecialityItems.push({
+    label: 'All',
+    value: ''
+  });
+  vm.specialities.map(item => {
+    mockSpecialityItems.push(
+      {
+        label: item.label,
+        value: item.value,
+      }
+    );
+  });
 
   return (
     <Modal

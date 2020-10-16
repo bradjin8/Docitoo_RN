@@ -1,7 +1,7 @@
 import {applySnapshot, flow, types} from "mobx-state-tree";
 import {observable} from "mobx";
 import {isEmpty} from 'lodash';
-import {defNumber, defString, defObjString, PillReminder, Notification, Doctor, DoctorDetails} from './Types';
+import {defNumber, defString, defObjString, PillReminder, Notification, Doctor, Speciality, DoctorDetails} from './Types';
 import 'mobx-react-lite/batchingForReactDom';
 import * as Api from '@/Services/Api';
 import {Alert} from "react-native";
@@ -15,6 +15,7 @@ const Data = types
     pillReminders: types.array(PillReminder),
     notifications: types.array(Notification),
     doctors: types.array(Doctor),
+    specialities: types.array(Speciality),
     lastStatus: defNumber,
     selectedDoctorId: defString,
     selectedDoctor: types.array(DoctorDetails),
@@ -43,6 +44,10 @@ const Data = types
 
     const _updateNotifications = (data) => {
       self.notifications = data.notifications;
+    };
+
+    const _updateSpecialities = (specialities) => {
+      self.specialities = specialities;
     };
 
     const _updateDoctors = (data) => {
@@ -211,6 +216,7 @@ const Data = types
     const submitReview = flow(function* submitReview(
       userToken, doctorId, rating, description
     ) {
+      self.setProcessing(true);
       try {
         const response = yield Api.submitReview(userToken, doctorId, rating, description);
         const {ok, data} = response;
@@ -228,6 +234,33 @@ const Data = types
 
     });
 
+    const fetchSpecialities = flow(function* fetchSpecialities(
+      userToken
+    ) {
+      self.setProcessing(true);
+      try {
+        const {data, ok, status} = yield Api.fetchSpecialities(userToken);
+        self.lastStatus = status;
+        if (ok) {
+          let temp = [];
+          console.log(tag, 'FETCH_SPECIALITY', data.specialities);
+          for (let speciality of data.specialities) {
+            temp.push({
+              label: speciality.label,
+              value: speciality.value,
+              id: speciality._id,
+              iconUrl: Config.specialityUrlPrefix + speciality.iconName,
+            })
+          }
+          _updateSpecialities(temp);
+        }
+      } catch (e) {
+
+      } finally {
+        self.setProcessing(false);
+      }
+    });
+
     return {
       getPillReminders,
       addPillReminder,
@@ -238,7 +271,8 @@ const Data = types
       selectDoctor,
       requestBook,
       submitReview,
-      fetchDoctorById
+      fetchDoctorById,
+      fetchSpecialities
     }
   })
   .extend((self) => {

@@ -111,8 +111,10 @@ export const searchDoctorsByCategory = (userToken, category) => api.post(ApiUrl.
 
 export const searchDoctors = (userToken, name, speciality, address) => api.post(ApiUrl.searchDoctors, {name, speciality, address}, {headers: {userToken}});
 
-export const requestBook = (userToken, doctorId, timestamp) => api.put(ApiUrl.userDoctor + '/' + doctorId + '/booking', {doctorId, timestamp}, {headers: {userToken}});
+export const requestBook = (userToken, doctorId, timestamp) => api.put(ApiUrl.userDoctor + '/' + doctorId + '/booking', {timestamp}, {headers: {userToken}});
 
-export const submitReview = (userToken, doctorId, rating, description) => api.put(ApiUrl.userDoctor + '/' + doctorId + '/review', {doctorId, rating, description}, {headers: {userToken}});
+export const submitReview = (userToken, doctorId, rating, description) => api.put(ApiUrl.userDoctor + '/' + doctorId + '/review', {rating, description}, {headers: {userToken}});
 
 export const fetchDoctorById = (userToken, doctorId) => api.get(ApiUrl.userDoctor + '/' + doctorId, {},{headers: {userToken}});
+
+export const fetchSpecialities = (userToken) => api.get(ApiUrl.fetchSpecialities, {}, {headers: {userToken}});

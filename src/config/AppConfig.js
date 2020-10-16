@@ -4,6 +4,7 @@ const ServerURL = 'http://192.168.101.18:3010';
 export default {
   appBaseUrl: ServerURL,
   apiBaseUrl: ServerURL + '/api/',
+  specialityUrlPrefix: ServerURL + '/images/speciality/',
   oneSignalAppID: '59c80d9f-7824-4202-9ddb-83a4d779926e',
   oneSignalUserIDStorageKey: 'DeviceUserID',
 

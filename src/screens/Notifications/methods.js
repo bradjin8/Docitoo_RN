@@ -28,7 +28,7 @@ function useViewModel(props) {
       nav.navigate(Screens.logIn);
       return;
     }
-    setNotifications(data.notifications);
+    setNotifications(data.notifications.slice());
   };
 
   const setNotificationAsRead = async (notificationId) => {

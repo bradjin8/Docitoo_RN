@@ -24,7 +24,7 @@ const Notifications = (props) => {
         :
         <ScrollView style={styles.container}>
           <Space height={hp('1%')}/>
-          {vm.notifications && vm.notifications.length && vm.notifications.sort().map((item, index) => {
+          {vm.notifications && vm.notifications.length && vm.notifications.map((item, index) => {
             if (index < vm.notifications.length - 1) {
               return (
                 <View key={index}>
@@ -78,7 +78,7 @@ export const NotificationCard = ({notification, handleSwipeRight, handleSwipeDow
     if (notification.type === NotificationTypes.REMINDER) {
       return (
         <View style={styles.notificationDesc}>
-          <Text style={styles.notificationDescText}>{'This is a reminder for you to take your pill:'}</Text>
+          {/*<Text style={styles.notificationDescText}>{'This is a reminder for you to take your pill:'}</Text>*/}
           <Text style={styles.notificationName}>{notification.content}</Text>
         </View>
       );
@@ -86,9 +86,9 @@ export const NotificationCard = ({notification, handleSwipeRight, handleSwipeDow
       return (
         <View style={styles.notificationDesc}>
           <Text style={styles.notificationDescText}>
-            {'You called a doctor to schedule an appointment '}
+            {/*{'You called a doctor to schedule an appointment '}*/}
             <Text style={{fontWeight: 'bold'}}>{notification.content}</Text>
-            {'. Time to book another one now.'}
+            {/*{'. Time to book another one now.'}*/}
           </Text>
         </View>
       )

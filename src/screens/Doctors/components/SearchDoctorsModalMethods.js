@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import {useStores} from "@/hooks";
 
 function useViewModel(props) {
   const [doctorName, setDoctorName] = useState('');
   const [speciality, setSpeciality] = useState('');
   const [location, setLocation] = useState({latitude: 37.7, longitude: -112.4});
   const [isLocationMode, setLocationMode] = useState(false);
+  const {user, data} = useStores();
 
   const onPressFilterResults = () => {
     const filter = {
@@ -21,6 +23,7 @@ function useViewModel(props) {
     speciality, setSpeciality,
     location, setLocation,
     isLocationMode, setLocationMode,
+    specialities: data.specialities,
     onPressFilterResults
   }
 }

@@ -7,5 +7,6 @@ export default {
   notification: 'notification',
   searchDoctorsByCategory: 'userDoctor/searchDoctorsByCategory',
   searchDoctors: 'userDoctor/searchDoctors',
-  userDoctor: 'userDoctor'
+  userDoctor: 'userDoctor',
+  fetchSpecialities: 'speciality'
 }

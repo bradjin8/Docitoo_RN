@@ -16,15 +16,16 @@ import BoardWithHeader from '@/components/Panel/BoardWithHeader';
 import Space from '@/components/Space';
 import {scale} from '@/styles/Sizes';
 import Colors from "@/styles/Colors";
-import Images from '@/styles/Images';
 import useViewModel from './methods';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import Loading from '@/components/Loading';
+const tag = 'Screens::DoctorsByCategory';
 
 const DoctorsByCategory = (props) => {
   const vm = useViewModel(props);
 
+  // console.log(tag, 'Index - SearchString:', vm.searchString);
   return (
     <BoardWithHeader title={__('doctors')}>
       {vm.data.isProcessing ?
@@ -40,28 +41,20 @@ const DoctorsByCategory = (props) => {
           <Text style={styles.note}>
             {__('browse_doctors_by_category')}
           </Text>
-          <View style={styles.categoryLine}>
-            <CategoryButton image={Images.category.gynecologist} caption={__('gynecologist')}
-                            onPress={vm.onPressGynecologist}/>
-            <CategoryButton image={Images.category.skin} caption={__('skin_specialist')} onPress={vm.onPressSkin}/>
-          </View>
-          <View style={styles.categoryLine}>
-            <CategoryButton image={Images.category.child} caption={__('child_specialist')}
-                            onPress={vm.onPressChild}/>
-            <CategoryButton image={Images.category.orthopedic} caption={__('orthopedic_surgeon')}
-                            onPress={vm.onPressOrthopedic}/>
-          </View>
-          <View style={styles.categoryLine}>
-            <CategoryButton image={Images.category.ent} caption={__('ent_specialist')}
-                            onPress={vm.onPressENT}/>
-            <CategoryButton image={Images.category.diagnostics} caption={__('diagnostics')}
-                            onPress={vm.onPressDiagnostics}/>
-          </View>
-          <View style={styles.categoryLine}>
-            <CategoryButton image={Images.category.diabetes} caption={__('diabetes_specialist')}
-                            onPress={vm.onPressDiabetes}/>
-            <CategoryButton image={Images.category.eye} caption={__('eye_specialist')} onPress={vm.onPressEye}/>
-          </View>
+          {vm.filteredSpecialities && vm.filteredSpecialities.length > 0 &&
+            vm.filteredSpecialities.map((group, index1) => {
+              return (
+                <View style={styles.categoryLine} key={'view_' + index1}>
+                  {group.map((item, index2) => {
+                    return (
+                      <CategoryButton image={{uri: item.iconUrl}} caption={item.label} key={index1 + '_' + index2}
+                                      onPress={() => {vm.handleSearchByCategory(item.value)}}/>
+                    )
+                  })}
+                </View>
+              )
+            })
+          }
           <Space height={hp('10%')}/>
         </ScrollView>
       }
