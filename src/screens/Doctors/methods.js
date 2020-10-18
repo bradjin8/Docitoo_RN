@@ -3,6 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {DoctorStackScreens, Screens} from '@/constants/Navigation';
 import {Platform, PermissionsAndroid} from 'react-native';
 import {useStores} from "@/hooks";
+import __ from '@/assets/lang';
 
 const tag = 'Screens::Doctors';
 
@@ -70,7 +71,7 @@ function useViewModel(props) {
       if (data.lastStatus == '401') {
         nav.navigate(Screens.logIn);
         user.logOut();
-        alert('Session expired');
+        alert(__('session_expired'));
       }
       setDoctors(data.doctors);
     } catch (e) {
@@ -84,7 +85,7 @@ function useViewModel(props) {
     if (data.lastStatus == '401') {
       nav.navigate(Screens.logIn);
       user.logOut();
-      alert('Session expired');
+      alert(__('session_expired'));
     }
     setDoctors(data.doctors);
   }, []);

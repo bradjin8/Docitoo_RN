@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 function TabStack() {
   return (
     <Tab.Navigator
-      initialRouteName={TabStackScreens.more}
+      initialRouteName={TabStackScreens.doctorStack}
       tabBarOptions={{
         activeTintColor: Colors.blue1,
         style: {

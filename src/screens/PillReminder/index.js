@@ -14,6 +14,7 @@ import ImageButton from "@/components/Button/ImageButton";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
 import * as util from '@/utils/String';
 import Loading from "@/components/Loading";
+import dateFormat from 'node-datetime';
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
@@ -62,7 +63,7 @@ export const MedicineCard = ({medicine, type}) => {
       <View style={styles.medicineDesc}>
         <Text style={styles.medicineName}>{medicine.medicineName + ' - ' + medicine.dosage}</Text>
         <Text
-          style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + util.formatHour(medicine.timeToTake)}</Text>
+          style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + dateFormat.create(parseInt(medicine.timeToTake)).format('I:M p')}</Text>
       </View>
     </View>
   );

@@ -4,6 +4,8 @@ const en = {
   'skip_sign_up': 'Skip Sign Up',
   'app_desc': 'Search for medical \n professionals nearby',
   'app_note': 'By using this application, you agree to our privacy policy and terms of service.',
+  'session_expired': 'You must login to see this screen',
+  'can_not_connect_server': 'Can not connect to server',
 
   'sign_up_with': 'Sign up with',
   'or_sign_up_using_email': 'or sign up using email',

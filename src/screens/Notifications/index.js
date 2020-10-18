@@ -24,10 +24,23 @@ const Notifications = (props) => {
         :
         <ScrollView style={styles.container}>
           <Space height={hp('1%')}/>
-          {vm.notifications && vm.notifications.length && vm.notifications.map((item, index) => {
-            if (index < vm.notifications.length - 1) {
-              return (
-                <View key={index}>
+          {vm.notifications && vm.notifications.length ? vm.notifications.map((item, index) => {
+              if (index < vm.notifications.length - 1) {
+                return (
+                  <View key={index}>
+                    <NotificationCard
+                      notification={item}
+                      key={index}
+                      handleSwipeRight={() => {
+                        console.log(`Notification ${item.id} will be removed soon`);
+                        vm.setNotificationAsRead(item.id)
+                      }}
+                    />
+                    <Separator color={Colors.grey} width={2}/>
+                  </View>
+                );
+              } else {
+                return (
                   <NotificationCard
                     notification={item}
                     key={index}
@@ -36,26 +49,13 @@ const Notifications = (props) => {
                       vm.setNotificationAsRead(item.id)
                     }}
                   />
-                  <Separator color={Colors.grey} width={2}/>
-                </View>
-              );
-            } else {
-              return (
-                <NotificationCard
-                  notification={item}
-                  key={index}
-                  handleSwipeRight={() => {
-                    console.log(`Notification ${item.id} will be removed soon`);
-                    vm.setNotificationAsRead(item.id)
-                  }}
-                />
-              )
-            }
-          })}
-          {!vm.notifications || vm.notifications.length < 1 &&
-          <Text style={styles.resultCount}>
-            {util.formatInteger(vm.notifications.length) + ' ' + __('results_found')}
-          </Text>
+                )
+              }
+            })
+            :
+            <Text style={styles.resultCount}>
+              {'0 ' + __('results_found')}
+            </Text>
           }
           <Space height={hp('3%')}/>
         </ScrollView>

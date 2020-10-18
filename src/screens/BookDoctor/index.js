@@ -65,8 +65,8 @@ const PickADate = (props) => {
         bottom: 0,
         left: 0,
         right: 0,
-        width: '100%',
-        height: '10%',
+        width: wp('100%'),
+        height: hp('10%'),
         margin: 0,
         elevation: 10,
         shadowColor: Colors.grey_dark,
@@ -74,7 +74,7 @@ const PickADate = (props) => {
         shadowOpacity: 0.75,
       }}>
         <View style={{
-          marginHorizontal: '5%', width: '90%', flexDirection: 'row', justifyContent: 'space-between', marginTop: '2%'
+          marginHorizontal: '5%', width: wp('90%'), flexDirection: 'row', justifyContent: 'space-between', marginTop: hp('1%')
         }}>
           <TouchableHighlight style={styles.blueButton} onPress={vm.onPressConfirm} underlayColor={Colors.white2}>
             <Text style={styles.blueButtonLabel}>
@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center',
     fontWeight: 'bold',
-    fontSize: 18 * scale,
+    fontSize: hp('2%'),
   },
   blueButton: {
     backgroundColor: Colors.blue1,
-    width: '100%',
-    padding: 18 * scale,
+    width: wp('90%'),
+    padding: hp('2.4%'),
     borderRadius: 5,
     borderWidth: 0.5,
     borderColor: Colors.blue2,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   timeSlot: {
-    marginVertical: 10 * scale,
+    marginVertical: hp('1%'),
   },
   timeSlotText: {
     borderColor: Colors.blue1,
@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 18 * scale,
     fontWeight: 'bold',
     textAlign: 'center',
+    textAlignVertical: 'center',
     paddingVertical: 14 * scale,
     alignItems: 'center',
   },
@@ -156,6 +157,7 @@ const styles = StyleSheet.create({
     fontSize: 18 * scale,
     fontWeight: 'bold',
     textAlign: 'center',
+    textAlignVertical: 'center',
     paddingVertical: 14 * scale,
     alignItems: 'center',
   },

@@ -4,7 +4,7 @@ import Colors from '@/styles/Colors';
 import {scale} from '@/styles/Sizes';
 import {widthPercentageToDP, heightPercentageToDP} from "react-native-responsive-screen";
 
-const GreyInput = ({onChangeText, value, placeholder, numberOfLines, multiline, secureTextEntry = false}) => {
+const GreyInput = ({onChangeText, value, placeholder, numberOfLines, multiline, onFocus, secureTextEntry = false}) => {
   const styles = StyleSheet.create({
     textInput: {
       backgroundColor: Colors.grey_light,
@@ -22,6 +22,7 @@ const GreyInput = ({onChangeText, value, placeholder, numberOfLines, multiline, 
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
+      onFocus={onFocus}
       multiline={multiline === true}
       numberOfLines={numberOfLines}
       secureTextEntry={secureTextEntry}

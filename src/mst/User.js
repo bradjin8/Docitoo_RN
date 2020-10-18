@@ -8,6 +8,7 @@ import * as Api from '@/Services/Api';
 import * as SocialApi from '@/Services/SocialApi';
 import AsyncStorage from "@react-native-community/async-storage";
 import {Platform} from "react-native";
+import __ from "../assets/lang";
 
 // import * as Api from '@services/Api';
 
@@ -76,8 +77,12 @@ const User = types
           self.lastError = data.error;
           return;
         }
-        data.password = password;
-        _updateFromLoginResponse(data);
+        if (!data) {
+          alert(__('can_not_connect_server'));
+        } else {
+          data.password = password;
+          _updateFromLoginResponse(data);
+        }
       } catch (e) {
         console.log(tag, 'Login Filed --', e.message)
       } finally {
@@ -139,8 +144,12 @@ const User = types
           self.lastError = data.error;
           return;
         }
-        data.password = password;
-        _updateFromLoginResponse(data);
+        if (!data) {
+          alert(__('can_not_connect_server'));
+        } else {
+          data.password = password;
+          _updateFromLoginResponse(data);
+        }
       } catch (e) {
         console.log(tag, 'SignUp Failed --', e.message);
       } finally {
@@ -177,9 +186,12 @@ const User = types
           self.statusCode = parseInt(response.status);
           return;
         }
-
-        data.password = password;
-        _updateFromLoginResponse(data);
+        if (!data) {
+          alert(__('can_not_connect_server'));
+        } else {
+          data.password = password;
+          _updateFromLoginResponse(data);
+        }
       } catch (e) {
         console.log(tag, 'UpdateProfile Failed --', e.message);
       } finally {

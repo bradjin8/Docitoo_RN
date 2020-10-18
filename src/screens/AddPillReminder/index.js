@@ -6,14 +6,16 @@ import Space from '@/components/Space';
 import GreyInput from '@/components/Input/GreyInput';
 import __ from "@/assets/lang";
 import ScrollBoardWithHeaderLBButton from "@/components/Panel/ScrollBoardWithHeaderLRButton";
-import {scale} from "@/styles/Sizes";
 import DropDownPicker from 'react-native-dropdown-picker';
 import Colors from "@/styles/Colors";
 import Images from '@/styles/Images';
 import useViewModel from './methods';
 import BlueButton from "@/components/Button/BlueButton";
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import dateFormat from 'node-datetime';
+// import DateTimePicker from 'react-native-modal-datetime-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-datepicker';
 
 const AddPillReminder = (props) => {
   const vm = useViewModel(props);
@@ -55,6 +57,7 @@ const AddPillReminder = (props) => {
     )
   }
 
+  console.log(vm.dateTime);
 
   return (
     <Container>
@@ -70,7 +73,59 @@ const AddPillReminder = (props) => {
                      onChangeText={(val) => vm.setDosage(val)}/>
           <GreyInput placeholder={__('frequency')} value={vm.frequency}
                      onChangeText={(val) => vm.setFrequency(val)}/>
-          <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 50})}}>
+
+          {Platform.OS === 'ios' ? <DatePicker
+              style={{width: wp('90%')}}
+              date={vm.dateTime}
+              placeholder={'Select a time'}
+              mode={'time'}
+              androidMode={'spinner'}
+              confirmBtnText={'OK'}
+              cancelBtnText={'Cancel'}
+              onDateChange={(val) => {
+                let dateTime = new Date(vm.dateTime);
+                const hour = parseInt(val.split(':')[0]);
+                const min = parseInt(val.split(':')[1]);
+                console.log(hour, min);
+                dateTime.setHours(hour);
+                dateTime.setMinutes(min);
+                dateTime.setSeconds(0);
+                dateTime.setMilliseconds(0);
+
+                vm.setDateTime(dateTime);
+              }}
+            />
+            :
+            <>
+              <TouchableOpacity
+                onPress={
+                  () => {
+                    vm.setVisiblePicker(true)
+                  }
+                }
+              >
+                <Text style={{padding: hp('2%'), backgroundColor: Colors.grey_light, color: Colors.grey_dark}}>
+                  {dateFormat.create(vm.dateTime).format('I:M p')}
+                </Text>
+              </TouchableOpacity>
+              <View style={{width: '10%'}}>
+                {vm.visiblePicker && <DateTimePicker
+                  value={vm.dateTime}
+                  display={"default"}
+                  mode={"time"}
+                  onChange={(event, selectedDate) => {
+                    let currentDate = selectedDate || vm.dateTime;
+                    currentDate.setSeconds(0);
+                    currentDate.setMilliseconds(0);
+                    vm.setVisiblePicker(Platform.OS === 'ios');
+                    vm.setDateTime(currentDate);
+                  }}
+                />}
+              </View>
+            </>
+          }
+
+          {/*
             <DropDownPicker
               items={timeSlots}
               style={styles.dropDownBack}
@@ -86,7 +141,7 @@ const AddPillReminder = (props) => {
               placeholder={__('select_time_to_take_pill')}
               dropDownMaxHeight={hp('20%')}
             />
-          </View>
+          </View>*/}
           <BlueButton onPress={vm.onPressAdd} caption={__('set_pill_reminder')}/>
 
           <Space height={hp('20%')}/>

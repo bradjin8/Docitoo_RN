@@ -4,6 +4,7 @@ import {DoctorStackScreens, PillStackScreens, Screens} from '@/constants/Navigat
 import {useStores} from "@/hooks";
 import {SPECIALITIES} from '@/constants/MockUpData';
 import Config from '@/config/AppConfig';
+import __ from '@/assets/lang';
 
 
 function useViewModel(props) {
@@ -23,7 +24,7 @@ function useViewModel(props) {
     if (data.lastStatus == '401') {
       nav.navigate(Screens.logIn);
       user.logOut();
-      alert('Session expired');
+      alert(__('session_expired'));
     } else {
       nav.navigate(DoctorStackScreens.doctors);
     }

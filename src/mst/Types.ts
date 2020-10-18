@@ -6,11 +6,11 @@ export const defString = types.optional(types.string, '', [null, undefined]);
 export const defNumber = types.optional(types.number, 0, [null, undefined]);
 export const defObjString = types.optional(types.string, '{}', [null, undefined]);
 export const PillReminder = types.model('PillReminder', {
-    id: types.string,
-    medicineName: types.string,
-    dosage: types.string,
-    frequency: types.string,
-    timeToTake: types.number,
+    id: defString,
+    medicineName: defString,
+    dosage: defString,
+    frequency: defString,
+    timeToTake: defString,
 });
 
 export const Notification = types.model('Notification', {

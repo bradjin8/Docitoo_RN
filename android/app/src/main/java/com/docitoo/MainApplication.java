@@ -7,6 +7,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -41,7 +42,9 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-            //packages.add(new MainReactPackage());
+            //packages.add(new MainReactPackage(),
+//            new RNDateTimePickerPackage(),
+//            packages.add(new RNDateTimePickerPackage());
             //packages.add(new MapsPackage());
             //packages.add(new GeolocationPackage());
             //packages.add(new FBSDKPackage());

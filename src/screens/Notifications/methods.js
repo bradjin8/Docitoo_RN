@@ -3,6 +3,8 @@ import {useNavigation} from '@react-navigation/native';
 import {Screens, PillStackScreens} from '@/constants/Navigation';
 import {mockNotifications} from '@/constants/MockUpData';
 import {useStores} from "@/hooks";
+import __ from '@/assets/lang';
+
 
 function useViewModel(props) {
   const tag = 'Screens::Notification';
@@ -23,7 +25,7 @@ function useViewModel(props) {
     await data.getNotifications(user.sessionToken);
     console.log(tag, 'fetch notifications', data);
     if (data.lastStatus == "401") {
-      alert('Session expired');
+      alert(__('session_expired'));
       user.logOut();
       nav.navigate(Screens.logIn);
       return;

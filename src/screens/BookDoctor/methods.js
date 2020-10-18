@@ -53,7 +53,7 @@ function useViewModel(props) {
         if (data.lastStatus == '401') {
           nav.navigate(Screens.logIn);
           await user.logOut();
-          alert('Session expired');
+          alert(__('session_expired'));
           return;
         }
       } catch (e) {

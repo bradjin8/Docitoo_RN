@@ -31,8 +31,9 @@ const BoardWithHeader = ({children, title, onSwipeUp}) => {
     }
   };
 
+  // console.log(children);
   return (
-    <GestureRecognizer
+    <View
       // onSwipe={(direction, state) => onSwipe(direction, state)}
       // onSwipeUp={(state) => handleSwipeUp(state)}
     >
@@ -46,7 +47,7 @@ const BoardWithHeader = ({children, title, onSwipeUp}) => {
           {children}
         </KeyboardAvoidingView>
       </Container>
-    </GestureRecognizer>
+    </View>
   )
 };
 

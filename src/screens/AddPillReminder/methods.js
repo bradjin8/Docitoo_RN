@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {PillStackScreens} from "@/constants/Navigation";
-import * as Api from '@/Services/Api';
 import {useStores} from "@/hooks";
 import {Alert} from 'react-native';
 
@@ -13,7 +11,10 @@ function useViewModel(props) {
   const [dosage, setDosage] = useState('');
   const [frequency, setFrequency] = useState('');
   const [time, setTime] = useState('');
+  const [dateTime, setDateTime] = useState(new Date());
+  const [visiblePicker, setVisiblePicker] = useState(false);
   const {user, data} = useStores();
+
 
   const onPressBack = () => {
     console.log(tag, 'onPressBack()');
@@ -22,10 +23,15 @@ function useViewModel(props) {
   };
 
   const onPressAdd = async () => {
-    console.log(tag, 'onPressAdd()', name, dosage, frequency, time);
+    console.log(tag, 'onPressAdd()', name, dosage, frequency, dateTime.toLocaleString());
+
+    if (!name || !dosage || !frequency) {
+      alert('Input valid values');
+      return;
+    }
     try {
-      await data.addPillReminder(user.sessionToken, name, dosage, frequency, time);
-      nav.navigate(PillStackScreens.pillReminder);
+      await data.addPillReminder(user.sessionToken, name, dosage, frequency, dateTime);
+      nav.goBack();
     } catch (e) {
       Alert.alert(
         "Exception",
@@ -46,6 +52,8 @@ function useViewModel(props) {
     dosage, setDosage,
     frequency, setFrequency,
     time, setTime,
+    dateTime, setDateTime,
+    visiblePicker, setVisiblePicker,
     onPressBack,
     onPressAdd,
   }
