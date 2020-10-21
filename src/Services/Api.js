@@ -105,7 +105,7 @@ export const addPillReminder = (userToken, medicineName, dosage, frequency, time
 
 export const getNotifications = (userToken) => api.get(ApiUrl.notification, {}, {headers: {userToken}});
 
-export const setNotificationAsRead = (userToken, id) => api.post(ApiUrl.notification + '/' + id, {}, {headers: {userToken}});
+export const setNotificationAsRead = (userToken, id) => api.delete(ApiUrl.notification + '/' + id, {}, {headers: {userToken}});
 
 export const searchDoctorsByCategory = (userToken, category) => api.post(ApiUrl.searchDoctorsByCategory, {category}, {headers: {userToken}});
 

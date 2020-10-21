@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {MoreStackScreens, DoctorStackScreens, TabStackScreens, Screens, PillStackScreens} from '@/constants/Navigation';
+import {MoreStackScreens, DoctorStackScreens, TabStackScreens, DoctorTabStackScreens, Screens, PillStackScreens} from '@/constants/Navigation';
 
 import Home from '@/screens/Home';
 import SignUp from '@/screens/SignUp';
@@ -22,6 +22,11 @@ import PillReminder from '@/screens/PillReminder';
 import AddPillReminder from '@/screens/AddPillReminder';
 import Notifications from '@/screens/Notifications';
 import Splash from '@/screens/Splash';
+
+// Doctor Screens
+// import DNotifications from '@/screensDoctor/Notifications';
+// import DUserProfile from '@/screensDoctor/UserProfile';
+
 
 import Colors from '@/styles/Colors';
 import useViewModel from './methods';
@@ -44,7 +49,7 @@ const styles = StyleSheet.create({
   }
 });
 
-function TabStack() {
+function UserTab() {
   return (
     <Tab.Navigator
       initialRouteName={TabStackScreens.doctorStack}
@@ -106,6 +111,68 @@ function TabStack() {
   )
 }
 
+function DoctorTab() {
+  return (
+    <Tab.Navigator
+      initialRouteName={DoctorTabStackScreens.booking}
+      tabBarOptions={{
+        activeTintColor: Colors.blue1,
+        style: {
+          borderTopWidth: 0.5,
+          elevation: 10,
+          shadowColor: Colors.grey_dark,
+          shadowRadius: 10,
+          shadowOpacity: 0.75,
+        }
+      }}
+      tabStyle={styles.tabItem}
+      labelStyle={styles.tabLabel}
+    >
+      <Tab.Screen
+        name={DoctorTabStackScreens.booking}
+        component={DBookingStack}
+        options={{
+          title: __('doctors'),
+          tabBarIcon: ({color, size}) => (
+            <Icon name={'plus-circle'} color={color} size={size}/>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={DoctorTabStackScreens.notifications}
+        component={Notifications}
+        options={{
+          title: __(DoctorTabStackScreens.notifications),
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={DoctorTabStackScreens.profile}
+        component={PillReminderStack}
+        options={{
+          title: __('pill_reminder'),
+          tabBarIcon: ({color, size}) => (
+            <MaterialCommunityIcon name={'pill'} color={color} size={size}
+                                   style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={DoctorTabStackScreens.moreStack}
+        component={MoreStack}
+        options={{
+          title: __(MoreStackScreens.more),
+          tabBarIcon: ({color, size}) => (
+            <FoundationIcon name={'indent-more'} color={color} size={size}/>
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
+
 function DoctorStack() {
   return (
     <Stack.Navigator
@@ -120,6 +187,24 @@ function DoctorStack() {
     </Stack.Navigator>
   )
 }
+
+
+function DBookingStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: false,
+      }}>
+      <Stack.Screen name={DoctorStackScreens.doctorsByCategory} component={DoctorsByCategory}/>
+      <Stack.Screen name={DoctorStackScreens.doctors} component={Doctors}/>
+      <Stack.Screen name={DoctorStackScreens.viewDoctor} component={ViewDoctor}/>
+      <Stack.Screen name={DoctorStackScreens.bookDoctor} component={BookDoctor}/>
+    </Stack.Navigator>
+  )
+}
+
+
 
 function PillReminderStack() {
   return (
@@ -170,7 +255,8 @@ const Route = (props) => {
           <Stack.Screen name={Screens.signUp} component={SignUp}/>
           <Stack.Screen name={Screens.logIn} component={Login}/>
           <Stack.Screen name={Screens.shareMoreDetails} component={isValid ? ShareMoreDetails : Login}/>
-          <Stack.Screen name={Screens.tabStack} component={TabStack}/>
+          <Stack.Screen name={Screens.userFlow} component={UserTab}/>
+          <Stack.Screen name={Screens.doctorFlow} component={DoctorTab}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

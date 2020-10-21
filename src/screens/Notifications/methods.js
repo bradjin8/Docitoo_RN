@@ -35,7 +35,7 @@ function useViewModel(props) {
 
   const setNotificationAsRead = async (notificationId) => {
     await data.setNotificationAsRead(user.sessionToken, notificationId);
-    await fetchData();
+    // await fetchData();
   };
 
   useEffect(() => {

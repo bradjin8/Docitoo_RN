@@ -26,7 +26,7 @@ function useViewModel(props) {
 
 
   const go2Main = () => {
-    nav.navigate(Screens.tabStack);
+    nav.navigate(Screens.userFlow);
   };
 
   const onPressSignUp = () => {

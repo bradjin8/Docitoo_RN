@@ -179,6 +179,9 @@ const Data = types
 
     const setNotificationAsRead = flow(function* (userToken, notificationId) {
       self.setProcessing(true);
+      let notifications = self.notifications.slice(0).filter(item => item.id != notificationId);
+      _updateNotifications({notifications});
+      self.setProcessing(false);
       try {
         const response = yield Api.setNotificationAsRead(userToken, notificationId);
         const {ok, data} = response;
@@ -186,12 +189,29 @@ const Data = types
           alert(__('can_not_connect_server'));
         }
         if (ok) {
-          getNotifications(userToken);
+          //yield getNotifications(userToken);
+
         }
       } catch (e) {
 
       } finally {
-        self.setProcessing(true);
+        self.setProcessing(false);
+      }
+
+      try {
+        const response = yield Api.setNotificationAsRead(userToken, notificationId);
+        const {ok, data} = response;
+        if (!data) {
+          alert(__('can_not_connect_server'));
+        }
+        if (ok) {
+          //yield getNotifications(userToken);
+
+        }
+      } catch (e) {
+
+      } finally {
+        self.setProcessing(false);
       }
     });
 

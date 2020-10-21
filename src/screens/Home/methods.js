@@ -17,7 +17,7 @@ function useViewModel(props) {
 
   const onPressSkipSignUp = async () => {
     await user.logOut();
-    nav.navigate(Screens.tabStack);
+    nav.navigate(Screens.userFlow);
   };
 
   return {

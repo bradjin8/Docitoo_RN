@@ -27,7 +27,8 @@ export const Screens = {
 
     bookDoctor: 'BookDoctor', // 19, 20
 
-    tabStack: 'TabStack',
+    userFlow: 'userFlow',
+    doctorFlow: 'doctorFlow',
 };
 
 export const TabStackScreens = {
@@ -35,6 +36,13 @@ export const TabStackScreens = {
     notifications: 'Notifications',
     pillReminderStack: 'PillReminderStack', // 10, 11
     moreStack: 'MoreStack',
+};
+
+export const DoctorTabStackScreens = {
+    booking: 'DBooking',
+    notifications: 'DNotifications',
+    profile: 'DProfile',
+    moreStack: 'DMoreStack',
 };
 
 export const DoctorStackScreens = {

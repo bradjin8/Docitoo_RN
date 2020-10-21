@@ -28,7 +28,7 @@ function useViewModel(props) {
   const onPressSubmit = async () => {
     try {
       // await user.updateProfile(avatarSource, gender, bloodType);
-      nav.navigate(Screens.tabStack)
+      nav.navigate(Screens.userFlow)
     } catch (e) {
       console.log(tag, 'OnPressSubmit, Ex', e.message)
     }
