@@ -131,7 +131,8 @@ const Data = types
           title: `${medicineName} - ${dosage}`,
           message: `It is time to take this pill, ${medicineName} - ${dosage}`,
           channel: 'pill_reminder',
-          loop_data: true,
+          // loop_data: true,
+          small_icon: 'ic_launcher',
           schedule_type: 'repeat',
           repeat_interval: 'daily',
           play_sound: true,
@@ -200,9 +201,8 @@ const Data = types
 
     const setNotificationAsRead = flow(function* (userToken, notificationId) {
       self.setProcessing(true);
-      let notifications = self.notifications.slice(0).filter(item => item.id != notificationId);
-      _updateNotifications({notifications});
-      self.setProcessing(false);
+      // let notifications = self.notifications.slice(0).filter(item => item.id != notificationId);
+      // _updateNotifications({notifications});
       try {
         const response = yield Api.setNotificationAsRead(userToken, notificationId);
         const {ok, data} = response;
@@ -210,24 +210,7 @@ const Data = types
           alert(__('can_not_connect_server'));
         }
         if (ok) {
-          //yield getNotifications(userToken);
-
-        }
-      } catch (e) {
-
-      } finally {
-        self.setProcessing(false);
-      }
-
-      try {
-        const response = yield Api.setNotificationAsRead(userToken, notificationId);
-        const {ok, data} = response;
-        if (!data) {
-          alert(__('can_not_connect_server'));
-        }
-        if (ok) {
-          //yield getNotifications(userToken);
-
+          yield getNotifications(userToken);
         }
       } catch (e) {
 

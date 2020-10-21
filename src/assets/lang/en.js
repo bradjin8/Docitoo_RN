@@ -105,6 +105,12 @@ const en = {
   'diagnostics': 'Diagnostics',
   'diabetes_specialist': 'Diabetes Specialist',
   'eye_specialist': 'Eye Specialist',
+
+  bookings: 'Bookings',
+  booking_detail: 'Booking Details',
+  profile: 'Profile',
+  reject: 'Reject',
+  accept: 'Accept',
 };
 
 export default en;

@@ -39,6 +39,10 @@ function useViewModel(props) {
   };
 
   useEffect(() => {
+    setNotifications(data.notifications.slice())
+  }, [data.notifications]);
+
+  useEffect(() => {
     fetchData();
   }, []);
 

@@ -89,6 +89,28 @@ export const DoctorDetails = types.model('DoctorDetails', {
 });
 
 export const defPillReminders = types.array(PillReminder);
+
+export const User = types.model('Doctor', {
+    id: defString,
+    fullName: defString,
+    avatarUrl: defString,
+    email: defString,
+    phoneNumber: defString,
+    gender: defString,
+    bloodType: defString,
+    language: defString,
+    createdAt: defString,
+});
+
+export const Booking = types.model('Booking', {
+    id: defString,
+    user: User,
+    createdAt: defString,
+    updatedAt: defString,
+    date: defString,
+    status: defString,
+});
+
 export default {
     defString,
     defNumber,

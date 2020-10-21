@@ -17,7 +17,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-nativ
 import Images from "@/styles/Images";
 import * as datetime from 'node-datetime';
 
-const ViewDoctor = (props) => {
+const More = (props) => {
   const vm = useViewModel(props);
 
   return (
@@ -27,27 +27,30 @@ const ViewDoctor = (props) => {
           {vm.user && <ProfileCard user={vm.user}>
           </ProfileCard>}
           <Space height={hp('5%')}/>
-          <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressSearchDoctors}>
-            <View style={styles.iconContainer}>
-              <Icon name={'search'} size={hp('2.5%')} color={Colors.grey_dark}/>
-            </View>
-            <Text style={styles.buttonCaption}>{__('search_doctors')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressPillReminder}>
-            <View style={styles.iconContainer}>
-              <MaterialCommunityIcon name={'pill'} color={Colors.grey_dark} size={hp('3.2%')}
-                                     style={{transform: [{rotate: '90deg'}]}}/>
-            </View>
-            <Text style={styles.buttonCaption}>{__('pill_reminder')}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressAccountSettings}>
-            <View style={styles.iconContainer}>
-              {/*<EntypoIcon name={'cog'} size={30} color={Colors.grey_dark} style={{transform: [{rotate: '22.5deg'}]}}/>*/}
-              <FontistoIcon name={'player-settings'} size={hp('2.9%')} color={Colors.grey_dark}
-                            style={{transform: [{rotate: '22.5deg'}]}}/>
-            </View>
-            <Text style={styles.buttonCaption}>{__('account_settings')}</Text>
-          </TouchableOpacity>
+          {vm.user.accountType === 'User' &&
+          <>
+            <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressSearchDoctors}>
+              <View style={styles.iconContainer}>
+                <Icon name={'search'} size={hp('2.5%')} color={Colors.grey_dark}/>
+              </View>
+              <Text style={styles.buttonCaption}>{__('search_doctors')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressPillReminder}>
+              <View style={styles.iconContainer}>
+                <MaterialCommunityIcon name={'pill'} color={Colors.grey_dark} size={hp('3.2%')}
+                                       style={{transform: [{rotate: '90deg'}]}}/>
+              </View>
+              <Text style={styles.buttonCaption}>{__('pill_reminder')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressAccountSettings}>
+              <View style={styles.iconContainer}>
+                {/*<EntypoIcon name={'cog'} size={30} color={Colors.grey_dark} style={{transform: [{rotate: '22.5deg'}]}}/>*/}
+                <FontistoIcon name={'player-settings'} size={hp('2.9%')} color={Colors.grey_dark}
+                              style={{transform: [{rotate: '22.5deg'}]}}/>
+              </View>
+              <Text style={styles.buttonCaption}>{__('account_settings')}</Text>
+            </TouchableOpacity>
+          </>}
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressTermsAndConditions}>
             <View style={styles.iconContainer}>
               <MaterialCommunityIcon name={'briefcase-check-outline'} color={Colors.grey_dark} size={hp('2.9%')}
@@ -91,14 +94,14 @@ const ViewDoctor = (props) => {
 };
 
 export const ProfileCard = ({user}) => {
-  console.log(user.avatarUrl);
+  // console.log(user.avatarUrl);
   return (
     <View style={styles.profileContainer}>
       {user.avatarUrl ? <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/> : <Image
         source={Images.placeholder.avatar_default} style={styles.profileAvatar}/>}
       <View style={styles.profileDesc}>
         <Text style={styles.profileName}>{user.fullName}</Text>
-        <Text style={styles.profileDate}>{'User since ' + datetime.create(user.createdAt).format('f Y')}</Text>
+        <Text style={styles.profileDate}>{(user.accountType === 'User' ? 'User since ' : 'Joined since ') + datetime.create(user.createdAt).format('f Y')}</Text>
       </View>
     </View>
   );
@@ -184,4 +187,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default observer(ViewDoctor);
+export default observer(More);

@@ -36,7 +36,7 @@ const EditProfile = (props) => {
   return (
     <Container>
       {vm.user &&
-      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('')}
+      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={null}
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <ProfileCard onPressAvatar={vm.onPressAvatar}

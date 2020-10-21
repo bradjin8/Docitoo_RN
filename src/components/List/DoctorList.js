@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {View, Image, StyleSheet, SectionList, TouchableOpacity, FlatList, Text} from 'react-native';
 import Colors from '@/styles/Colors';
-import {scale} from '@/styles/Sizes';
 import * as StringUtil from '@/utils/String';
 import __ from '@/assets/lang';
 import StarRatingBar from 'react-native-star-rating-view/StarRatingBar';
 import Images from '@/styles/Images';
 import Separator from '@/components/Separator';
-import Space from '@/components/Space';
 import {formatHour} from '@/utils/String';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
-import BoardWithHeaderRightButton from "../../screens/Doctors";
 
 const DoctorList = ({doctors, onPressDoctor}) => {
   return (

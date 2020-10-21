@@ -19,7 +19,7 @@ const PickADate = (props) => {
   return (
     <Container>
       {vm.doctor &&
-      <ScrollBoardWithHeaderLBButton lButtonCaption={vm.title} rButtonCaption={__('')}
+      <ScrollBoardWithHeaderLBButton lButtonCaption={vm.title} rButtonCaption={null}
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <DoctorCard doctor={vm.doctor}/>

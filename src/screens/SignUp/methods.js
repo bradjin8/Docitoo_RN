@@ -39,7 +39,11 @@ function useViewModel(props) {
         await user.signUp(params.email, params.fullName, params.password, params.phoneNumber);
 
         if (user.isValid) {
-          nav.navigate(Screens.shareMoreDetails);
+          if (user.accountType === 'Doctor') {
+            nav.navigate(Screens.doctorFlow)
+          } else {
+            nav.navigate(Screens.shareMoreDetails);
+          }
         } else {
           let error = 'Unknown Error';
           if (user.getStatusCode === 409) {

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {DoctorStackScreens, Screens} from '@/constants/Navigation';
+import {DoctorStackScreens, DoctorTabStackScreens, Screens} from '@/constants/Navigation';
 import {useStores} from '@/hooks';
 import {object, string} from 'yup';
 import {errorMessage} from '@/utils/Yup';
@@ -26,7 +26,11 @@ function useViewModel(props) {
 
 
   const go2Main = () => {
-    nav.navigate(Screens.userFlow);
+    if (user.accountType === 'Doctor') {
+      nav.navigate(Screens.doctorFlow)
+    } else {
+      nav.navigate(Screens.userFlow);
+    }
   };
 
   const onPressSignUp = () => {

@@ -24,7 +24,9 @@ import Notifications from '@/screens/Notifications';
 import Splash from '@/screens/Splash';
 
 // Doctor Screens
-// import DNotifications from '@/screensDoctor/Notifications';
+import Bookings from '@/screensDoctor/Bookings';
+import ViewBooking from '@/screensDoctor/ViewBooking';
+import DNotifications from '@/screens/Notifications';
 // import DUserProfile from '@/screensDoctor/UserProfile';
 
 
@@ -34,7 +36,9 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import __ from '@/assets/lang';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FoundationIcon from 'react-native-vector-icons/Foundation';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 const tag = 'Route::index';
 
 const Stack = createStackNavigator();
@@ -132,17 +136,17 @@ function DoctorTab() {
         name={DoctorTabStackScreens.booking}
         component={DBookingStack}
         options={{
-          title: __('doctors'),
+          title: __('bookings'),
           tabBarIcon: ({color, size}) => (
-            <Icon name={'plus-circle'} color={color} size={size}/>
+            <FontAwesome5Icon name={'book-medical'} color={color} size={size}/>
           ),
         }}
       />
       <Tab.Screen
         name={DoctorTabStackScreens.notifications}
-        component={Notifications}
+        component={DNotifications}
         options={{
-          title: __(DoctorTabStackScreens.notifications),
+          title: __('notifications'),
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
           ),
@@ -150,12 +154,11 @@ function DoctorTab() {
       />
       <Tab.Screen
         name={DoctorTabStackScreens.profile}
-        component={PillReminderStack}
+        component={MyProfile}
         options={{
-          title: __('pill_reminder'),
+          title: __('profile'),
           tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcon name={'pill'} color={color} size={size}
-                                   style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
+            <EntypoIcon name={'user'} color={color} size={size}/>
           ),
         }}
       />
@@ -196,10 +199,8 @@ function DBookingStack() {
         headerShown: false,
         gestureEnabled: false,
       }}>
-      <Stack.Screen name={DoctorStackScreens.doctorsByCategory} component={DoctorsByCategory}/>
-      <Stack.Screen name={DoctorStackScreens.doctors} component={Doctors}/>
-      <Stack.Screen name={DoctorStackScreens.viewDoctor} component={ViewDoctor}/>
-      <Stack.Screen name={DoctorStackScreens.bookDoctor} component={BookDoctor}/>
+      <Stack.Screen name={'Bookings'} component={Bookings}/>
+      <Stack.Screen name={'ViewBooking'} component={ViewBooking}/>
     </Stack.Navigator>
   )
 }

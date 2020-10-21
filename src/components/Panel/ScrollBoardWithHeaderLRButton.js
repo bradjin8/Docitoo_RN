@@ -8,31 +8,42 @@ import * as Styles from '@/styles'
 import {scale, headerHeight} from '@/styles/Sizes';
 import Icon from "react-native-vector-icons/Fontisto";
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
-const ScrollBoardWithHeaderLBButton = ({children, lButtonCaption, rButtonCaption, onPressLeftButton, onPressRightButton}) => {
+const ScrollBoardWithHeaderLBButton = ({children, lButtonCaption, rButtonCaption, onPressLeftButton, onPressRightButton, onSwipeUp}) => {
+  const handleSwipeUp = (state) => {
+    // console.log(tag, 'OnSwipeUp', state);
+    if (onSwipeUp)
+      onSwipeUp();
+  };
+
   return (
-    <Container style={styles.container}>
-      <HeaderBg source={Images.background.header} resizeMode={'cover'}/>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.lButton} onPress={onPressLeftButton}>
-          <Icon name={'angle-left'} color={'#fff'} size={hp('2%')}/>
-          <Text style={styles.title}>
-            {lButtonCaption}
-          </Text>
-        </TouchableOpacity>
-        {rButtonCaption && rButtonCaption.length &&
-        <TouchableOpacity style={styles.rButton} onPress={onPressRightButton}>
-          <Icon name={'share-a'} color={'#fff'} size={hp('1.6%')}/>
-          <Text style={styles.rButtonCaption}>
-            {rButtonCaption}
-          </Text>
-        </TouchableOpacity>}
-      </View>
-      <ScrollView style={styles.board} containerStyle={styles.boardContainer}>
-        {children}
-      </ScrollView>
-    </Container>
+    <GestureRecognizer
+      onSwipeUp={(state) => handleSwipeUp(state)}
+    >
+      <Container style={styles.container}>
+        <HeaderBg source={Images.background.header} resizeMode={'cover'}/>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.lButton} onPress={onPressLeftButton}>
+            <Icon name={'angle-left'} color={'#fff'} size={hp('2%')}/>
+            <Text style={styles.title}>
+              {lButtonCaption}
+            </Text>
+          </TouchableOpacity>
+          {rButtonCaption != null && rButtonCaption.length &&
+          <TouchableOpacity style={styles.rButton} onPress={onPressRightButton}>
+            <Icon name={'share-a'} color={'#fff'} size={hp('1.6%')}/>
+            <Text style={styles.rButtonCaption}>
+              {rButtonCaption}
+            </Text>
+          </TouchableOpacity>}
+        </View>
+        <ScrollView style={styles.board} containerStyle={styles.boardContainer}>
+          {children}
+        </ScrollView>
+      </Container>
+    </GestureRecognizer>
   )
 };
 

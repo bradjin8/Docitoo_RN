@@ -30,16 +30,27 @@ const PillReminder = (props) => {
         <Separator color={Colors.grey} width={2}/>
         <KeyValueLabel name={__('gender')} value={vm.user.gender}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('blood_type')} value={vm.user.bloodType}/>
-        <Separator color={Colors.grey} width={2}/>
+
+        {vm.user.accountType === "User" &&
+        <>
+          <KeyValueLabel name={__('blood_type')} value={vm.user.bloodType}/>
+          <Separator color={Colors.grey} width={2}/>
+        </>}
+        {vm.user.accountType === "Doctor" &&
+        <>
+          <KeyValueLabel name={__('speciality')} value={vm.user.speciality.toUpperCase()}/>
+          <Separator color={Colors.grey} width={2}/>
+          <KeyValueLabel name={__('address')} value={vm.user.street + ', ' + vm.user.city + ', ' + vm.user.country || ''}/>
+          <Separator color={Colors.grey} width={2}/>
+        </>}
         <KeyValueLabel name={__('language')} value={capitalizeString(vm.user.language)}/>
         <Space height={hp('3%')}/>
 
-        <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressEdit} underlayColor={Colors.blue1}>
+        {vm.user.accountType === "User" && <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressEdit} underlayColor={Colors.blue1}>
           <Text style={styles.whiteButtonLabel}>
             {__('edit_profile')}
           </Text>
-        </TouchableHighlight>
+        </TouchableHighlight>}
         <Space height={hp('3%')}/>
 
       </View>}

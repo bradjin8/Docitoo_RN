@@ -8,5 +8,6 @@ export default {
   searchDoctorsByCategory: 'userDoctor/searchDoctorsByCategory',
   searchDoctors: 'userDoctor/searchDoctors',
   userDoctor: 'userDoctor',
+  doctorUser: 'doctorUser',
   fetchSpecialities: 'speciality'
 }

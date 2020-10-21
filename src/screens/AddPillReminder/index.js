@@ -61,7 +61,7 @@ const AddPillReminder = (props) => {
 
   return (
     <Container>
-      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('')}
+      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={null}
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <Space height={hp('3%')}/>
@@ -74,7 +74,7 @@ const AddPillReminder = (props) => {
           <GreyInput placeholder={__('frequency')} value={vm.frequency}
                      onChangeText={(val) => vm.setFrequency(val)}/>
 
-          {Platform.OS === 'ios' ? <DatePicker
+          {false && Platform.OS === 'ios' ? <DatePicker
               style={{width: wp('90%')}}
               date={vm.dateTime}
               placeholder={'Select a time'}
@@ -100,7 +100,7 @@ const AddPillReminder = (props) => {
               <TouchableOpacity
                 onPress={
                   () => {
-                    vm.setVisiblePicker(true)
+                    vm.setVisiblePicker(!vm.visiblePicker)
                   }
                 }
               >
@@ -108,7 +108,7 @@ const AddPillReminder = (props) => {
                   {dateFormat.create(vm.dateTime).format('I:M p')}
                 </Text>
               </TouchableOpacity>
-              <View style={{width: '10%'}}>
+              <View style={{width: '100%'}}>
                 {vm.visiblePicker && <DateTimePicker
                   value={vm.dateTime}
                   display={"default"}

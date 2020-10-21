@@ -61,6 +61,12 @@ export const MoreStackScreens = {
 };
 
 export const PillStackScreens = {
-   pillReminder: 'PillReminder', // 10
-   addPillReminder: 'AddPillReminder', // 11
+    pillReminder: 'PillReminder', // 10
+    addPillReminder: 'AddPillReminder', // 11
+};
+
+export const BookingStackScreens = {
+    bookings: 'Bookings', //
+    viewBooking: 'ViewBooking', //
+    viewUser: 'ViewUser'
 };

@@ -11,26 +11,38 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp
 } from "react-native-responsive-screen";
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 
-const BoardWithHeaderRightButton = ({children, title, buttonCaption, onPressRightButton}) => {
+const BoardWithHeaderRightButton = ({children, title, buttonCaption, onPressRightButton, onSwipeUp}) => {
+  const handleSwipeUp = (state) => {
+    console.log('SwipeUp', state);
+    if (onSwipeUp)
+      onSwipeUp();
+  };
+
   return (
-    <Container style={styles.container}>
-      <HeaderBg source={Images.background.header} resizeMode={'cover'}/>
-      <View style={styles.header}>
-        <Text style={styles.title}>
-          {title}
-        </Text>
-        <ImageButton onPress={onPressRightButton} image={Images.background.header_right_button} style={styles.rightButton} imageStyle={styles.rightButtonImage}>
-          <Text style={styles.rightButtonCaption}>
-            {buttonCaption}
+    <GestureRecognizer
+      onSwipeUp={(state) => handleSwipeUp(state)}
+    >
+      <Container style={styles.container}>
+        <HeaderBg source={Images.background.header} resizeMode={'cover'}/>
+        <View style={styles.header}>
+          <Text style={styles.title}>
+            {title}
           </Text>
-        </ImageButton>
-      </View>
-      <View style={styles.board} containerStyle={styles.boardContainer}>
-        {children}
-      </View>
-    </Container>
+          <ImageButton onPress={onPressRightButton} image={Images.background.header_right_button}
+                       style={styles.rightButton} imageStyle={styles.rightButtonImage}>
+            <Text style={styles.rightButtonCaption}>
+              {buttonCaption}
+            </Text>
+          </ImageButton>
+        </View>
+        <View style={styles.board} containerStyle={styles.boardContainer}>
+          {children}
+        </View>
+      </Container>
+    </GestureRecognizer>
   )
 };
 
@@ -62,7 +74,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: wp('5%'),
   },
   rightButtonImage: {
-    height: Platform.OS === 'ios' ? headerHeight * 0.5: headerHeight * 0.8,
+    height: Platform.OS === 'ios' ? headerHeight * 0.5 : headerHeight * 0.8,
   },
   rightButtonCaption: {
     fontSize: 18 * scale,

@@ -24,11 +24,13 @@ const User = types
     gender: defString,
     avatarUrl: defString,
     phoneNumber: defString,
+    country: defString,
     city: defString,
     street: defString,
     language: defString,
     bloodType: defString,
     accountType: defString,
+    speciality: defString,
     hadSignedUp: false,
     statusCode: 0,
     createdAt: defString,
@@ -36,7 +38,7 @@ const User = types
   })
   .views((self) => ({
     get isValid() {
-      return !isEmpty(self.id) && !isEmpty(self.sessionToken)
+      return !isEmpty(self.id) && !isEmpty(self.sessionToken) && !isEmpty(self.accountType)
     },
     get getStatusCode() {
       return self.statusCode;
@@ -59,7 +61,10 @@ const User = types
         self.language = userDetails.language;
         self.city = userDetails.city;
         self.street = userDetails.street;
+        self.country = userDetails.country;
         self.createdAt = userDetails.createdAt;
+        self.accountType = userDetails.accountType;
+        self.speciality = userDetails.speciality;
       }
     };
 

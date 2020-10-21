@@ -118,3 +118,7 @@ export const submitReview = (userToken, doctorId, rating, description) => api.pu
 export const fetchDoctorById = (userToken, doctorId) => api.get(ApiUrl.userDoctor + '/' + doctorId, {},{headers: {userToken}});
 
 export const fetchSpecialities = (userToken) => api.get(ApiUrl.fetchSpecialities, {}, {headers: {userToken}});
+
+export const getBookings = (userToken) => api.get(ApiUrl.doctorUser + '/booking', {}, {headers: {userToken}});
+export const acceptBooking = (userToken, bookingId) => api.post(`${ApiUrl.doctorUser}/booking/${bookingId}/accepted`, {}, {headers: {userToken}});
+export const rejectBooking = (userToken, bookingId) => api.post(`${ApiUrl.doctorUser}/booking/${bookingId}/rejected`, {}, {headers: {userToken}});

@@ -9,7 +9,17 @@ function useViewModel(props) {
 
   const nav = useNavigation(props);
 
-  const {user} = useStores();
+  const {user, d_data} = useStores();
+
+  const handleReject = (bookingId) => {
+    d_data.rejectBooking(user.sessionToken, bookingId);
+    nav.goBack();
+  };
+
+  const handleAccept = (bookingId) => {
+    d_data.acceptBooking(user.sessionToken, bookingId);
+    nav.goBack();
+  };
 
   const onPressEdit = () => {
     console.log(tag, 'onPressEdit()');
@@ -18,6 +28,9 @@ function useViewModel(props) {
 
   return {
     user,
+    d_data,
+    handleReject,
+    handleAccept,
     onPressEdit
   }
 }
