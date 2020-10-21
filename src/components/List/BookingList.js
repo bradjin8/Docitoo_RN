@@ -69,7 +69,7 @@ export const BookingRow = ({booking, onPressBooking}) => {
   )
 };
 
-const rowHeight = hp('14%');
+const rowHeight = hp('10%');
 const textLineHeight = rowHeight / 5;
 
 const styles = StyleSheet.create({

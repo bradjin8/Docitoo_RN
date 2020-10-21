@@ -1,5 +1,5 @@
-const ServerURL = 'http://192.168.101.18:3010';
-// const ServerURL = 'https://docitoo.herokuapp.com';
+// const ServerURL = 'http://192.168.101.18:3010';
+const ServerURL = 'https://docitoo.herokuapp.com';
 
 export default {
   appBaseUrl: ServerURL,
