@@ -18,6 +18,10 @@ function useViewModel(props) {
     nav.navigate(PillStackScreens.addPillReminder);
   };
 
+  const handleDelete = (reminderId) => {
+    data.deletePillReminder(reminderId);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       await data.getPillReminders(user.sessionToken);
@@ -31,12 +35,13 @@ function useViewModel(props) {
       setMedicines(data.getPills);
     };
     fetchData();
-  },[data.pillReminders]);
+  }, []);
 
   return {
     medicines,
     data,
-    onPressAdd
+    onPressAdd,
+    handleDelete
   }
 }
 

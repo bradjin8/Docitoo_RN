@@ -15,6 +15,8 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-nativ
 import * as util from '@/utils/String';
 import Loading from "@/components/Loading";
 import dateFormat from 'node-datetime';
+import Swipeable from 'react-native-swipeable';
+import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
@@ -27,21 +29,25 @@ const PillReminder = (props) => {
           :
           <ScrollView style={styles.container}>
             <Space height={hp('2%')}/>
-            {vm.medicines.slice().sort().map((item, index) => {
+            {vm.data.pillReminders.slice().sort().map((item, index) => {
               if (index < vm.medicines.length - 1) {
                 return (
                   <View key={index}>
-                    <MedicineCard medicine={item} key={index} type={index % 4}/>
+                    <MedicineCard medicine={item} key={index} type={index % 4}
+                                  handleDelete={() => vm.handleDelete(item.id)}
+                    />
                     <Separator color={Colors.grey}/>
                   </View>
                 );
               } else {
                 return (
-                  <MedicineCard medicine={item} key={index} type={index % 4}/>
+                  <MedicineCard medicine={item} key={index} type={index % 4}
+                                handleDelete={() => vm.handleDelete(item.id)}
+                  />
                 )
               }
             })}
-            {vm.medicines.length < 1 &&
+            {vm.data.pillReminders.length < 1 &&
             <Text style={styles.resultCount}>
               {util.formatInteger(vm.medicines.length) + ' ' + __('results_found')}
             </Text>
@@ -56,16 +62,40 @@ const PillReminder = (props) => {
   )
 };
 
-export const MedicineCard = ({medicine, type}) => {
+export const MedicineCard = ({medicine, type, handleDelete}) => {
+  const leftContent = <Text>Pull to activate</Text>;
+  const rightButtons = [
+    <TouchableHighlight
+      style={{
+        backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        width: wp('30%')
+      }}
+      onPress={handleDelete}
+    >
+      <MaterialCommunityIcon name={'delete'} color={'white'} size={20}/>
+    </TouchableHighlight>
+  ];
+
   return (
-    <View style={styles.medicineContainer}>
-      <Image source={Images.medicines[type]} style={styles.medicineAvatar}/>
-      <View style={styles.medicineDesc}>
-        <Text style={styles.medicineName}>{medicine.medicineName + ' - ' + medicine.dosage}</Text>
-        <Text
-          style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + dateFormat.create(parseInt(medicine.timeToTake)).format('I:M p')}</Text>
+    <Swipeable
+      leftContent={leftContent}
+      rightButtons={rightButtons}
+      leftButtonWidth={wp('30%')}
+      rightButtonWidth={wp('30%')}
+      // onLeftActionActivate={handleDelete}
+    >
+      <View style={styles.medicineContainer}>
+        <Image source={Images.medicines[type]} style={styles.medicineAvatar}/>
+        <View style={styles.medicineDesc}>
+          <Text style={styles.medicineName}>{medicine.medicineName + ' - ' + medicine.dosage}</Text>
+          <Text
+            style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + dateFormat.create(parseInt(medicine.timeToTake)).format('I:M p')}</Text>
+        </View>
       </View>
-    </View>
+    </Swipeable>
   );
 };
 

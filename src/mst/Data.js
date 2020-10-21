@@ -80,7 +80,7 @@ const Data = types
           let temp1 = alarm.data.split(';;');
           const parsedTime = parseInt(temp1[3].split('==>')[1]);
 
-          if (parsedTime > new Date().getTime()) {
+          if (true || parsedTime > new Date().getTime()) {
             let reminder = {
               id: alarm.id.toString(),
               medicineName: temp1[2].split('==>')[1],
@@ -91,7 +91,7 @@ const Data = types
             console.log(tag, `${index} :`, alarm);
             reminders.push(reminder);
           } else {
-            ReactNativeAN.deleteAlarm(alarm.id);
+            // ReactNativeAN.deleteAlarm(alarm.id);
           }
         });
         _updatePillReminders(reminders);
@@ -132,6 +132,9 @@ const Data = types
           message: `It is time to take this pill, ${medicineName} - ${dosage}`,
           channel: 'pill_reminder',
           loop_data: true,
+          schedule_type: 'repeat',
+          repeat_interval: 'daily',
+          play_sound: true,
           data: {
             name: medicineName,
             dosage,
@@ -149,6 +152,24 @@ const Data = types
           });
         console.log(tag, 'Alarm Added', alarm);
         yield getPillReminders();
+      } catch (e) {
+        console.log(tag, 'Adding Pill Exception', e.message);
+        alert(e.message);
+      } finally {
+        self.setProcessing(false);
+      }
+    });
+
+    const deletePillReminder = flow(function* deletePillReminder(
+      id
+    ) {
+      self.setProcessing(true);
+
+      try {
+        let reminders = self.pillReminders.slice(0).filter(reminder => reminder.id != parseInt(id));
+        _updatePillReminders(reminders);
+
+        ReactNativeAN.deleteRepeatingAlarm(parseInt(id));
       } catch (e) {
         console.log(tag, 'Adding Pill Exception', e.message)
       } finally {
@@ -373,6 +394,7 @@ const Data = types
     return {
       getPillReminders,
       addPillReminder,
+      deletePillReminder,
       getNotifications,
       setNotificationAsRead,
       fetchDoctorsByCategory,

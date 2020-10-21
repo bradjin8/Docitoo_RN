@@ -25,8 +25,16 @@ function useViewModel(props) {
   const onPressAdd = async () => {
     console.log(tag, 'onPressAdd()', name, dosage, frequency, dateTime.toLocaleString());
 
-    if (!name || !dosage || !frequency) {
-      alert('Input valid values');
+    if (!name) {
+      alert('Please input name');
+      return;
+    }
+    if (!dosage) {
+      alert('Please input dosage');
+      return;
+    }
+    if (!frequency) {
+      alert('Please input frequency');
       return;
     }
     try {
