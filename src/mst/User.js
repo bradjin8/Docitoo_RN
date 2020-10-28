@@ -188,15 +188,36 @@ const User = types
 
         // self.setLoggingIn(false);
         if (!ok) {
-          self.statusCode = parseInt(response.status);
+          self.statusCode = response.status;
+          self.lastError = data.error;
+
           return;
         }
         if (!data) {
           alert(__('can_not_connect_server'));
         } else {
           data.password = password;
+          data.sessionToken = self.sessionToken;
           _updateFromLoginResponse(data);
         }
+      } catch (e) {
+        console.log(tag, 'UpdateProfile Failed --', e.message);
+      } finally {
+        self.setLoggingIn(false);
+      }
+
+    });
+    const shareMoreDetails = flow(function* shareMoreDetails(
+      gender,
+      bloodType,
+      avatarData,
+    ) {
+
+      self.setLoggingIn(true);
+      try {
+        gender = gender ? gender : self.gender;
+        bloodType = bloodType ? bloodType : self.bloodType;
+        yield updateProfile(self.fullName, self.email, self.phoneNumber, self.password, gender, bloodType, self.language, avatarData);
       } catch (e) {
         console.log(tag, 'UpdateProfile Failed --', e.message);
       } finally {
@@ -213,7 +234,7 @@ const User = types
       }
     };
 
-    return {logIn, logOut, signUp, updateProfile, load}
+    return {logIn, logOut, signUp, updateProfile, shareMoreDetails, load}
   })
   .extend((self) => {
     const localState = observable.box(false);

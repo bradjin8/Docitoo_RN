@@ -27,7 +27,7 @@ const More = (props) => {
           {vm.user && <ProfileCard user={vm.user}>
           </ProfileCard>}
           <Space height={hp('5%')}/>
-          {vm.user.accountType === 'User' &&
+          {vm.user && vm.user.accountType === 'User' &&
           <>
             <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressSearchDoctors}>
               <View style={styles.iconContainer}>

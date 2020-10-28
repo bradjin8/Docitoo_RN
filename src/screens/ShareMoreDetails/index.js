@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: hp('7%'),
-    height: hp('7%'),
+    width: hp('12%'),
+    height: hp('12%'),
   },
   dropDownContainer: {
     height: hp('6%'),
@@ -50,7 +50,7 @@ const ShareModeDetails = (props) => {
   return (
     <BoardWithHeader title={__('share_more_details')}>
       <View style={styles.socialContainer}>
-        {vm.avatarSource === '' ?
+        {vm.avatarSource === null ?
           <IconButton name={'camera'} size={hp('8%')} color={Colors.white2} style={styles.uploadButton}
                       iconStyle={{opacity: 0.7, margin: hp('3%')}} onPress={vm.onPressChoose}/>
           : /*<ImageButton onPress={vm.onPressChoose} image={vm.avatarSource} style={styles.uploadButton}/>*/
@@ -83,7 +83,7 @@ const ShareModeDetails = (props) => {
           itemStyle={styles.dropDownItem}
           dropDownStyle={styles.dropDown}
           labelStyle={styles.dropDownLabel}
-          onChangeItem={item => vm.setGender(item.value)}
+          onChangeItem={item => vm.setBloodType(item.value)}
           placeholder={__('select_blood_type')}
         />
       </View>

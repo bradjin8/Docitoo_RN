@@ -6,6 +6,8 @@ import __ from '@/assets/lang';
 import {Platform, PermissionsAndroid} from 'react-native';
 import {mockBloodTypes} from '@/constants/MockUpData';
 import {useStores} from "@/hooks";
+import AppConfig from "@/config/AppConfig";
+import axios from 'axios';
 
 function useViewModel(props) {
   const nav = useNavigation(props);
@@ -23,11 +25,21 @@ function useViewModel(props) {
   const {user} = useStores();
   const [gender, setGender] = useState(user.gender);
   const [bloodType, setBloodType] = useState(user.bloodType);
-  const [avatarSource, setAvatarSource] = useState('');
+  const [avatarSource, setAvatarSource] = useState(null);
 
   const onPressSubmit = async () => {
     try {
-      // await user.updateProfile(avatarSource, gender, bloodType);
+      let avatarData = null;
+      if (avatarSource) {
+        avatarData = 'data:image/jpeg;base64,' + avatarSource.data
+      }
+      console.log(gender, bloodType);
+      await user.shareMoreDetails(gender, bloodType, avatarData);
+      if (user.statusCode == '401') {
+        await user.logOut();
+        nav.navigate(Screens.logIn);
+      }
+      // console.log(data);
       nav.navigate(Screens.userFlow)
     } catch (e) {
       console.log(tag, 'OnPressSubmit, Ex', e.message)
@@ -84,8 +96,8 @@ function useViewModel(props) {
 
         // You can also display the image using data:
         // const source = {uri: 'data:image/jpeg:base64,' + response.data};
-
-        setAvatarSource(source);
+        console.log(response.uri);
+        setAvatarSource(response);
       }
     })
   };

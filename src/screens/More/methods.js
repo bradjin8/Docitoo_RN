@@ -16,8 +16,8 @@ function useViewModel(props) {
     { label: __('english'), value: 'en'},
     { label: __('english'), value: 'en'},
   ];
-  // const [user, setUser] = useState(mockUser);
-  const {user} = useStores();
+  const [user, setUser] = useState();
+  const store = useStores();
 
   const onPressSearchDoctors = () => {
     nav.navigate(TabStackScreens.doctorStack);
@@ -49,6 +49,10 @@ function useViewModel(props) {
       nav.navigate(Screens.home);
     }
   };
+
+  useEffect(() => {
+    setUser(store.user);
+  }, [store.user]);
 
   return {
     lang, setLang,

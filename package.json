@@ -20,6 +20,7 @@
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
     "apisauce": "^1.1.2",
+    "axios": "^0.21.0",
     "babel-plugin-dotenv-import": "^2.1.0",
     "babel-plugin-ignite-ignore-reactotron": "^0.3.0",
     "babel-plugin-module-resolver": "^4.0.0",
