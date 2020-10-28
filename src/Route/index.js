@@ -255,7 +255,7 @@ const Route = (props) => {
           <Stack.Screen name={Screens.home} component={Home}/>
           <Stack.Screen name={Screens.signUp} component={SignUp}/>
           <Stack.Screen name={Screens.logIn} component={Login}/>
-          <Stack.Screen name={Screens.shareMoreDetails} component={isValid ? ShareMoreDetails : Login}/>
+          <Stack.Screen name={Screens.shareMoreDetails} component={ShareMoreDetails}/>
           <Stack.Screen name={Screens.userFlow} component={UserTab}/>
           <Stack.Screen name={Screens.doctorFlow} component={DoctorTab}/>
         </Stack.Navigator>

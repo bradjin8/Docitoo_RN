@@ -66,8 +66,9 @@ function useViewModel(props) {
     console.log(tag, 'applyFilter()', filter);
     toggleModal();
     setLoading(true);
+    const {address} = filter.location || '';
     try {
-      await data.searchDoctors(user.sessionToken, filter.name, filter.speciality, filter.address);
+      await data.searchDoctors(user.sessionToken, filter.name, filter.speciality, address);
       if (data.lastStatus == '401') {
         nav.navigate(Screens.logIn);
         user.logOut();

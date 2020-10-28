@@ -111,6 +111,7 @@ const en = {
   profile: 'Profile',
   reject: 'Reject',
   accept: 'Accept',
+  choose: 'Choose',
 };
 
 export default en;

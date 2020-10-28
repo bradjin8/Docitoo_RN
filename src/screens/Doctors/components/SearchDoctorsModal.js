@@ -124,12 +124,17 @@ const SearchDoctorsModal = (props) => {
             />
           </MapView>*/}
           <LocationView
-            apiKey={Config.googleMap.apiKey}
+            // apiKey={Config.googleMap.apiKey}
+            apiKey={'AIzaSyDWnVh3mgQ87hPbs8Lkdu4BdNXiJoLXcMA'}
             initialLocation={vm.location}
+            actionText={__('choose')}
             onLocationSelect={(value) => {
-              vm.setLocation(value);
+              console.log(value);
+              const {address, latitude, latitudeDelta, longitude, longitudeDelta, placeDetails} = value;
+              vm.setLocation({latitude, longitude, address});
               vm.setLocationMode(false);
             }}
+            debounceDuration={5}
           />
         </View>
       }

@@ -80,7 +80,7 @@ const Data = types
           let temp1 = alarm.data.split(';;');
           const parsedTime = parseInt(temp1[3].split('==>')[1]);
 
-          if (true || parsedTime > new Date().getTime()) {
+          if (true && parsedTime > new Date().getTime()) {
             let reminder = {
               id: alarm.id.toString(),
               medicineName: temp1[2].split('==>')[1],
@@ -91,7 +91,7 @@ const Data = types
             console.log(tag, `${index} :`, alarm);
             reminders.push(reminder);
           } else {
-            // ReactNativeAN.deleteAlarm(alarm.id);
+            ReactNativeAN.deleteAlarm(alarm.id);
           }
         });
         _updatePillReminders(reminders);
@@ -127,6 +127,7 @@ const Data = types
           }
         }
 
+
         const alarmNotifiData = {
           title: `${medicineName} - ${dosage}`,
           message: `It is time to take this pill, ${medicineName} - ${dosage}`,
@@ -136,6 +137,8 @@ const Data = types
           schedule_type: 'repeat',
           repeat_interval: 'daily',
           play_sound: true,
+          auto_cancel: true, // Make this notification automatically dismissed when the user touches it
+          has_button: true, // show snooze and dismiss buttons in notification
           data: {
             name: medicineName,
             dosage,
@@ -143,7 +146,17 @@ const Data = types
             dateTime: new Date(timeToTake).getTime().toString(),
           }
         };
-        // ReactNativeAN.sendNotification(alarmNotifiData);
+        let offset = new Date(timeToTake).getTime() - new Date().getTime();
+        console.log('offset', offset);
+        if (offset < 0) {
+          alert('Please set valid time');
+          return;
+        }
+
+        /*setTimeout(function () {
+          ReactNativeAN.sendNotification(alarmNotifiData);
+        }, offset);*/
+
         const fireDate = ReactNativeAN.parseDate(timeToTake);
         console.log(fireDate);
         const alarm = yield ReactNativeAN.scheduleAlarm(
