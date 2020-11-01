@@ -60,6 +60,9 @@ const SearchDoctorsModal = (props) => {
         </Text>
         <TouchableOpacity onPress={() => {
           vm.setLocationMode(false);
+          vm.setDoctorName('');
+          vm.setSpeciality('');
+          vm.setLocation('');
           props.onPressClose();
         }}>
           <MaterialCommunityIcon name={'window-close'} size={hp('3.5%')} color={Colors.white2}/>
@@ -72,7 +75,7 @@ const SearchDoctorsModal = (props) => {
                       onChangeText={(value) => vm.setDoctorName(value)}/>
           <WhiteLabel text={__('speciality')}/>
           <DropDownPicker
-            items={mockSpecialityItems}
+            items={vm.data.specialities}
             style={styles.dropDownBack}
             containerStyle={styles.dropDownContainer}
             itemStyle={styles.dropDownItem}

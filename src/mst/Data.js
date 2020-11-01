@@ -111,13 +111,14 @@ const Data = types
       self.setProcessing(true);
 
       try {
-        // const response = yield Api.addPillReminder(userToken, medicineName, dosage, frequency, timeToTake);
-        // const {ok, data} = response;
+        const response = yield Api.addPillReminder(userToken, medicineName, dosage, frequency, timeToTake);
+        const {ok, data} = response;
         // self.lastStatus = response.status;
         // console.log(tag, 'Response from AddPillReminder API', data);
-        // if (ok) {
-        //   yield getPillReminders(userToken);
-        // }
+        if (ok) {
+          // yield getPillReminders(userToken);
+          const {pillReminder} = data;
+        }
 
         for (const reminder of self.pillReminders) {
           if (parseInt(timeToTake) === parseInt(reminder.timeToTake)) {
@@ -132,7 +133,7 @@ const Data = types
           title: `${medicineName} - ${dosage}`,
           message: `It is time to take this pill, ${medicineName} - ${dosage}`,
           channel: 'pill_reminder',
-          // loop_data: true,
+          loop_data: true,
           small_icon: 'ic_launcher',
           schedule_type: 'repeat',
           repeat_interval: 'daily',

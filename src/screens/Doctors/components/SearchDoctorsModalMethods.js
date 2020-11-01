@@ -49,6 +49,7 @@ function useViewModel(props) {
     location, setLocation,
     isLocationMode, setLocationMode,
     specialities: data.specialities,
+    data,
     onPressFilterResults
   }
 }
