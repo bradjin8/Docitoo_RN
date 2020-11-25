@@ -3,6 +3,7 @@ import * as Storage from '@/utils/AsyncStorage';
 import {onSnapshot} from 'mobx-state-tree';
 import Store from './Store';
 import {toJS} from 'mobx';
+import AsyncStorage from "@react-native-community/async-storage";
 
 const store = Store.create({
   user: {},
@@ -13,11 +14,15 @@ const store = Store.create({
 const storageKey = 'auth';
 
 // Initialize from store, just return the promise.
-store.initialize = function () {
+store.initialize = async function () {
   return Storage.getObject(storageKey).then((snapshot) => {
     console.log('store.initialize() - Snapshot loaded', snapshot);
     // load from snapshot
+    let language = AsyncStorage.getItem("LANG");
     store.user.load(snapshot);
+    if (!user.isValid) {
+      user.changeLanguage(language);
+    }
     // store.settings.load(snapshot);
     console.log('after loading', snapshot)
   })

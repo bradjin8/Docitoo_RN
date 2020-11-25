@@ -81,7 +81,9 @@ const More = (props) => {
         dropDownStyle={styles.dropDown}
         labelStyle={styles.dropDownLabel}
         arrowStyle={styles.dropDownArrow}
-        onChangeItem={item => vm.setLang(item.value)}
+        onChangeItem={item => {
+          vm.changeLanguage(item.value);
+        }}
         arrowColor={'#fff'}
         customArrowUp={({size, color}) => (<Icon size={hp('2%')} color={'#fff'} name={'caret-up'}/>)}
         customArrowDown={({size, color}) => (<Icon size={hp('2%')} color={'#fff'} name={'caret-down'}/>)}

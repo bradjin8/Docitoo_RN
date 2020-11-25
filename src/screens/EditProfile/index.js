@@ -82,7 +82,9 @@ const EditProfile = (props) => {
         <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 30})}}>
           <DropDownPicker
             items={[
-              {label: __('english'), value: 'english'},
+              {label: 'English', value: 'english'},
+              {label: 'Kurdî', value: 'kurdish'},
+              {label: 'عربى', value: 'arabic'},
             ]}
             style={styles.dropDownBack}
             containerStyle={styles.dropDownContainer}

@@ -234,7 +234,14 @@ const User = types
       }
     };
 
-    return {logIn, logOut, signUp, updateProfile, shareMoreDetails, load}
+    const changeLanguage = async (language) => {
+      self.setLoggingIn(true);
+      self.language = language;
+      await AsyncStorage.setItem("LANG", language);
+      self.setLoggingIn(false);
+    };
+
+    return {logIn, logOut, signUp, updateProfile, shareMoreDetails, load, changeLanguage}
   })
   .extend((self) => {
     const localState = observable.box(false);

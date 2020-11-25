@@ -10,11 +10,11 @@ const tag = 'Screens::ViewDoctor';
 function useViewModel(props) {
   const nav = useNavigation(props);
 
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState('english');
   const langItems = [
-    { label: __('english'), value: 'en'},
-    { label: __('english'), value: 'en'},
-    { label: __('english'), value: 'en'},
+    {label: 'English', value: 'english'},
+    {label: 'Kurdî', value: 'kurdish'},
+    {label: 'عربى', value: 'arabic'},
   ];
   const [user, setUser] = useState();
   const store = useStores();
@@ -50,6 +50,11 @@ function useViewModel(props) {
     }
   };
 
+  const changeLanguage = (value) => {
+    store.user.changeLanguage(value);
+    setLang(value)
+  };
+
   useEffect(() => {
     setUser(store.user);
   }, [store.user]);
@@ -64,6 +69,7 @@ function useViewModel(props) {
     onPressTermsAndConditions,
     onPressContactUs,
     onPressLogout,
+    changeLanguage,
   }
 }
 

@@ -13,6 +13,7 @@ function useViewModel(props) {
   const nav = useNavigation(props);
   const [doctor, setDoctor] = useState(null);
   const [isReviewMode, setReviewMode] = useState(false);
+  const [isMapViewMode, setMapViewMode] = useState(true);
 
   const [rating, setRating] = useState(5);
   const [description, setDescription] = useState(null);
@@ -114,6 +115,7 @@ function useViewModel(props) {
     rating, setRating,
     description, setDescription,
     isLoading, setLoading,
+    isMapViewMode, setMapViewMode,
     onPressBack,
     onPressShare,
     onPressWriteReview,
