@@ -93,6 +93,7 @@ const EditProfile = (props) => {
             labelStyle={styles.dropDownLabel}
             onChangeItem={item => vm.setLanguage(item.value)}
             placeholder={__('language')}
+            value={vm.user.language}
           />
         </View>
         <BlueButton onPress={vm.onPressUpdate} caption={__('update_profile')}/>

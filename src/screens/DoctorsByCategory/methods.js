@@ -12,10 +12,10 @@ function useViewModel(props) {
 
   const nav = useNavigation(props);
 
+  const {user, data} = useStores();
   const [searchString, setSearchString] = useState('');
   const [specialities, setSpecialities] = useState();
   const [filteredSpecialities, setFilteredSpecialities] = useState();
-  const {user, data} = useStores();
 
 
   const handleSearchByCategory = async (category) => {
@@ -33,7 +33,7 @@ function useViewModel(props) {
   const fetchSpecialities = async () => {
     try {
       await data.fetchSpecialities(user.sessionToken);
-      setSpecialities(data.specialities);
+      setSpecialities(data.specialities.slice(0));
       if (data.lastStatus == '401') {
         nav.navigate(Screens.logIn);
         user.logOut();
@@ -67,15 +67,15 @@ function useViewModel(props) {
   };
 
   useEffect(() => {
-    fetchSpecialities();
-  }, []);
-
-  useEffect(() => {
     // console.log(tag, 'Search String', searchString);
     if (specialities) {
       setFilteredSpecialities(groupSpecialities())
     }
   }, [searchString, specialities]);
+
+  useEffect(() => {
+    fetchSpecialities();
+  }, []);
 
   return {
     searchString, setSearchString,

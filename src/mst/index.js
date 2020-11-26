@@ -18,11 +18,7 @@ store.initialize = async function () {
   return Storage.getObject(storageKey).then((snapshot) => {
     console.log('store.initialize() - Snapshot loaded', snapshot);
     // load from snapshot
-    let language = AsyncStorage.getItem("LANG");
     store.user.load(snapshot);
-    if (!user.isValid) {
-      user.changeLanguage(language);
-    }
     // store.settings.load(snapshot);
     console.log('after loading', snapshot)
   })

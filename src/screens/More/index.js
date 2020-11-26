@@ -19,6 +19,7 @@ import * as datetime from 'node-datetime';
 
 const More = (props) => {
   const vm = useViewModel(props);
+  // console.log('More:', vm.user);
 
   return (
     <Container>
@@ -76,19 +77,20 @@ const More = (props) => {
       <DropDownPicker
         items={vm.langItems}
         style={styles.dropDownBack}
-        containerStyle={styles.dropDownContainer}
+        containerStyle={(!vm.user || vm.user.language !== 'english') ? styles.dropDownContainerRTL: styles.dropDownContainer}
         itemStyle={styles.dropDownItem}
         dropDownStyle={styles.dropDown}
         labelStyle={styles.dropDownLabel}
         arrowStyle={styles.dropDownArrow}
-        onChangeItem={item => {
-          vm.changeLanguage(item.value);
+        onChangeItem={async item =>  {
+          // console.log('item', item);
+          await vm.changeLanguage(item.value);
         }}
         arrowColor={'#fff'}
         customArrowUp={({size, color}) => (<Icon size={hp('2%')} color={'#fff'} name={'caret-up'}/>)}
         customArrowDown={({size, color}) => (<Icon size={hp('2%')} color={'#fff'} name={'caret-down'}/>)}
-        value={vm.lang}
-        defaultValue={vm.lang}
+        value={vm.user.language}
+        defaultValue={vm.user.language}
         placeholder={''}
       />
     </Container>
@@ -96,7 +98,7 @@ const More = (props) => {
 };
 
 export const ProfileCard = ({user}) => {
-  // console.log(user.avatarUrl);
+  console.log(user.avatarUrl);
   return (
     <View style={styles.profileContainer}>
       {user.avatarUrl ? <Image source={{uri: user.avatarUrl}} style={styles.profileAvatar}/> : <Image
@@ -168,6 +170,13 @@ const styles = StyleSheet.create({
     top: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.05,
     right: wp('4%'),
   },
+  dropDownContainerRTL: {
+    height: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.9,
+    width: wp('20%'),
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? hp('4%') : headerHeight * 0.05,
+    left: wp('4%'),
+  },
   dropDownItem: {
     justifyContent: 'flex-start',
   },
@@ -182,7 +191,8 @@ const styles = StyleSheet.create({
   dropDownLabel: {
     backgroundColor: '#6ac6ed',
     color: Colors.white2,
-    fontSize: wp('3%')
+    fontSize: wp('3%'),
+    textAlign: 'left'
   },
   dropDownArrow: {
     // color: '#fff'

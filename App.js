@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect} from 'react';
-import useStores from '@/hooks';
+import {useStores} from '@/hooks';
 import {
   StatusBar, SafeAreaView, StyleSheet
 } from 'react-native';
@@ -70,6 +70,9 @@ const App: () => React$Node = () => {
   OneSignal.addEventListener('received', onReceived);
   OneSignal.addEventListener('opened', onOpened);
   OneSignal.addEventListener('ids', onIds);
+
+  const store = useStores();
+  console.log('App.Store', store);
 
   useEffect(() => {
     return () => {
