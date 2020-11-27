@@ -11,6 +11,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
+  Linking, Platform
 } from 'react-native';
 import __ from '@/assets/lang';
 import Space from '@/components/Space';
@@ -28,6 +29,22 @@ import Loading from "@/components/Loading";
 
 const ViewDoctor = (props) => {
   const vm = useViewModel(props);
+  const initialLocation = {
+    lat: 37.78825,
+    long: -112.4324
+  }
+
+  const openInMaps = () =>{
+        const {lat, long} = initialLocation
+		const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+		const latLng = `${lat},${long}`;
+		const label = (vm.doctor.hospital && vm.doctor.hospital.name) || '';
+		const url = Platform.select({
+		  ios: `${scheme}${label}@${latLng}`,
+		  android: `${scheme}${latLng}(${label})`
+		});
+		Linking.openURL(url).then()
+  }
 
   return (
     <Container>
@@ -42,20 +59,20 @@ const ViewDoctor = (props) => {
           {!vm.isReviewMode && <View>
             {vm.doctor.hospital ?
               <View>
-                <View style={styles.locationContainer}>
+                <TouchableOpacity style={styles.locationContainer} onPress={openInMaps}>
                   <MapView
                     style={styles.locationPicker}
                     initialRegion={{
-                      latitude: 37.78825,
-                      longitude: -112.4324,
+                      latitude: initialLocation.lat,
+                      longitude: initialLocation.long,
                       latitudeDelta: 1.0,
                       longitudeDelta: 1.0,
                     }}
                   >
                     <Marker
                       coordinate={{
-                        latitude: 37.78825,
-                        longitude: -112.4324,
+                        latitude: initialLocation.lat,
+                        longitude: initialLocation.long,
                       }}
                     />
                   </MapView>
@@ -67,7 +84,7 @@ const ViewDoctor = (props) => {
                       {(vm.doctor.hospital && vm.doctor.hospital.location) || ''}
                     </Text>
                   </View>
-                </View>
+                </TouchableOpacity>
                 <Separator color={Colors.grey}/>
                 <Space height={hp('1.6%')}/>
                 <Text style={styles.boldLabel}>
