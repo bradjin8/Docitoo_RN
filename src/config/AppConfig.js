@@ -1,5 +1,5 @@
 // const ServerURL = 'http://192.168.101.67:3010';
-const ServerURL = 'https://docitoo.herokuapp.com';
+const ServerURL = 'https://docitoo.com/api-v1'; //https://docitoo.com/api-v1
 
 
 export default {
