@@ -34,12 +34,12 @@ const SignUp = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('sign_up')}>
+    <BoardWithHeader title={__('sign_up', vm.user.language)}>
       {vm.user.isLoggingIn ?
         <Loading/>
         :
         <View style={styles.container}>
-          <BlackText text={__('sign_up_with')}/>
+          <BlackText text={__('sign_up_with', vm.user.language)}/>
           <View style={styles.socialContainer}>
             <ImageButton image={Images.logo.facebook} style={{marginHorizontal: wp('3%'),}}
                          imageStyle={{width: hp('7%'), height: hp('7%')}}
@@ -48,21 +48,21 @@ const SignUp = (props) => {
                          imageStyle={{width: hp('7%'), height: hp('7%')}}
                          onPress={vm.onPressGoogle}/>
           </View>
-          <BlackText text={__('or_sign_up_using_email')}/>
+          <BlackText text={__('or_sign_up_using_email', vm.user.language)}/>
           <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <Space height={hp('5%')}/>
-            <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={vm.setFullName}/>
-            <GreyInput placeholder={__('email_address')} value={vm.email} onChangeText={vm.setEmail}/>
-            <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
+            <GreyInput placeholder={__('full_name', vm.user.language)} value={vm.fullName} onChangeText={vm.setFullName}/>
+            <GreyInput placeholder={__('email_address', vm.user.language)} value={vm.email} onChangeText={vm.setEmail}/>
+            <GreyInput placeholder={__('phone_number', vm.user.language) + ' (' + __('optional', vm.user.language) + ')'} value={vm.phoneNumber}
                        onChangeText={vm.setPhoneNumber}/>
-            <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}
+            <GreyInput placeholder={__('password', vm.user.language)} value={vm.password} onChangeText={vm.setPassword}
                        secureTextEntry={true}/>
             <Space height={hp('2%')}/>
           </KeyboardAvoidingView>
-          <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up')}/>
-          <GreyText text={__('sign_up_note')}/>
+          <BlueButton onPress={vm.onPressSignUp} caption={__('sign_up', vm.user.language)}/>
+          <GreyText text={__('sign_up_note', vm.user.language)}/>
           <Space height={hp('4%')}/>
-          <TransBlueButton onPress={vm.onPressLogin} caption={__('already_have_account') + ' ' + __('login')}/>
+          <TransBlueButton onPress={vm.onPressLogin} caption={__('already_have_account', vm.user.language) + ' ' + __('login', vm.user.language)}/>
         </View>
       }
     </BoardWithHeader>

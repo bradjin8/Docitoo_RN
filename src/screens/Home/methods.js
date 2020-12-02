@@ -21,6 +21,7 @@ function useViewModel(props) {
   };
 
   return {
+    user,
     onPressSignUp,
     onPressLogin,
     onPressSkipSignUp

@@ -57,6 +57,7 @@ function useViewModel(props) {
 
   return {
     name, setName,
+    user,
     dosage, setDosage,
     frequency, setFrequency,
     time, setTime,

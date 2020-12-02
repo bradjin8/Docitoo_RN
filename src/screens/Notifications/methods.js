@@ -25,7 +25,7 @@ function useViewModel(props) {
     await data.getNotifications(user.sessionToken);
     console.log(tag, 'fetch notifications', data);
     if (data.lastStatus == "401") {
-      alert(__('session_expired'));
+      alert(__('session_expired', user.language));
       user.logOut();
       nav.navigate(Screens.logIn);
       return;
@@ -48,6 +48,7 @@ function useViewModel(props) {
 
   return {
     data,
+    user,
     fetchData,
     notifications,
     NotificationTypes,

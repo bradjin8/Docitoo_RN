@@ -2,15 +2,9 @@ import en from './en';
 import kd from './kd';
 import ar from './ar';
 
-import React, {useState} from "react";
-import {useStores} from '@/hooks';
-import AsyncStorage from '@react-native-community/async-storage';
-
-function __(key) {
+function __(key, lang) {
   let source = en;
-  const {user} = useStores();
-
-  const {language} = user;
+  const language = lang || 'english';
   if (language.toLowerCase() === 'kurdish') {
     source = kd;
   } else if (language.toLowerCase() === 'arabic') {

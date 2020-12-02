@@ -1,7 +1,7 @@
 import React from 'react';
 import {StoreContext} from '@/mst/StoreProvider';
 import {DoctorStackScreens} from "@/constants/Navigation";
-import {CommanActions} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 
 export const useStores = () => React.useContext(StoreContext);
 

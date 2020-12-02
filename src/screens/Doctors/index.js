@@ -42,11 +42,11 @@ const Doctors = (props) => {
       {vm.data.isPrcessing || vm.isLoading ?
         <Loading/>
         :
-        <BoardWithHeaderRightButton title={__('doctors')} buttonCaption={__('sort')} onPressRightButton={() => {
+        <BoardWithHeaderRightButton title={__('doctors', vm.user.language)} buttonCaption={__('sort', vm.user.language)} onPressRightButton={() => {
           vm.onPressSort(vm.doctors)
         }}>
           <Text style={styles.resultCount}>
-            {StringUtil.formatInteger(vm.doctors.length) + ' ' + __('results_found')}
+            {StringUtil.formatInteger(vm.doctors.length) + ' ' + __('results_found', vm.user.language)}
           </Text>
           <Space height={hp('1%')}/>
           <DoctorList doctors={vm.doctors} onPressDoctor={vm.onPressDoctor}/>

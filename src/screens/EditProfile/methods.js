@@ -64,7 +64,7 @@ function useViewModel(props) {
       }
     }
     const options = {
-      title: __('select_photo'),
+      title: __('select_photo', user.language),
       customButtons: [],
       storageOptions: {
         skipBackup: true,

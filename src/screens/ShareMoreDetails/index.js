@@ -48,7 +48,7 @@ const ShareModeDetails = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('share_more_details')}>
+    <BoardWithHeader title={__('share_more_details', vm.user.language)}>
       <View style={styles.socialContainer}>
         {vm.avatarSource === null ?
           <IconButton name={'camera'} size={hp('8%')} color={Colors.white2} style={styles.uploadButton}
@@ -58,13 +58,13 @@ const ShareModeDetails = (props) => {
         }
       </View>
       <Space height={hp('2%')}/>
-      <TransBlueButton onPress={vm.onPressChoose} caption={__('upload_your_photo')}/>
+      <TransBlueButton onPress={vm.onPressChoose} caption={__('upload_your_photo', vm.user.language)}/>
       <Space height={hp('4%')}/>
       <View style={{width: '90%', ...(Platform.OS !== 'android' && {zIndex: 20})}} key={1}>
         <DropDownPicker
           items={[
-            {label: __('male'), value: 'male'},
-            {label: __('female'), value: 'female'}
+            {label: __('male', vm.user.language), value: 'male'},
+            {label: __('female', vm.user.language), value: 'female'}
           ]}
           style={styles.dropDownBack}
           containerStyle={styles.dropDownContainer}
@@ -72,7 +72,7 @@ const ShareModeDetails = (props) => {
           dropDownStyle={styles.dropDown}
           labelStyle={styles.dropDownLabel}
           onChangeItem={item => vm.setGender(item.value)}
-          placeholder={__('select_gender')}
+          placeholder={__('select_gender', vm.user.language)}
         />
       </View>
       <View style={{width: '90%', ...(Platform.OS !== 'android' && {zIndex: 10})}} key={2}>
@@ -84,11 +84,11 @@ const ShareModeDetails = (props) => {
           dropDownStyle={styles.dropDown}
           labelStyle={styles.dropDownLabel}
           onChangeItem={item => vm.setBloodType(item.value)}
-          placeholder={__('select_blood_type')}
+          placeholder={__('select_blood_type', vm.user.language)}
         />
       </View>
       <View style={{width: '90%'}} key={3}>
-        <BlueButton onPress={vm.onPressSubmit} caption={__('submit')}/>
+        <BlueButton onPress={vm.onPressSubmit} caption={__('submit', vm.user.language)}/>
       </View>
       <Space height={26}/>
     </BoardWithHeader>

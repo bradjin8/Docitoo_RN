@@ -24,7 +24,7 @@ const Login = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('contact_us')}>
+    <BoardWithHeader title={__('contact_us', vm.lang)}>
       {/*<KeyboardAwareScrollView*/}
         {/*innerRef={ref => {*/}
           {/*vm.setScroll(ref)*/}
@@ -36,20 +36,20 @@ const Login = (props) => {
             <ImageButton image={Images.logo.contact_us} style={{marginHorizontal: hp('2%')}} onPress={vm.onPressImage}/>
           </View>
           <Space height={hp('2%')}/>
-          <Text style={styles.note}>{__('contact_us_note')}</Text>
-          <GreyInput placeholder={__('subject')} value={vm.subject}
+          <Text style={styles.note}>{__('contact_us_note', vm.lang)}</Text>
+          <GreyInput placeholder={__('subject', vm.lang)} value={vm.subject}
                      onChangeText={(value) => vm.setSubject(value)}
                      // onFocus={(event) => {
                      //   vm.scrollToInput(ReactNative.findNodeHandle(event.target))
                      // }}
           />
-          <GreyInput placeholder={__('message')} value={vm.message}
+          <GreyInput placeholder={__('message', vm.lang)} value={vm.message}
                      onChangeText={(value) => vm.setMessage(value)} numberOfLines={4} multiline
                      // onFocus={(event) => {
                      //   vm.scrollToInput(ReactNative.findNodeHandle(event.target))
                      // }}
           />
-          <BlueButton onPress={vm.onPressSend} caption={__('send_message')}/>
+          <BlueButton onPress={vm.onPressSend} caption={__('send_message', vm.lang)}/>
         </View>
       {/*</KeyboardAwareScrollView>*/}
     </BoardWithHeader>

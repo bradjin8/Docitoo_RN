@@ -16,39 +16,39 @@ const PillReminder = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('my_profile')}>
+    <BoardWithHeader title={__('my_profile', vm.user.language)}>
       {vm.user && <View style={styles.container}>
         <ProfileCard user={vm.user}>
         </ProfileCard>
         <Space height={hp('5%')}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('name')} value={vm.user.fullName}/>
+        <KeyValueLabel name={__('name', vm.user.language)} value={vm.user.fullName}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('email')} value={vm.user.email}/>
+        <KeyValueLabel name={__('email', vm.user.language)} value={vm.user.email}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('phone_number')} value={vm.user.phoneNumber}/>
+        <KeyValueLabel name={__('phone_number', vm.user.language)} value={vm.user.phoneNumber}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('gender')} value={vm.user.gender}/>
+        <KeyValueLabel name={__('gender', vm.user.language)} value={vm.user.gender}/>
         <Separator color={Colors.grey} width={2}/>
 
         {vm.user.accountType === "User" &&
         <>
-          <KeyValueLabel name={__('blood_type')} value={vm.user.bloodType}/>
+          <KeyValueLabel name={__('blood_type', vm.user.language)} value={vm.user.bloodType}/>
           <Separator color={Colors.grey} width={2}/>
         </>}
         {vm.user.accountType === "Doctor" &&
         <>
-          <KeyValueLabel name={__('speciality')} value={vm.user.speciality.toUpperCase()}/>
+          <KeyValueLabel name={__('speciality', vm.user.language)} value={vm.user.speciality.toUpperCase()}/>
           <Separator color={Colors.grey} width={2}/>
-          <KeyValueLabel name={__('address')} value={vm.user.street + ', ' + vm.user.city + ', ' + vm.user.country || ''}/>
+          <KeyValueLabel name={__('address', vm.user.language)} value={vm.user.street + ', ' + vm.user.city + ', ' + vm.user.country || ''}/>
           <Separator color={Colors.grey} width={2}/>
         </>}
-        <KeyValueLabel name={__('language')} value={capitalizeString(vm.user.language)}/>
+        <KeyValueLabel name={__('language', vm.user.language)} value={capitalizeString(vm.user.language)}/>
         <Space height={hp('3%')}/>
 
         {vm.user.accountType === "User" && <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressEdit} underlayColor={Colors.blue1}>
           <Text style={styles.whiteButtonLabel}>
-            {__('edit_profile')}
+            {__('edit_profile', vm.user.language)}
           </Text>
         </TouchableHighlight>}
         <Space height={hp('3%')}/>

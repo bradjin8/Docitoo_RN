@@ -53,7 +53,7 @@ const PickADate = (props) => {
             return (<TimeSlot slot={vm.timeSlots[key]} onPress={vm.selectTimeSlot} key={key} value={key}/>)
           }):
             <Text>
-              {__('no_available_time_slot')}
+              {__('no_available_time_slot', vm.user.language)}
             </Text>
           }
         </View>}

@@ -22,6 +22,7 @@ function useViewModel(props) {
     doctorName, setDoctorName,
     speciality, setSpeciality,
     location, setLocation,
+    user,
     isLocationMode, setLocationMode,
     specialities: data.specialities,
     onPressFilterResults

@@ -42,14 +42,14 @@ const Bookings = (props) => {
       {(vm.d_data.isPrcessing || vm.data.isProcesing || vm.isLoading) ?
         <Loading/>
         :
-        <BoardWithHeaderRightButton title={__('bookings')} buttonCaption={__('sort')}
+        <BoardWithHeaderRightButton title={__('bookings', vm.user.language)} buttonCaption={__('sort', vm.user.language)}
                                     onPressRightButton={() => {
                                       vm.onPressSort(vm.bookings)
                                     }}
                                     onSwipeUp={vm.fetchBookings}
         >
           <Text style={styles.resultCount}>
-            {StringUtil.formatInteger(vm.bookings.length) + ' ' + __('results_found')}
+            {StringUtil.formatInteger(vm.bookings.length) + ' ' + __('results_found', vm.user.language)}
           </Text>
           <Space height={hp('1%')}/>
           <BookingList bookings={vm.bookings} onPressBooking={vm.onPressBooking}/>

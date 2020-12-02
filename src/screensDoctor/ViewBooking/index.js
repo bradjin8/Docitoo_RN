@@ -41,24 +41,24 @@ const ViewBooking = (props) => {
         </ProfileCard>
         <Space height={hp('4%')}/>
         <Separator color={'#000'} width={6}/>
-        <KeyValueLabel name={__('email')} value={user.email}/>
+        <KeyValueLabel name={__('email', vm.user.language)} value={user.email}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('phone_number')} value={user.phoneNumber}/>
+        <KeyValueLabel name={__('phone_number', vm.user.language)} value={user.phoneNumber}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('gender')} value={user.gender}/>
+        <KeyValueLabel name={__('gender', vm.user.language)} value={user.gender}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('blood_type')} value={user.bloodType}/>
+        <KeyValueLabel name={__('blood_type', vm.user.language)} value={user.bloodType}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('language')} value={capitalizeString(user.language)}/>
+        <KeyValueLabel name={__('language', vm.user.language)} value={capitalizeString(user.language)}/>
 
         <Separator color={'#000'} width={6}/>
-        <KeyValueLabel name={__('Booking Time')}
+        <KeyValueLabel name={__('Booking Time', vm.user.language)}
                        value={dateFormat.create(new Date(parseInt(booking.date))).format('H:M p, n D, Y')}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('Requested at')}
+        <KeyValueLabel name={__('Requested at', vm.user.language)}
                        value={dateFormat.create(new Date(booking.createdAt)).format('H:M p, n D, Y')}/>
         <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('Last updated at')}
+        <KeyValueLabel name={__('Last updated at', vm.user.language)}
                        value={dateFormat.create(new Date(booking.updatedAt)).format('H:M p, n D, Y')}/>
         <Separator color={Colors.grey} width={2}/>
         <View style={{
@@ -88,7 +88,7 @@ const ViewBooking = (props) => {
             }}
             underlayColor={Colors.blue1}>
             <Text style={styles.whiteButtonLabel}>
-              {__('reject')}
+              {__('reject', vm.user.language)}
             </Text>
           </TouchableHighlight>
           <TouchableHighlight
@@ -98,7 +98,7 @@ const ViewBooking = (props) => {
             }}
             underlayColor={Colors.white2}>
             <Text style={styles.blueButtonLabel}>
-              {__('accept')}
+              {__('accept', vm.user.language)}
             </Text>
           </TouchableHighlight>
         </View>}

@@ -1,9 +1,16 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {MoreStackScreens, DoctorStackScreens, TabStackScreens, DoctorTabStackScreens, Screens, PillStackScreens} from '@/constants/Navigation';
+import {
+  MoreStackScreens,
+  DoctorStackScreens,
+  TabStackScreens,
+  DoctorTabStackScreens,
+  Screens,
+  PillStackScreens
+} from '@/constants/Navigation';
 
 import Home from '@/screens/Home';
 import SignUp from '@/screens/SignUp';
@@ -22,6 +29,9 @@ import PillReminder from '@/screens/PillReminder';
 import AddPillReminder from '@/screens/AddPillReminder';
 import Notifications from '@/screens/Notifications';
 import Splash from '@/screens/Splash';
+import {useStores} from '@/hooks';
+import AsyncStorage from "@react-native-community/async-storage";
+// import AsyncStorage from '@/utils/AsyncStorage';
 
 // Doctor Screens
 import Bookings from '@/screensDoctor/Bookings';
@@ -39,6 +49,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FoundationIcon from 'react-native-vector-icons/Foundation';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+
 const tag = 'Route::index';
 
 const Stack = createStackNavigator();
@@ -53,7 +64,12 @@ const styles = StyleSheet.create({
   }
 });
 
-function UserTab() {
+function UserTab(props) {
+  const store = useStores();
+  const language = store.user.language || 'english';
+  const labelDoctors = __('doctors', language);
+  const labelNotifications = __(TabStackScreens.notifications, language);
+
   return (
     <Tab.Navigator
       initialRouteName={TabStackScreens.doctorStack}
@@ -74,7 +90,7 @@ function UserTab() {
         name={TabStackScreens.doctorStack}
         component={DoctorStack}
         options={{
-          title: __('doctors'),
+          title: labelDoctors,
           tabBarIcon: ({color, size}) => (
             <Icon name={'plus-circle'} color={color} size={size}/>
           ),
@@ -84,7 +100,7 @@ function UserTab() {
         name={TabStackScreens.notifications}
         component={Notifications}
         options={{
-          title: __(TabStackScreens.notifications),
+          title: labelNotifications,
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
           ),
@@ -94,7 +110,7 @@ function UserTab() {
         name={TabStackScreens.pillReminderStack}
         component={PillReminderStack}
         options={{
-          title: __('pill_reminder'),
+          title: __('pill_reminder', language),
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcon name={'pill'} color={color} size={size}
                                    style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
@@ -105,7 +121,7 @@ function UserTab() {
         name={TabStackScreens.moreStack}
         component={MoreStack}
         options={{
-          title: __(MoreStackScreens.more),
+          title: __(MoreStackScreens.more, language),
           tabBarIcon: ({color, size}) => (
             <FoundationIcon name={'indent-more'} color={color} size={size}/>
           ),
@@ -116,6 +132,7 @@ function UserTab() {
 }
 
 function DoctorTab() {
+  const {user} = useStores();
   return (
     <Tab.Navigator
       initialRouteName={DoctorTabStackScreens.booking}
@@ -136,7 +153,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.booking}
         component={DBookingStack}
         options={{
-          title: __('bookings'),
+          title: __('bookings', user.language),
           tabBarIcon: ({color, size}) => (
             <FontAwesome5Icon name={'book-medical'} color={color} size={size}/>
           ),
@@ -146,7 +163,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.notifications}
         component={DNotifications}
         options={{
-          title: __('notifications'),
+          title: __('notifications', user.language),
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
           ),
@@ -156,7 +173,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.profile}
         component={MyProfile}
         options={{
-          title: __('profile'),
+          title: __('profile', user.language),
           tabBarIcon: ({color, size}) => (
             <EntypoIcon name={'user'} color={color} size={size}/>
           ),
@@ -166,7 +183,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.moreStack}
         component={MoreStack}
         options={{
-          title: __(MoreStackScreens.more),
+          title: __(MoreStackScreens.more, user.language),
           tabBarIcon: ({color, size}) => (
             <FoundationIcon name={'indent-more'} color={color} size={size}/>
           ),
@@ -206,7 +223,6 @@ function DBookingStack() {
 }
 
 
-
 function PillReminderStack() {
   return (
     <Stack.Navigator
@@ -240,6 +256,7 @@ function MoreStack() {
 const Route = (props) => {
   const vm = useViewModel(props);
   const {isValid} = vm.store.user && vm.store.data.lastStatus == '401';
+  console.log("ROUTE:Route", vm.store.user);
 
   if (vm.isInitializing) {
     return <Splash/>;

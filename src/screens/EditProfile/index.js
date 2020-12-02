@@ -36,25 +36,25 @@ const EditProfile = (props) => {
   return (
     <Container>
       {vm.user &&
-      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={null}
+      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back', vm.user.language)} rButtonCaption={null}
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <ProfileCard onPressAvatar={vm.onPressAvatar}
                      user={{fullName: vm.user.fullName, createdAt: vm.user.createdAt, avatarSource: vm.avatarSource ? vm.avatarSource : vm.user.avatarUrl}}/>
         <Space height={hp('3%')}/>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <GreyInput placeholder={__('full_name')} value={vm.fullName} onChangeText={(val) => vm.setFullName(val)}/>
-          <GreyInput placeholder={__('email_address')} value={vm.email}
+          <GreyInput placeholder={__('full_name', vm.user.language)} value={vm.fullName} onChangeText={(val) => vm.setFullName(val)}/>
+          <GreyInput placeholder={__('email_address', vm.user.language)} value={vm.email}
                      onChangeText={(val) => vm.setEmail(val)}/>
-          <GreyInput placeholder={__('phone_number') + ' (' + __('optional') + ')'} value={vm.phoneNumber}
+          <GreyInput placeholder={__('phone_number', vm.user.language) + ' (' + __('optional', vm.user.language) + ')'} value={vm.phoneNumber}
                      onChangeText={(val) => vm.setPhoneNumber(val)}/>
-          <GreyInput placeholder={__('password')} value={vm.password} onChangeText={(val) => vm.setPassword(val)} secureTextEntry={true}/>
+          <GreyInput placeholder={__('password', vm.user.language)} value={vm.password} onChangeText={(val) => vm.setPassword(val)} secureTextEntry={true}/>
         </KeyboardAvoidingView>
         <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 50})}}>
           <DropDownPicker
             items={[
-              {label: __('female'), value: 'female'},
-              {label: __('male'), value: 'male'},
+              {label: __('female', vm.user.language), value: 'female'},
+              {label: __('male', vm.user.language), value: 'male'},
             ]}
             style={styles.dropDownBack}
             containerStyle={styles.dropDownContainer}
@@ -63,7 +63,7 @@ const EditProfile = (props) => {
             labelStyle={styles.dropDownLabel}
             onChangeItem={item => vm.setGender(item.value)}
             defaultValue={vm.user.gender}
-            placeholder={__('select_gender')}
+            placeholder={__('select_gender', vm.user.language)}
           />
         </View>
         <View style={{width: '100%', ...(Platform.OS !== 'android' && {zIndex: 40})}}>
@@ -75,7 +75,7 @@ const EditProfile = (props) => {
             dropDownStyle={styles.dropDown}
             labelStyle={styles.dropDownLabel}
             onChangeItem={item => vm.setBloodType(item.value)}
-            placeholder={__('select_blood_type')}
+            placeholder={__('select_blood_type', vm.user.language)}
             defaultValue={vm.user.bloodType}
           />
         </View>
@@ -92,10 +92,11 @@ const EditProfile = (props) => {
             dropDownStyle={styles.dropDown}
             labelStyle={styles.dropDownLabel}
             onChangeItem={item => vm.setLanguage(item.value)}
-            placeholder={__('language')}
+            placeholder={__('language', vm.user.language)}
+            value={vm.user.language}
           />
         </View>
-        <BlueButton onPress={vm.onPressUpdate} caption={__('update_profile')}/>
+        <BlueButton onPress={vm.onPressUpdate} caption={__('update_profile', vm.user.language)}/>
 
         <Space height={hp('20%')}/>
 
