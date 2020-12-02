@@ -102,8 +102,7 @@ const User = types
       try {
         if (mode === 'google') {
           userData = yield SocialApi.googleAuth();
-        }
-        else if (mode === 'facebook') {
+        } else if (mode === 'facebook') {
           userData = yield SocialApi.facebookAuth();
         }
 
@@ -128,6 +127,7 @@ const User = types
       // Just simply apply snapshot of empty object
       applySnapshot(self, {
         hadSignedUp: true,
+        language: self.language,
       });
     });
 
@@ -229,17 +229,21 @@ const User = types
     const load = (snapshot) => {
       try {
         applySnapshot(self, snapshot);
+        let language = AsyncStorage.getItem("LANG");
+        if (!self.isValid) {
+          self.language = language;
+        }
       } catch (e) {
         console.log('User.actions.load(): Load from snapshot failed');
       }
     };
 
-    const changeLanguage = async (language) => {
+    const changeLanguage = flow(function* changeLanguage(language) {
       self.setLoggingIn(true);
       self.language = language;
-      await AsyncStorage.setItem("LANG", language);
+      yield AsyncStorage.setItem("LANG", language);
       self.setLoggingIn(false);
-    };
+    });
 
     return {logIn, logOut, signUp, updateProfile, shareMoreDetails, load, changeLanguage}
   })

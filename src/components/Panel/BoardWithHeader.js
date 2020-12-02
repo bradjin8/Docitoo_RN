@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     top: Platform.OS === 'ios' ? headerHeight / 7 * 4 : headerHeight / 6,
     left: 0,
     right: 0,
-    marginLeft: widthPercentageToDP('4%')
+    marginHorizontal: widthPercentageToDP('4%')
   },
   board: {
     position: 'absolute',

@@ -78,7 +78,7 @@ const More = (props) => {
       {vm.user && <DropDownPicker
         items={vm.langItems}
         style={styles.dropDownBack}
-        containerStyle={(!vm.user || vm.user.language !== 'english') ? styles.dropDownContainerRTL : styles.dropDownContainer}
+        containerStyle={(!vm.user || vm.user.language !== 'english') ? styles.dropDownContainerRTL: styles.dropDownContainer}
         itemStyle={styles.dropDownItem}
         dropDownStyle={styles.dropDown}
         labelStyle={styles.dropDownLabel}
