@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "940405994956-8osji3mm17p3g123tvs6593lhc7iv63c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.docitoo",
+            "certificate_hash": "885ed1f590609b8e645f987b71cb15f93d0e06ae"
+          }
+        },
+        {
+          "client_id": "940405994956-phtp6vssnm5qf5oebjmii3sf2b71qcc4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.docitoo",
+            "certificate_hash": "a23ca9654765de33274ac0023bf5598c942e9a10"
+          }
+        },
+        {
+          "client_id": "940405994956-sidli9m5e4c72s8gin2b0vpn537c76qm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.docitoo",
+            "certificate_hash": "68441be16ea7fc6ab4d3eb2536429132b613ec68"
+          }
+        },
+        {
           "client_id": "940405994956-3smnc8geto5vk0d6q20v4880lofk9o7i.apps.googleusercontent.com",
           "client_type": 3
         }
