@@ -10,7 +10,7 @@ export default {
   oneSignalUserIDStorageKey: 'DeviceUserID',
 
   googleSignIn: {
-    androidClientId: '756867398063-p47pmev7i6it18d9f9pd45givnasidch.apps.googleusercontent.com',
+    androidClientId: '940405994956-3smnc8geto5vk0d6q20v4880lofk9o7i.apps.googleusercontent.com',
     iosClientId: '756867398063-hd39m6ruq0apfmoliudua8998vbq7s2l.apps.googleusercontent.com',
     webClient: {
       id: '273549588931-82uof57ltb69oqo0ob316pp1541la2ei.apps.googleusercontent.com',

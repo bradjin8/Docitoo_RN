@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "756867398063",
-    "firebase_url": "https://docitoo-d2c92.firebaseio.com",
-    "project_id": "docitoo-d2c92",
-    "storage_bucket": "docitoo-d2c92.appspot.com"
+    "project_number": "940405994956",
+    "firebase_url": "https://docitoo.firebaseio.com",
+    "project_id": "docitoo",
+    "storage_bucket": "docitoo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:756867398063:android:a7566dca0da76da8d7d75a",
+        "mobilesdk_app_id": "1:940405994956:android:8f2b3a60e30e88164e9969",
         "android_client_info": {
           "package_name": "com.docitoo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "756867398063-p47pmev7i6it18d9f9pd45givnasidch.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.docitoo",
-            "certificate_hash": "d50f52b223112c1be89ff986d0abe3d842fa7a1b"
-          }
-        },
-        {
-          "client_id": "756867398063-69cv0kf01i4qvgm0oe03b2cjg5elbd7h.apps.googleusercontent.com",
+          "client_id": "940405994956-3smnc8geto5vk0d6q20v4880lofk9o7i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAgpn52OpcC85Tm6lfcn6zLUbXsCBI-ac8"
+          "current_key": "AIzaSyB1-B4GOBhiiUrT1ADdP8MZ470aQlgRSME"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "756867398063-69cv0kf01i4qvgm0oe03b2cjg5elbd7h.apps.googleusercontent.com",
+              "client_id": "940405994956-3smnc8geto5vk0d6q20v4880lofk9o7i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
