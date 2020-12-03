@@ -61,17 +61,17 @@ const AddPillReminder = (props) => {
 
   return (
     <Container>
-      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={null}
+      <ScrollBoardWithHeaderLBButton lButtonCaption={__('back', vm.user.language)} rButtonCaption={null}
                                      onPressLeftButton={vm.onPressBack}
                                      onPressRightButton={vm.onPressBack}>
         <Space height={hp('3%')}/>
-        <Text style={styles.note}>{__('add_the_relevant_details_below')} </Text>
+        <Text style={styles.note}>{__('add_the_relevant_details_below', vm.user.language)} </Text>
 
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <GreyInput placeholder={__('medicine_name')} value={vm.name} onChangeText={(val) => vm.setName(val)}/>
-          <GreyInput placeholder={__('dosage')} value={vm.dosage}
+          <GreyInput placeholder={__('medicine_name', vm.user.language)} value={vm.name} onChangeText={(val) => vm.setName(val)}/>
+          <GreyInput placeholder={__('dosage', vm.user.language)} value={vm.dosage}
                      onChangeText={(val) => vm.setDosage(val)}/>
-          <GreyInput placeholder={__('frequency')} value={vm.frequency}
+          <GreyInput placeholder={__('frequency', vm.user.language)} value={vm.frequency}
                      onChangeText={(val) => vm.setFrequency(val)}/>
 
           {false && Platform.OS === 'ios' ? <DatePicker
@@ -138,11 +138,11 @@ const AddPillReminder = (props) => {
               customArrowDown={({size, color}) => (
                 <MaterialCommunityIcon size={hp('2.6%')} color={Colors.grey_dark} name={'clock-outline'}/>)}
               onChangeItem={item => vm.setTime(item.value)}
-              placeholder={__('select_time_to_take_pill')}
+              placeholder={__('select_time_to_take_pill', vm.user.language)}
               dropDownMaxHeight={hp('20%')}
             />
           </View>*/}
-          <BlueButton onPress={vm.onPressAdd} caption={__('set_pill_reminder')}/>
+          <BlueButton onPress={vm.onPressAdd} caption={__('set_pill_reminder', vm.user.language)}/>
 
           <Space height={hp('20%')}/>
         </KeyboardAvoidingView>

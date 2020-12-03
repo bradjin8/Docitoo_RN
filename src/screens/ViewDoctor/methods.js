@@ -121,7 +121,8 @@ function useViewModel(props) {
     onPressWriteReview,
     onPressBook,
     onSubmitReview,
-    onPressCancel
+    onPressCancel,
+    user,
   }
 }
 

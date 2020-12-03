@@ -28,7 +28,7 @@ function useViewModel(props) {
       console.log(tag, 'fetch reminders', data.getPills);
       if (data.lastStatus == "401") {
         nav.navigate(Screens.logIn);
-        alert(__('session_expired'));
+        alert(__('session_expired', user.language));
         user.logOut();
         return;
       }
@@ -40,6 +40,7 @@ function useViewModel(props) {
   return {
     medicines,
     data,
+    user,
     onPressAdd,
     handleDelete
   }

@@ -32,7 +32,7 @@ const ViewDoctor = (props) => {
   return (
     <Container>
       {vm.doctor && !vm.isLoading ?
-        <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('share')}
+        <ScrollBoardWithHeaderLBButton lButtonCaption={__('back', vm.user.language)} rButtonCaption={__('share', vm.user.language)}
                                        onPressLeftButton={vm.onPressBack}
                                        onPressRightButton={vm.onPressShare}>
           <DoctorCard doctor={vm.doctor}/>
@@ -71,7 +71,7 @@ const ViewDoctor = (props) => {
                 <Separator color={Colors.grey}/>
                 <Space height={hp('1.6%')}/>
                 <Text style={styles.boldLabel}>
-                  {__('description')}
+                  {__('description', vm.user.language)}
                 </Text>
                 <Space height={hp('1%')}/>
                 <Text style={styles.description}>
@@ -82,7 +82,7 @@ const ViewDoctor = (props) => {
               <View>
                 <Space height={hp('1%')}/>
                 <Text style={styles.description}>
-                  {__('no_hospital')}
+                  {__('no_hospital', vm.user.language)}
                 </Text>
                 <Space height={hp('1%')}/>
               </View>
@@ -91,7 +91,7 @@ const ViewDoctor = (props) => {
             <Separator color={Colors.grey}/>
             <Space height={hp('1%')}/>
             <Text style={styles.boldLabel}>
-              {__('reviews')}
+              {__('reviews', vm.user.language)}
             </Text>
             {vm.doctor.reviews.length > 0 ?
               vm.doctor.reviews.map((review, index) => <ReviewCard review={review} key={index}/>)
@@ -99,7 +99,7 @@ const ViewDoctor = (props) => {
               <View>
                 <Space height={hp('1%')}/>
                 <Text style={styles.description}>
-                  {__('no_review')}
+                  {__('no_review', vm.user.language)}
                 </Text>
                 <Space height={hp('1%')}/>
               </View>
@@ -111,7 +111,7 @@ const ViewDoctor = (props) => {
             <Space height={hp('2%')}/>
             <View style={{flexDirection: 'row', justifyContent: 'center', width: wp('90%')}}>
               <Text style={{...styles.boldLabel, marginRight: hp('10%')}}>
-                {__('rating')}:
+                {__('rating', vm.user.language)}:
               </Text>
               <StarRatingBar
                 readOnly={false}
@@ -127,9 +127,9 @@ const ViewDoctor = (props) => {
             </View>
             <Space height={hp('2%')}/>
             <Text style={styles.boldLabel}>
-              {__('description')}
+              {__('description', vm.user.language)}
             </Text>
-            <GreyInput placeholder={__('description')} value={vm.description}
+            <GreyInput placeholder={__('description', vm.user.language)} value={vm.description}
                        onChangeText={vm.setDescription} numberOfLines={8} multiline
               // onFocus={(event) => {
               //   vm.scrollToInput(ReactNative.findNodeHandle(event.target))
@@ -138,7 +138,7 @@ const ViewDoctor = (props) => {
           </View>}
         </ScrollBoardWithHeaderLBButton>
         :
-        <ScrollBoardWithHeaderLBButton lButtonCaption={__('back')} rButtonCaption={__('share')}
+        <ScrollBoardWithHeaderLBButton lButtonCaption={__('back', vm.user.language)} rButtonCaption={__('share', vm.user.language)}
                                        onPressLeftButton={vm.onPressBack}
                                        onPressRightButton={vm.onPressShare}>
           <Loading/>
@@ -170,12 +170,12 @@ const ViewDoctor = (props) => {
           }}>
             <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressWriteReview} underlayColor={Colors.blue1}>
               <Text style={styles.whiteButtonLabel}>
-                {__('write_review')}
+                {__('write_review', vm.user.language)}
               </Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.blueButton} onPress={vm.onPressBook} underlayColor={Colors.white2}>
               <Text style={styles.blueButtonLabel}>
-                {__('book')}
+                {__('book', vm.user.language)}
               </Text>
             </TouchableHighlight>
           </View>) :
@@ -188,13 +188,13 @@ const ViewDoctor = (props) => {
           }}>
             <TouchableHighlight style={styles.whiteButton} onPress={vm.onSubmitReview} underlayColor={Colors.blue1}>
               <Text style={styles.whiteButtonLabel}>
-                {__('submit')}
+                {__('submit', vm.user.language)}
               </Text>
             </TouchableHighlight>
             <TouchableHighlight style={styles.blueButton} onPress={vm.onPressCancel}
                                 underlayColor={Colors.white2}>
               <Text style={styles.blueButtonLabel}>
-                {__('cancel')}
+                {__('cancel', vm.user.language)}
               </Text>
             </TouchableHighlight>
           </View>)}

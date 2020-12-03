@@ -23,7 +23,8 @@ const More = (props) => {
 
   return (
     <Container>
-      <BoardWithHeader title={__('more')}>
+      {vm.user &&
+      <BoardWithHeader title={__('more', vm.user.language)}>
         <View style={styles.container}>
           {vm.user && <ProfileCard user={vm.user}>
           </ProfileCard>}
@@ -34,14 +35,14 @@ const More = (props) => {
               <View style={styles.iconContainer}>
                 <Icon name={'search'} size={hp('2.5%')} color={Colors.grey_dark}/>
               </View>
-              <Text style={styles.buttonCaption}>{__('search_doctors')}</Text>
+              <Text style={styles.buttonCaption}>{__('search_doctors', vm.user.language)}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressPillReminder}>
               <View style={styles.iconContainer}>
                 <MaterialCommunityIcon name={'pill'} color={Colors.grey_dark} size={hp('3.2%')}
                                        style={{transform: [{rotate: '90deg'}]}}/>
               </View>
-              <Text style={styles.buttonCaption}>{__('pill_reminder')}</Text>
+              <Text style={styles.buttonCaption}>{__('pill_reminder', vm.user.language)}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressAccountSettings}>
               <View style={styles.iconContainer}>
@@ -49,7 +50,7 @@ const More = (props) => {
                 <FontistoIcon name={'player-settings'} size={hp('2.9%')} color={Colors.grey_dark}
                               style={{transform: [{rotate: '22.5deg'}]}}/>
               </View>
-              <Text style={styles.buttonCaption}>{__('account_settings')}</Text>
+              <Text style={styles.buttonCaption}>{__('account_settings', vm.user.language)}</Text>
             </TouchableOpacity>
           </>}
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressTermsAndConditions}>
@@ -57,24 +58,24 @@ const More = (props) => {
               <MaterialCommunityIcon name={'briefcase-check-outline'} color={Colors.grey_dark} size={hp('2.9%')}
                                      style={{/*{transform: [{scaleX: 0.5}]}*/}}/>
             </View>
-            <Text style={styles.buttonCaption}>{__('terms_and_conditions')}</Text>
+            <Text style={styles.buttonCaption}>{__('terms_and_conditions', vm.user.language)}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressContactUs}>
             <View style={styles.iconContainer}>
               <MaterialCommunityIcon name={'contacts'} size={hp('2.9%')} color={Colors.grey_dark}/>
             </View>
-            <Text style={styles.buttonCaption}>{__('contact_us')}</Text>
+            <Text style={styles.buttonCaption}>{__('contact_us', vm.user.language)}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.buttonContainer} onPress={vm.onPressLogout}>
             <View style={styles.iconContainer}>
               <MaterialCommunityIcon name={'logout'} size={hp('3.2%')} color={Colors.grey_dark}
                                      style={{transform: [{rotateY: '180deg'}]}}/>
             </View>
-            <Text style={styles.buttonCaption}>{__('logout')}</Text>
+            <Text style={styles.buttonCaption}>{__('logout', vm.user.language)}</Text>
           </TouchableOpacity>
         </View>
-      </BoardWithHeader>
-      <DropDownPicker
+      </BoardWithHeader>}
+      {vm.user && <DropDownPicker
         items={vm.langItems}
         style={styles.dropDownBack}
         containerStyle={(!vm.user || vm.user.language !== 'english') ? styles.dropDownContainerRTL: styles.dropDownContainer}
@@ -82,7 +83,7 @@ const More = (props) => {
         dropDownStyle={styles.dropDown}
         labelStyle={styles.dropDownLabel}
         arrowStyle={styles.dropDownArrow}
-        onChangeItem={async item =>  {
+        onChangeItem={async item => {
           // console.log('item', item);
           await vm.changeLanguage(item.value);
         }}
@@ -92,7 +93,7 @@ const More = (props) => {
         value={vm.user.language}
         defaultValue={vm.user.language}
         placeholder={''}
-      />
+      />}
     </Container>
   )
 };
@@ -105,7 +106,8 @@ export const ProfileCard = ({user}) => {
         source={Images.placeholder.avatar_default} style={styles.profileAvatar}/>}
       <View style={styles.profileDesc}>
         <Text style={styles.profileName}>{user.fullName}</Text>
-        <Text style={styles.profileDate}>{(user.accountType === 'User' ? 'User since ' : 'Joined since ') + datetime.create(user.createdAt).format('f Y')}</Text>
+        <Text
+          style={styles.profileDate}>{(user.accountType === 'User' ? 'User since ' : 'Joined since ') + datetime.create(user.createdAt).format('f Y')}</Text>
       </View>
     </View>
   );

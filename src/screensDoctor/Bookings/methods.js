@@ -60,7 +60,7 @@ function useViewModel(props) {
       if (d_data.lastStatus == '401') {
         nav.navigate(Screens.logIn);
         user.logOut();
-        alert(__('session_expired'));
+        alert(__('session_expired', user.language));
       }
       setBookings(d_data.bookings);
     } catch (e) {
@@ -80,7 +80,7 @@ function useViewModel(props) {
     if (d_data.lastStatus == '401') {
       nav.navigate(Screens.logIn);
       user.logOut();
-      alert(__('session_expired'));
+      alert(__('session_expired', user.language));
       return;
     }
     setBookings(d_data.bookings);

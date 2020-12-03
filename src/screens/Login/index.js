@@ -36,11 +36,11 @@ const Login = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('login')}>
+    <BoardWithHeader title={__('login', vm.user.language)}>
       {vm.user.isLoggingIn ?
         <Loading/> :
         <View style={styles.container}>
-          <BlackText text={__('login_with')}/>
+          <BlackText text={__('login_with', vm.user.language)}/>
           <View style={styles.socialContainer}>
             <ImageButton image={Images.logo.facebook} style={{marginHorizontal: wp('3%'),}}
                          imageStyle={{width: hp('7%'), height: hp('7%')}}
@@ -50,17 +50,17 @@ const Login = (props) => {
                          onPress={vm.onPressGoogle}/>
             {/*<GoogleSigninButton onPress={vm.onPressGoogle}/>*/}
           </View>
-          <BlackText text={__('or_login_using_email')}/>
+          <BlackText text={__('or_login_using_email', vm.user.language)}/>
           <Space height={hp('6%')}/>
-          <GreyInput placeholder={__('email_address') + ' or ' + __('phone_number')} value={vm.emailOrPhone}
+          <GreyInput placeholder={__('email_address', vm.user.language) + ' or ' + __('phone_number', vm.user.language)} value={vm.emailOrPhone}
                      onChangeText={vm.setEmailOrPhone}/>
           <Space height={hp('1.2%')}/>
-          <GreyInput placeholder={__('password')} value={vm.password} onChangeText={vm.setPassword}
+          <GreyInput placeholder={__('password', vm.user.language)} value={vm.password} onChangeText={vm.setPassword}
                      secureTextEntry={true}/>
-          <BlueButton onPress={vm.onPressLogin} caption={__('login')}/>
-          <GreyText text={__('sign_up_note')}/>
+          <BlueButton onPress={vm.onPressLogin} caption={__('login', vm.user.language)}/>
+          <GreyText text={__('sign_up_note', vm.user.language)}/>
           <Space height={hp('5%')}/>
-          <TransBlueButton onPress={vm.onPressSignUp} caption={__('dont_have_account') + ' ' + __('sign_up')}/>
+          <TransBlueButton onPress={vm.onPressSignUp} caption={__('dont_have_account', vm.user.language) + ' ' + __('sign_up', vm.user.language)}/>
         </View>
       }
     </BoardWithHeader>

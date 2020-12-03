@@ -14,7 +14,7 @@ const ViewDoctor = (props) => {
 
   return (
     <Container>
-      <BoardWithHeader title={__('terms_and_conditions')}>
+      <BoardWithHeader title={__('terms_and_conditions', vm.user.language)}>
         <ScrollView style={styles.container}>
           <Text style={styles.content}>
             {vm.content}

@@ -13,16 +13,16 @@ function useViewModel(props) {
   const nav = useNavigation(props);
 
   const MODE = {DATE: 'DATE', TIME: 'TIME'};
+  const {user, data} = useStores();
 
   const [date, setDate] = useState(new Date());
   const [hour, setHour] = useState(-1);
 
   const [doctor, setDoctor] = useState(null);
   const [mode, setMode] = useState(MODE.DATE);
-  const [confirmCaption, setConfirmCaption] = useState(__('confirm_selection'));
-  const [title, setTitle] = useState(__('pick_a_date'));
+  const [confirmCaption, setConfirmCaption] = useState(__('confirm_selection', user.language));
+  const [title, setTitle] = useState(__('pick_a_date', user.language));
   const [timeSlots, setTimeSlots] = useState({});
-  const {user, data} = useStores();
 
   const onPressBack = () => {
     if (mode === MODE.DATE) {
@@ -53,7 +53,7 @@ function useViewModel(props) {
         if (data.lastStatus == '401') {
           nav.navigate(Screens.logIn);
           await user.logOut();
-          alert(__('session_expired'));
+          alert(__('session_expired', user.language));
           return;
         }
       } catch (e) {
@@ -74,11 +74,11 @@ function useViewModel(props) {
 
   useEffect(() => {
     if (mode === MODE.DATE) {
-      setConfirmCaption(__('confirm_selection'));
-      setTitle(__('pick_a_date'));
+      setConfirmCaption(__('confirm_selection', user.language));
+      setTitle(__('pick_a_date', user.language));
     } else if (mode === MODE.TIME) {
-      setConfirmCaption(__('book_appointment'));
-      setTitle(__('pick_a_time'));
+      setConfirmCaption(__('book_appointment', user.language));
+      setTitle(__('pick_a_time', user.language));
     }
   }, [mode]);
 
@@ -179,6 +179,7 @@ function useViewModel(props) {
     title, setTitle,
     timeSlots, setTimeSlots,
     MODE,
+    user,
     onPressBack,
     onPressConfirm,
     selectTimeSlot,

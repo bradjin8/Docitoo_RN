@@ -43,7 +43,7 @@ import DNotifications from '@/screens/Notifications';
 import Colors from '@/styles/Colors';
 import useViewModel from './methods';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import __, {___} from '@/assets/lang';
+import __ from '@/assets/lang';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
 function UserTab(props) {
   const store = useStores();
   const language = store.user.language || 'english';
-  const labelDoctors = ___('doctors', language);
-  const labelNotifications = ___(TabStackScreens.notifications, language);
+  const labelDoctors = __('doctors', language);
+  const labelNotifications = __(TabStackScreens.notifications, language);
 
   return (
     <Tab.Navigator
@@ -110,7 +110,7 @@ function UserTab(props) {
         name={TabStackScreens.pillReminderStack}
         component={PillReminderStack}
         options={{
-          title: ___('pill_reminder', language),
+          title: __('pill_reminder', language),
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcon name={'pill'} color={color} size={size}
                                    style={{transform: [/*{rotateX: '180deg'},*/{rotate: '90deg'},/*{rotateZ: '180deg'}*/]}}/>
@@ -121,7 +121,7 @@ function UserTab(props) {
         name={TabStackScreens.moreStack}
         component={MoreStack}
         options={{
-          title: ___(MoreStackScreens.more, language),
+          title: __(MoreStackScreens.more, language),
           tabBarIcon: ({color, size}) => (
             <FoundationIcon name={'indent-more'} color={color} size={size}/>
           ),
@@ -132,6 +132,7 @@ function UserTab(props) {
 }
 
 function DoctorTab() {
+  const {user} = useStores();
   return (
     <Tab.Navigator
       initialRouteName={DoctorTabStackScreens.booking}
@@ -152,7 +153,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.booking}
         component={DBookingStack}
         options={{
-          title: __('bookings'),
+          title: __('bookings', user.language),
           tabBarIcon: ({color, size}) => (
             <FontAwesome5Icon name={'book-medical'} color={color} size={size}/>
           ),
@@ -162,7 +163,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.notifications}
         component={DNotifications}
         options={{
-          title: __('notifications'),
+          title: __('notifications', user.language),
           tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcon name={'bell'} color={color} size={size}/>
           ),
@@ -172,7 +173,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.profile}
         component={MyProfile}
         options={{
-          title: __('profile'),
+          title: __('profile', user.language),
           tabBarIcon: ({color, size}) => (
             <EntypoIcon name={'user'} color={color} size={size}/>
           ),
@@ -182,7 +183,7 @@ function DoctorTab() {
         name={DoctorTabStackScreens.moreStack}
         component={MoreStack}
         options={{
-          title: __(MoreStackScreens.more),
+          title: __(MoreStackScreens.more, user.language),
           tabBarIcon: ({color, size}) => (
             <FoundationIcon name={'indent-more'} color={color} size={size}/>
           ),

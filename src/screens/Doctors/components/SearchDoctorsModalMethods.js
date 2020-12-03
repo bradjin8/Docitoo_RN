@@ -50,6 +50,7 @@ function useViewModel(props) {
     isLocationMode, setLocationMode,
     specialities: data.specialities,
     data,
+    user,
     onPressFilterResults
   }
 }

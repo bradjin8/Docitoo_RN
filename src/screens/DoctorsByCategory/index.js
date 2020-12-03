@@ -27,19 +27,19 @@ const DoctorsByCategory = (props) => {
 
   // console.log(tag, 'Index - SearchString:', vm.searchString);
   return (
-    <BoardWithHeader title={__('doctors')}>
+    <BoardWithHeader title={__('doctors', vm.user.language)}>
       {vm.data.isProcessing ?
         <Loading/>
         :
         <ScrollView style={styles.container}>
           <View style={styles.searchContainer}>
             <Icon name={'search'} size={wp('5%')} color={Colors.grey}/>
-            <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors')}
+            <TextInput style={styles.searchInput} value={vm.searchString} placeholder={__('search_for_doctors', vm.user.language)}
                        onChangeText={(val) => vm.setSearchString(val)}/>
           </View>
           <Space height={hp('1%')}/>
           <Text style={styles.note}>
-            {__('browse_doctors_by_category')}
+            {__('browse_doctors_by_category', vm.user.language)}
           </Text>
           {vm.filteredSpecialities && vm.filteredSpecialities.length > 0 &&
             vm.filteredSpecialities.map((group, index1) => {

@@ -75,7 +75,7 @@ function useViewModel(props) {
       }
     }
     const options = {
-      title: __('select_photo'),
+      title: __('select_photo', user.language),
       customButtons: [],
       storageOptions: {
         skipBackup: true,
@@ -113,6 +113,7 @@ function useViewModel(props) {
     gender, setGender,
     bloodType, setBloodType,
     avatarSource, setAvatarSource,
+    user,
     onPressSubmit,
     onPressChoose,
   }

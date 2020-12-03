@@ -56,7 +56,7 @@ const SearchBookingsModal = (props) => {
       {Platform.OS === 'ios' && <Space height={hp('3.5%')}/>}
       <View style={styles.header}>
         <Text style={styles.title}>
-          {__('search_doctors')}
+          {__('search_doctors', vm.user.language)}
         </Text>
         <TouchableOpacity onPress={() => {
           vm.setLocationMode(false);
@@ -67,10 +67,10 @@ const SearchBookingsModal = (props) => {
       </View>
       <Separator color={Colors.grey_light}/>
       {vm.isLocationMode === false ? <KeyboardAvoidingView behavior={"padding"} style={styles.body}>
-          <WhiteLabel text={__('search_by_name')}/>
-          <WhiteInput placeholder={__('doctors_name')} value={vm.doctorName}
+          <WhiteLabel text={__('search_by_name', vm.user.language)}/>
+          <WhiteInput placeholder={__('doctors_name', vm.user.language)} value={vm.doctorName}
                       onChangeText={(value) => vm.setDoctorName(value)}/>
-          <WhiteLabel text={__('speciality')}/>
+          <WhiteLabel text={__('speciality', vm.user.language)}/>
           <DropDownPicker
             items={mockSpecialityItems}
             style={styles.dropDownBack}
@@ -80,7 +80,7 @@ const SearchBookingsModal = (props) => {
             labelStyle={styles.dropDownLabel}
             arrowStyle={styles.dropDownArrow}
             onChangeItem={item => vm.setSpeciality(item.value)}
-            placeholder={__('select_speciality')}
+            placeholder={__('select_speciality', vm.user.language)}
             arrowColor={'#fff'}
             customArrowUp={({size, color}) => (<Icon size={hp('2.5%')} color={'#fff'} name={'caret-up'}/>)}
             customArrowDown={({size, color}) => (<Icon size={hp('2.5%')} color={'#fff'} name={'caret-down'}/>)}
@@ -88,13 +88,13 @@ const SearchBookingsModal = (props) => {
             defaultValue={vm.speciality}
           />
 
-          <WhiteLabel text={__('location')}/>
+          <WhiteLabel text={__('location', vm.user.language)}/>
           <TouchableOpacity onPress={() => {
             vm.setLocationMode(true)
           }}>
             {/*<WhiteInput placeholder={__('browse_location')}/>*/}
             <Text style={styles.locationLabel}>
-              {vm.location.address ? vm.location.address : __('browse_location')}
+              {vm.location.address ? vm.location.address : __('browse_location', vm.user.language)}
             </Text>
           </TouchableOpacity>
           <Space height={hp('5%')}/>
@@ -103,7 +103,7 @@ const SearchBookingsModal = (props) => {
           </View>
           <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressFilterResults}>
             <Text style={styles.buttonLabel}>
-              {__('filter_result')}
+              {__('filter_result', vm.user.language)}
             </Text>
           </TouchableHighlight>
         </KeyboardAvoidingView> :

@@ -20,7 +20,7 @@ const Notifications = (props) => {
   const vm = useViewModel(props);
 
   return (
-    <BoardWithHeader title={__('notifications')} onSwipeUp={vm.fetchData}>
+    <BoardWithHeader title={__('notifications', vm.user.language)} onSwipeUp={vm.fetchData}>
       {vm.data.isProcessing ?
         <Loading/>
         :
@@ -41,7 +41,7 @@ const Notifications = (props) => {
             )
             :
             <Text style={styles.resultCount}>
-              {'0 ' + __('results_found')}
+              {'0 ' + __('results_found', vm.user.language)}
             </Text>
           }
           <Space height={hp('3%')}/>

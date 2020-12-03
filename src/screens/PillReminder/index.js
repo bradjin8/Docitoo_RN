@@ -17,13 +17,14 @@ import Loading from "@/components/Loading";
 import dateFormat from 'node-datetime';
 import Swipeable from 'react-native-swipeable';
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import {useStores} from "../../hooks";
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
 
   return (
     <Container>
-      <BoardWithHeader title={__('pill_reminder')}>
+      <BoardWithHeader title={__('pill_reminder', vm.user.language)}>
         {vm.data.isProcessing ?
           <Loading/>
           :
@@ -49,7 +50,7 @@ const PillReminder = (props) => {
             })}
             {vm.data.pillReminders.length < 1 &&
             <Text style={styles.resultCount}>
-              {util.formatInteger(vm.medicines.length) + ' ' + __('results_found')}
+              {util.formatInteger(vm.medicines.length) + ' ' + __('results_found', vm.user.language)}
             </Text>
             }
             <Space height={hp('3%')}/>
@@ -64,6 +65,8 @@ const PillReminder = (props) => {
 
 export const MedicineCard = ({medicine, type, handleDelete}) => {
   const leftContent = <Text>Pull to activate</Text>;
+  const {user} = useStores();
+
   const rightButtons = [
     <TouchableHighlight
       style={{
@@ -92,7 +95,7 @@ export const MedicineCard = ({medicine, type, handleDelete}) => {
         <View style={styles.medicineDesc}>
           <Text style={styles.medicineName}>{medicine.medicineName + ' - ' + medicine.dosage}</Text>
           <Text
-            style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at') + ' ' + dateFormat.create(parseInt(medicine.timeToTake)).format('I:M p')}</Text>
+            style={styles.medicineDescText}>{medicine.frequency + ' ' + __('pill_at', user.language) + ' ' + dateFormat.create(parseInt(medicine.timeToTake)).format('I:M p')}</Text>
         </View>
       </View>
     </Swipeable>

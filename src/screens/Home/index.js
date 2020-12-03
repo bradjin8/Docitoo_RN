@@ -25,26 +25,26 @@ const Home = (props) => {
         <LogoImage/>
 
         <Text style={styles.description}>
-          {__('app_desc')}
+          {__('app_desc', vm.user.language)}
         </Text>
         <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressSignUp}>
           <Text style={styles.buttonLabel}>
-            {__('sign_up')}
+            {__('sign_up', vm.user.language)}
           </Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressLogin}>
           <Text style={styles.buttonLabel}>
-            {__('login')}
+            {__('login', vm.user.language)}
           </Text>
         </TouchableHighlight>
         <TouchableOpacity onPress={vm.onPressSkipSignUp}>
           <Text style={styles.whiteLabel}>
-            {__('skip_sign_up')}
+            {__('skip_sign_up', vm.user.language)}
           </Text>
         </TouchableOpacity>
         <Space height={hp('12%')}/>
         <Text style={styles.note}>
-          {__('app_note')}
+          {__('app_note', vm.user.language)}
         </Text>
       </View>
     </Container>
