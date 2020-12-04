@@ -8,6 +8,7 @@ export default {
   specialityUrlPrefix: ServerURL + '/images/speciality/',
   oneSignalAppID: '59c80d9f-7824-4202-9ddb-83a4d779926e',
   oneSignalUserIDStorageKey: 'DeviceUserID',
+  linkScheme: 'docitoo://',
 
   googleSignIn: {
     androidClientId: '940405994956-3smnc8geto5vk0d6q20v4880lofk9o7i.apps.googleusercontent.com',

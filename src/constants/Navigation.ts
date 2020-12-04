@@ -15,6 +15,7 @@ export const Screens = {
     doctorsByCategory: 'DoctorsByCategory', //16
     searchDoctors: 'SearchDoctors', //6
     viewDoctor: 'ViewDoctor', // 7
+    viewDoctorUrl: 'ViewDoctorUrl',
 
     pillReminders: 'PillReminders', // 10
     addPillReminder: 'AddPillReminder', // 11
