@@ -12,13 +12,28 @@ function useViewModel(props) {
   const {user} = useStores();
 
   // const [urlOpened, setUrlOpened] = useState(false);
+  const go2Main = () => {
+    if (user.accountType === 'Doctor') {
+      nav.navigate(Screens.doctorFlow)
+    } else {
+      nav.navigate(Screens.userFlow);
+    }
+  };
 
   const onPressSignUp = () => {
-    nav.navigate(Screens.signUp)
+    if (user.isValid) {
+      go2Main();
+    } else {
+      nav.navigate(Screens.signUp)
+    }
   };
 
   const onPressLogin = () => {
-    nav.navigate(Screens.logIn)
+    if (user.isValid) {
+      go2Main();
+    } else {
+      nav.navigate(Screens.logIn)
+    }
   };
 
   const onPressSkipSignUp = async () => {
