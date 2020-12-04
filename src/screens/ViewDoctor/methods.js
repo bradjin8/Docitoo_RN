@@ -17,11 +17,32 @@ function useViewModel(props) {
 
   const [rating, setRating] = useState(5);
   const [description, setDescription] = useState(null);
-
+  const [routeID, setRouteID] = useState(null);
 
   const [isLoading, setLoading] = useState(false);
 
   const {user, data} = useStores();
+
+  let id = null;
+  const {route} = props;
+  if (route && route.params) {
+    id = route.params.id;
+  }
+  // id = '5f6911799c06f46db319f23f';
+
+  const searchDoctorAsync = async (_id) => {
+    if (data.doctors.length < 1) {
+      await data.searchDoctors(data.sessionToken);
+    }
+    data.selectDoctor(_id);
+    await fetchDoctor();
+  };
+
+  if (!routeID && id) {
+    // alert('ROUTE_ID: ' + id);
+    console.log(data.doctors);
+    setRouteID(id);
+  }
 
   const fetchDoctor = async () => {
     setLoading(true);
@@ -37,7 +58,9 @@ function useViewModel(props) {
 
   const onPressBack = () => {
     if (nav.canGoBack())
-      nav.goBack()
+      nav.goBack();
+    else
+      nav.navigate(Screens.home);
   };
 
   const onPressShare = () => {
@@ -46,8 +69,8 @@ function useViewModel(props) {
 
     Share.share(
       {
-        message: `${AppConfig.appBaseUrl}/d/${doctor.id}`,
-        url: `${AppConfig.appBaseUrl}/d/${doctor.id}`,
+        message: `${AppConfig.linkScheme}d/${doctor.id}`,
+        url: `${AppConfig.linkScheme}d/${doctor.id}`,
         title: `Dr. ${doctor.fullName}, a ${__(doctor.speciality)}`
       },
       {
@@ -101,13 +124,16 @@ function useViewModel(props) {
     setReviewMode(false);
   };
 
-
   useEffect(() => {
     fetchDoctor();
     return () => {
 
     }
   }, []);
+
+  useEffect(() => {
+    searchDoctorAsync(routeID);
+  }, [routeID]);
 
   return {
     doctor, setDoctor,

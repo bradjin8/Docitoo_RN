@@ -49,6 +49,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import FoundationIcon from 'react-native-vector-icons/Foundation';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import AppConfig from "@/config/AppConfig";
 
 const tag = 'Route::index';
 
@@ -258,11 +259,28 @@ const Route = (props) => {
   const {isValid} = vm.store.user && vm.store.data.lastStatus == '401';
   console.log("ROUTE:Route", vm.store.user);
 
+  const config = {
+    screens: {
+      Home: 'home',
+      SignUp: 'signup',
+      LogIn: 'login',
+      ShareMoreDetails: 'shareModeDetails',
+      userFlow: 'userFlow',
+      doctorFlow: 'doctorFlow',
+      ViewDoctorUrl: 'd/:id'
+    }
+  };
+
+  const linking = {
+    prefixes: [AppConfig.linkScheme],
+    config,
+  };
+
   if (vm.isInitializing) {
     return <Splash/>;
   } else {
     return (
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         <Stack.Navigator
           initialRouteName={Screens.home}
           screenOptions={{
@@ -275,6 +293,7 @@ const Route = (props) => {
           <Stack.Screen name={Screens.shareMoreDetails} component={ShareMoreDetails}/>
           <Stack.Screen name={Screens.userFlow} component={UserTab}/>
           <Stack.Screen name={Screens.doctorFlow} component={DoctorTab}/>
+          <Stack.Screen name={Screens.viewDoctorUrl} component={ViewDoctor}/>
         </Stack.Navigator>
       </NavigationContainer>
     );

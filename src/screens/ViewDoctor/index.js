@@ -140,13 +140,13 @@ const ViewDoctor = (props) => {
         :
         <ScrollBoardWithHeaderLBButton lButtonCaption={__('back', vm.user.language)} rButtonCaption={__('share', vm.user.language)}
                                        onPressLeftButton={vm.onPressBack}
-                                       onPressRightButton={vm.onPressShare}>
+                                       onPressRightButton={vm.doctor != null ? vm.onPressShare : null}>
           <Loading/>
         </ScrollBoardWithHeaderLBButton>
 
       }
 
-      <View style={{
+      {vm.doctor && <View style={{
         backgroundColor: Colors.white2,
         position: 'absolute',
         bottom: 0,
@@ -198,7 +198,7 @@ const ViewDoctor = (props) => {
               </Text>
             </TouchableHighlight>
           </View>)}
-      </View>
+      </View>}
 
 
     </Container>
