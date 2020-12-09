@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
 
 const Login = (props) => {
   const vm = useViewModel(props);
-
   return (
     <BoardWithHeader title={__('login', vm.user.language)}>
       {vm.user.isLoggingIn ?

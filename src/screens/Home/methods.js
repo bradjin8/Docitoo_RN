@@ -85,7 +85,9 @@ function useViewModel(props) {
     if (!nav.canGoBack()) {
       init();
     }
-
+    if (user.isValid) {
+      go2Main();
+    }
     return () => {
       Linking.removeEventListener('url', handleUrl)
     }

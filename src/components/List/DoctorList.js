@@ -8,6 +8,8 @@ import Images from '@/styles/Images';
 import Separator from '@/components/Separator';
 import {formatHour} from '@/utils/String';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import {useStores} from '@/hooks';
+
 
 const DoctorList = ({doctors, onPressDoctor}) => {
   return (
@@ -75,7 +77,8 @@ export const DoctorCard = ({doctor}) => {
 
 const DoctorReview = ({reviews}) => {
   const [averageRating, setAverageRating] = useState(0.0);
-
+  const store = useStores();
+  const language = store.user.language || 'english';
   useEffect(() => {
     let totalRating = 0.0;
     reviews.map(item => {
@@ -103,7 +106,7 @@ const DoctorReview = ({reviews}) => {
         scoreTextStyle={styles.starBar}
       />
       <Text style={styles.ratingCount}>
-        {StringUtil.formatInteger(reviews.length) + ' ' + __('ratings')}
+        {StringUtil.formatInteger(reviews.length) + ' ' + __('ratings', language)}
       </Text>
     </View>
   );

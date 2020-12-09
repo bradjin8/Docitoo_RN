@@ -69,7 +69,7 @@ function UserTab(props) {
   const store = useStores();
   const language = store.user.language || 'english';
   const labelDoctors = __('doctors', language);
-  const labelNotifications = __(TabStackScreens.notifications, language);
+  const labelNotifications = __(TabStackScreens.notifications.toLowerCase(), language);
 
   return (
     <Tab.Navigator
