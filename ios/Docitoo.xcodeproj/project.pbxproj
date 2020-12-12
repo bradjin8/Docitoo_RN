@@ -920,7 +920,7 @@
 				CODE_SIGN_ENTITLEMENTS = Docitoo/Docitoo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = UWYV4W2495;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
@@ -951,7 +951,7 @@
 				CODE_SIGN_ENTITLEMENTS = Docitoo/Docitoo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = UWYV4W2495;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Docitoo/Info.plist;
