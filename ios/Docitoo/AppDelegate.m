@@ -17,6 +17,10 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
+//#import <FBSDKCoreKit/FBSDKCoreKit.h>
+//#import <FBSDKLoginKit/FBSDKLoginKit.h>
+//#import "RCTLinkingManager.h"
+//#import <OneSignal/OneSignal.h>
 
 @import UIKit;
 @import Firebase;
@@ -31,6 +35,11 @@ static void InitializeFlipper(UIApplication *application) {
   [client start];
 }
 #endif
+
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "RCTLinkingManager.h"
+#import <OneSignal/OneSignal.h>
 
 @implementation AppDelegate
 
@@ -54,6 +63,21 @@ static void InitializeFlipper(UIApplication *application) {
   [self.window makeKeyAndVisible];
   [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
   //[FIRApp configure];
+
+//  // Remove this method to stop OneSignal Debugging
+//  [OneSignal setLogLevel:ONE_S_LL_VERBOSE visualLevel:ONE_S_LL_NONE];
+//
+//  // OneSignal initialization
+//  [OneSignal initWithLaunchOptions:launchOptions];
+//  [OneSignal setAppId:@"59c80d9f-7824-4202-9ddb-83a4d779926e"];
+//
+//  // promptForPushNotifications will show the native iOS notification permission prompt.
+//  // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 8)
+//  [OneSignal promptForPushNotificationsWithUserResponse:^(BOOL accepted) {
+//    NSLog(@"User accepted notifications: %d", accepted);
+//  }];
+
+
   return YES;
 }
 
@@ -84,7 +108,7 @@ static void InitializeFlipper(UIApplication *application) {
  return [RCTLinkingManager application:application
                   continueUserActivity:userActivity          restorationHandler:restorationHandler];
                   }
-          
+
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG
