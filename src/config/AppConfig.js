@@ -1,11 +1,12 @@
-// const ServerURL = 'http://192.168.101.67:3010';
-const ServerURL = 'https://docitoo.com/api-v1'; //https://docitoo.com/api-v1
+const ServerURL = 'http://192.168.101.140:3010';
+// const ServerURL = 'https://docitoo.com/api-v1'; //https://docitoo.com/api-v1
 
 
 export default {
   appBaseUrl: ServerURL,
   apiBaseUrl: ServerURL + '/api/',
   specialityUrlPrefix: ServerURL + '/images/speciality/',
+  hospitalUrlPrefix: ServerURL + '/images/hospital/',
   oneSignalAppID: '59c80d9f-7824-4202-9ddb-83a4d779926e',
   oneSignalUserIDStorageKey: 'DeviceUserID',
   linkScheme: 'docitoo://',

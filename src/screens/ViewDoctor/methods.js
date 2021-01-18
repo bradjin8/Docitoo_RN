@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {DoctorStackScreens, Screens} from '@/constants/Navigation';
 import {mockDoctors} from '@/constants/MockUpData';
-import {useStores} from "@/hooks";
+import {useStores} from '@/hooks';
 import {Share} from 'react-native';
-import AppConfig from "@/config/AppConfig";
-import __ from "@/assets/lang";
+import AppConfig from '@/config/AppConfig';
+import __ from '@/assets/lang';
 
 const tag = 'Screens::ViewDoctor';
 
@@ -14,6 +14,7 @@ function useViewModel(props) {
   const [doctor, setDoctor] = useState(null);
   const [isReviewMode, setReviewMode] = useState(false);
   const [isMapViewMode, setMapViewMode] = useState(true);
+  const [isFullScreenAvatar, setFullScreenAvatar] = useState(true);
 
   const [rating, setRating] = useState(5);
   const [description, setDescription] = useState(null);
@@ -48,7 +49,7 @@ function useViewModel(props) {
     setLoading(true);
     try {
       await data.fetchDoctorById(user.sessionToken, data.selectedDoctorId);
-      setDoctor(data.getSelectedDoctor);
+      setDoctor(Object.assign({}, data.getSelectedDoctor));
     } catch (e) {
 
     } finally {
@@ -57,10 +58,11 @@ function useViewModel(props) {
   };
 
   const onPressBack = () => {
-    if (nav.canGoBack())
+    if (nav.canGoBack()) {
       nav.goBack();
-    else
+    } else {
       nav.navigate(Screens.home);
+    }
   };
 
   const onPressShare = () => {
@@ -71,22 +73,23 @@ function useViewModel(props) {
       {
         message: `${AppConfig.linkScheme}d/${doctor.id}`,
         url: `${AppConfig.linkScheme}d/${doctor.id}`,
-        title: `Dr. ${doctor.fullName}, a ${__(doctor.speciality)}`
+        title: `Dr. ${doctor.fullName}, a ${__(doctor.speciality)}`,
       },
       {
         // Android only:
         dialogTitle: `Share Dr. ${doctor.fullName}'s Profile`,
         // iOS only:
         excludedActivityTypes: [
-          'com.apple.UIKit.activity.PostToTwitter'
-        ]
-      }
+          'com.apple.UIKit.activity.PostToTwitter',
+        ],
+      },
     ).then(({action, activityType}) => {
-      if(action === Share.sharedAction)
+      if (action === Share.sharedAction) {
         console.log('Share was successful', activityType);
-      else
+      } else {
         console.log('Share was dismissed', activityType);
-    })
+      }
+    });
   };
 
   const onPressWriteReview = () => {
@@ -101,7 +104,7 @@ function useViewModel(props) {
   const onPressBook = () => {
     console.log(tag, 'onPressBook()', doctor.id);
     if (user.isValid) {
-      nav.navigate(DoctorStackScreens.bookDoctor)
+      nav.navigate(DoctorStackScreens.bookDoctor);
     } else {
       nav.navigate(Screens.logIn);
     }
@@ -125,10 +128,11 @@ function useViewModel(props) {
   };
 
   useEffect(() => {
+    setFullScreenAvatar(false);
     fetchDoctor();
     return () => {
 
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -142,6 +146,7 @@ function useViewModel(props) {
     description, setDescription,
     isLoading, setLoading,
     isMapViewMode, setMapViewMode,
+    isFullScreenAvatar, setFullScreenAvatar,
     onPressBack,
     onPressShare,
     onPressWriteReview,
@@ -149,6 +154,7 @@ function useViewModel(props) {
     onSubmitReview,
     onPressCancel,
     user,
+    data,
   }
 }
 

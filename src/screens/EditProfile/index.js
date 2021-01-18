@@ -55,6 +55,7 @@ const EditProfile = (props) => {
             items={[
               {label: __('female', vm.user.language), value: 'female'},
               {label: __('male', vm.user.language), value: 'male'},
+              {label: __('unisex', vm.user.language), value: 'unisex'},
             ]}
             style={styles.dropDownBack}
             containerStyle={styles.dropDownContainer}

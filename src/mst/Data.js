@@ -1,12 +1,21 @@
-import {applySnapshot, flow, types} from "mobx-state-tree";
-import {observable} from "mobx";
+import {applySnapshot, flow, types} from 'mobx-state-tree';
+import {observable} from 'mobx';
 import {isEmpty} from 'lodash';
-import {defNumber, defString, defObjString, PillReminder, Notification, Doctor, Speciality, DoctorDetails} from './Types';
+import {
+  defNumber,
+  defString,
+  defObjString,
+  PillReminder,
+  Notification,
+  Doctor,
+  Speciality,
+  DoctorDetails,
+} from './Types';
 import 'mobx-react-lite/batchingForReactDom';
 import * as Api from '@/Services/Api';
-import {Alert} from "react-native";
+import {Alert} from 'react-native';
 import Config from '@/config/AppConfig';
-import ReactNativeAN from "react-native-alarm-notification";
+import ReactNativeAN from 'react-native-alarm-notification';
 import __ from '@/assets/lang';
 
 const tag = 'MST.Data';
@@ -34,10 +43,11 @@ const Data = types
       return self.doctors;
     },
     get getSelectedDoctor() {
-      if (self.selectedDoctor && self.selectedDoctor.length > 0)
+      if (self.selectedDoctor && self.selectedDoctor.length > 0) {
         return self.selectedDoctor[0];
+      }
       return null;
-    }
+    },
   }))
   .actions((self) => {
     const _updatePillReminders = (data) => {
@@ -62,7 +72,7 @@ const Data = types
     };
 
     const getPillReminders = flow(function* updatePillReminders(
-      userToken
+      userToken,
     ) {
       self.setProcessing(true);
       try {
@@ -106,7 +116,7 @@ const Data = types
       medicineName,
       dosage,
       frequency,
-      timeToTake
+      timeToTake,
     ) {
       self.setProcessing(true);
 
@@ -145,7 +155,7 @@ const Data = types
             dosage,
             frequency,
             dateTime: new Date(timeToTake).getTime().toString(),
-          }
+          },
         };
         let offset = new Date(timeToTake).getTime() - new Date().getTime();
         console.log('offset', offset);
@@ -176,7 +186,7 @@ const Data = types
     });
 
     const deletePillReminder = flow(function* deletePillReminder(
-      id
+      id,
     ) {
       self.setProcessing(true);
 
@@ -186,7 +196,7 @@ const Data = types
 
         ReactNativeAN.deleteRepeatingAlarm(parseInt(id));
       } catch (e) {
-        console.log(tag, 'Adding Pill Exception', e.message)
+        console.log(tag, 'Adding Pill Exception', e.message);
       } finally {
         self.setProcessing(false);
       }
@@ -234,7 +244,7 @@ const Data = types
     });
 
     const fetchDoctorsByCategory = flow(function* fetchDoctorsByCategory(
-      userToken, category
+      userToken, category,
     ) {
       self.setProcessing(true);
 
@@ -256,7 +266,7 @@ const Data = types
     });
 
     const searchDoctors = flow(function* searchDoctors(
-      userToken, name, speciality, address
+      userToken, name, speciality, address,
     ) {
       self.setProcessing(true);
 
@@ -283,6 +293,7 @@ const Data = types
     };
 
     const fetchDoctorById = flow(function* fetchDoctorById(userToken, doctorId) {
+      self.setProcessing(true);
       try {
         const response = yield Api.fetchDoctorById(userToken, doctorId);
         const {ok, data} = response;
@@ -294,6 +305,11 @@ const Data = types
           for (let i = 0; i < doctor.reviews.length; i++) {
             doctor.reviews[i].author.avatarUrl = Config.appBaseUrl + doctor.reviews[i].author.avatarUrl;
           }
+          for (let i = 0; i < doctor.hospital.images.length; i++) {
+            if (!doctor.hospital.images[i].startsWith('http')) {
+              doctor.hospital.images[i] = Config.hospitalUrlPrefix + doctor.hospital.images[i];
+            }
+          }
           self.selectedDoctor = [doctor];
         }
 
@@ -303,12 +319,12 @@ const Data = types
       } catch (e) {
 
       } finally {
-        self.setProcessing(false);
+        setTimeout(self.setProcessing, 500, false);
       }
     });
 
     const requestBook = flow(function* requestBook(
-      userToken, doctorId, timestamp
+      userToken, doctorId, timestamp,
     ) {
       try {
         const response = yield Api.requestBook(userToken, doctorId, timestamp);
@@ -334,7 +350,7 @@ const Data = types
     });
 
     const submitReview = flow(function* submitReview(
-      userToken, doctorId, rating, description
+      userToken, doctorId, rating, description,
     ) {
       self.setProcessing(true);
       try {
@@ -358,7 +374,7 @@ const Data = types
     });
 
     const fetchSpecialities = flow(function* fetchSpecialities(
-      userToken
+      userToken,
     ) {
       self.setProcessing(true);
       try {
@@ -374,7 +390,7 @@ const Data = types
               value: speciality.value,
               id: speciality._id,
               iconUrl: Config.specialityUrlPrefix + speciality.iconName,
-            })
+            });
           }
           _updateSpecialities(temp);
         }
@@ -400,8 +416,8 @@ const Data = types
       requestBook,
       submitReview,
       fetchDoctorById,
-      fetchSpecialities
-    }
+      fetchSpecialities,
+    };
   })
   .extend((self) => {
     const localState = observable.box(false);
@@ -413,7 +429,7 @@ const Data = types
       },
       actions: {
         setProcessing(value) {
-          localState.set(value)
+          localState.set(value);
         },
       },
     };

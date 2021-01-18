@@ -35,6 +35,7 @@ const User = types
     statusCode: 0,
     createdAt: defString,
     lastError: defString,
+    lastUpdatedAt: defString,
   })
   .views((self) => ({
     get isValid() {
@@ -49,6 +50,7 @@ const User = types
       // Copy data to store
       const {userDetails, sessionToken} = data;
       self.sessionToken = sessionToken;
+      // self = Object.assign({}, self);
       if (userDetails) {
         self.id = userDetails.id;
         self.fullName = userDetails.fullName;
@@ -65,6 +67,7 @@ const User = types
         self.createdAt = userDetails.createdAt;
         self.accountType = userDetails.accountType;
         self.speciality = userDetails.speciality;
+        self.lastUpdatedAt = new Date().toLocaleString();
       }
     };
 
@@ -173,7 +176,7 @@ const User = types
       avatarSource,
     ) {
 
-      // self.setLoggingIn(true);
+      self.setLoggingIn(true);
       try {
         fullName = fullName ? fullName : self.fullName;
         email = email ? email : self.email;

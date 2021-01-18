@@ -27,6 +27,7 @@ const ar = {
   'select_gender': 'اخترنوع الجنس',
   'male': 'ذكر',
   'female': 'انثى',
+  'unisex': 'للجنسين',
   'select_blood_type': 'حدد فصيلة الدم',
   'submit': 'قدّم',
 

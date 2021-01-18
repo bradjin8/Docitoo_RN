@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default observer(ImageSlider);
+export default ImageSlider;

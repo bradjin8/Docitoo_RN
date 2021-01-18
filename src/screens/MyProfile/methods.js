@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {MoreStackScreens, Screens} from '@/constants/Navigation';
 import {mockUser} from '@/constants/MockUpData';
@@ -9,12 +9,17 @@ function useViewModel(props) {
 
   const nav = useNavigation(props);
 
-  const {user} = useStores();
+  const [user, setUser] = useState({});
+  const store = useStores();
 
   const onPressEdit = () => {
     console.log(tag, 'onPressEdit()');
     nav.navigate(MoreStackScreens.editProfile)
   };
+
+  useEffect(() => {
+    setUser(store.user);
+  }, [store.user.lastUpdatedAt]);
 
   return {
     user,

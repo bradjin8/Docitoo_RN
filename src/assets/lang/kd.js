@@ -26,6 +26,7 @@ const ku = {
   'select_gender': 'ڕه‌گه‌زی هه‌لبژێره‌',
   'male': 'نێر',
   'female': 'مێ',
+  'unisex': 'Unisex',
   'select_blood_type': 'جوڕێ خوینێ هه‌لبژێره‌',
   'submit': 'پێشكێش بكه‌',
 

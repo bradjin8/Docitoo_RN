@@ -7,7 +7,7 @@ import StarRatingBar from 'react-native-star-rating-view/StarRatingBar';
 import Images from '@/styles/Images';
 import Separator from '@/components/Separator';
 import {formatHour} from '@/utils/String';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import {useStores} from '@/hooks';
 
 
@@ -32,7 +32,7 @@ const DoctorListView = ({doctors, onPressDoctor}) => {
         keyExtractor={(item) => item.id.toString()}
       />
     </View>
-  )
+  );
 };
 
 export const DoctorRow = ({doctor, onPressDoctor}) => {
@@ -52,13 +52,19 @@ export const DoctorRow = ({doctor, onPressDoctor}) => {
         </Text>
       </View>
     </TouchableOpacity>
-  )
+  );
 };
 
-export const DoctorCard = ({doctor}) => {
+export const DoctorCard = ({doctor, clickAvatar}) => {
   return (
     <View style={styles.container}>
-      <Image source={{uri: doctor.avatarUrl}} style={styles.avatar}/>
+      <TouchableOpacity onPress={() => {
+        if (clickAvatar) {
+          clickAvatar();
+        }
+      }}>
+        <Image source={{uri: doctor.avatarUrl}} style={styles.avatar}/>
+      </TouchableOpacity>
       <View style={styles.containerText}>
         <Text style={styles.name}>
           Dr. {doctor.fullName}
@@ -72,7 +78,7 @@ export const DoctorCard = ({doctor}) => {
         <DoctorReview style={styles.reviewsCard} reviews={doctor.reviews}/>
       </View>
     </View>
-  )
+  );
 };
 
 const DoctorReview = ({reviews}) => {
@@ -106,7 +112,7 @@ const DoctorReview = ({reviews}) => {
         scoreTextStyle={styles.starBar}
       />
       <Text style={styles.ratingCount}>
-        {StringUtil.formatInteger(reviews.length) + ' ' + __('ratings', language)}
+        {StringUtil.formatInteger(reviews ? reviews.length : 0) + ' ' + __('ratings', language)}
       </Text>
     </View>
   );
@@ -131,7 +137,7 @@ const styles = StyleSheet.create({
     marginLeft: hp('2%'),
     // height: rowHeight,
     alignItems: 'stretch',
-    width: '100%'
+    width: '100%',
   },
   name: {
     fontSize: hp('2.2%'),
@@ -172,7 +178,7 @@ const styles = StyleSheet.create({
     height: hp('2.5%'),
   },
   ratingCount: {
-    fontSize: hp('1.8%'),
+    fontSize: hp('1.7%'),
     // position: 'absolute',
     // right: 0,
   },

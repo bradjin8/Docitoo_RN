@@ -95,10 +95,12 @@ function useViewModel(props) {
   };
 
   const onPressUpdate = async () => {
-    console.log(tag, 'onPressUpdate()');
+    console.log(tag, 'onPressUpdate()', avatarSource);
     try {
       await user.updateProfile(fullName, email, phoneNumber, password, gender, bloodType, language, avatarSource);
-      nav.navigate(MoreStackScreens.more);
+      // nav.navigate(MoreStackScreens.more);
+      if (nav.canGoBack())
+        nav.goBack();
     } catch (e) {
       console.log(tag, 'UpdateProfile, Ex', e.message);
     }

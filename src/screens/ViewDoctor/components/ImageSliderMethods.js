@@ -61,7 +61,7 @@ function useViewModel(props) {
         clearTimeout(timeoutGoNext);
       }
     }
-  }, []);
+  }, [props.name]);
 
   return {
     dataSource, setDataSource,

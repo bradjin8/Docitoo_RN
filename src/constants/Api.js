@@ -3,6 +3,7 @@ export default {
   register: 'user/register',
   logOut: 'user/logout',
   details: 'user/details',
+  sendMessage: 'user/sendMessage',
   pillReminder: 'pill',
   notification: 'notification',
   searchDoctorsByCategory: 'userDoctor/searchDoctorsByCategory',

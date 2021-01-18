@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {DoctorStackScreens, Screens} from '@/constants/Navigation';
 import {mockDoctors} from '@/constants/MockUpData';
 import __ from '@/assets/lang';
-import {useStores} from "@/hooks";
+import {useStores} from '@/hooks';
 
 const tag = 'Screens::ViewDoctor::PickADate';
 const mockDoctor = mockDoctors[0];
@@ -48,7 +48,7 @@ function useViewModel(props) {
       const selectedDate = new Date(date);
       let bookDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), Math.floor(hour), (hour - Math.floor(hour)) * 60);
       try {
-        console.log(tag, 'bookDate', bookDate.getTime(), bookDate.getTimezoneOffset())
+        console.log(tag, 'bookDate', bookDate.getTime(), bookDate.getTimezoneOffset());
         await data.requestBook(user.sessionToken, doctor.id, bookDate.getTime());
         if (data.lastStatus == '401') {
           nav.navigate(Screens.logIn);
@@ -98,10 +98,14 @@ function useViewModel(props) {
     if (_hour === 0) {
       _hour = 12;
     }
-    _hour = _appendZero(_hour);
 
-    let _min = parseInt((hour - _hour) * 60);
+    let _min = Math.round((hour - _hour) * 60);
+    while (_min >= 60) {
+      _hour++;
+      _min -= 60;
+    }
     _min = _appendZero(_min);
+    _hour = _appendZero(_hour);
 
     return `${_hour}:${_min} ${_hourAP}`;
   };
@@ -148,7 +152,7 @@ function useViewModel(props) {
         from = cd.getHours() + 1;
       }
 
-      for (let i = parseInt(from); i < parseInt(doctor.availableTime.to); i += 0.5) {
+      for (let i = parseInt(from); i < parseInt(doctor.availableTime.to) - (doctor.slotSizeInMin || 30) / 60; i += (doctor.slotSizeInMin || 30) / 60) {
         availableTimeSlot[_formatKey((i * 10).toString(), 3)] = {
           hour: i,
           label: _getLabel(i),
@@ -157,7 +161,7 @@ function useViewModel(props) {
         };
       }
       console.log(tag, 'UpdateTimeSlots', availableTimeSlot);
-      setTimeSlots(availableTimeSlot)
+      setTimeSlots(availableTimeSlot);
     }
   };
 
@@ -183,7 +187,7 @@ function useViewModel(props) {
     onPressBack,
     onPressConfirm,
     selectTimeSlot,
-  }
+  };
 }
 
 export default useViewModel;
