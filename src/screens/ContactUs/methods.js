@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Screens} from '@/constants/Navigation';
-import {Api} from '@/Services/Api';
-import {useStores} from '../../hooks';
+import {sendMessage} from '@/Services/Api';
+import {useStores} from '@/hooks';
 import __ from '@/assets/lang';
 import {object, string} from 'yup';
-import {errorMessage} from '../../utils/Yup';
+import {errorMessage} from '@/utils/Yup';
 import {Alert} from 'react-native';
 
 const yup = object().shape({
   subject: string()
-    .required(errorMessage('message', 'Please enter email'))
-    .email(errorMessage('message', 'Please enter a valid email')),
+    .required(errorMessage('message', 'Please enter email')),
   message: string()
     .required(errorMessage('message', 'Please enter password')),
 });
@@ -31,13 +30,16 @@ function useViewModel(props) {
     console.log(tag, 'onPressSend()', subject, message);
     try {
       const params = await yup.validate({subject, message}, {abortEarly: false});
-
+      console.log(tag, 'params', params);
       // if (user.isValid) {
-        await Api.sendMessage(params.subject, params.message);
+        await sendMessage(params.subject, params.message);
       // } else {
       //   alert(__('session_expired'));
       //   nav.navigate(Screens.logIn);
       // }
+      alert('Your message was successfully sent.');
+      setSubject('');
+      setMessage('');
     } catch (e) {
       console.log(tag, 'ContactUS, Ex:', e);
       if (e.errors && e.errors.length > 0) {

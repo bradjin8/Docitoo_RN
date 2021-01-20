@@ -46,6 +46,9 @@ const Data = types
       if (self.selectedDoctor && self.selectedDoctor.length > 0) {
         return self.selectedDoctor[0];
       }
+      if (self.doctors.length > 0 && self.selectedDoctor) {
+        return self.doctors.find(e => e.id);
+      }
       return null;
     },
   }))
@@ -69,6 +72,7 @@ const Data = types
         doctors.push(doctor);
       }
       self.doctors = doctors;
+      self.selectedDoctorId = doctors[0] ? doctors[0].id : '';
     };
 
     const getPillReminders = flow(function* updatePillReminders(
@@ -288,33 +292,39 @@ const Data = types
     });
 
 
-    const selectDoctor = (id) => {
+    const selectDoctor = flow(function* selectDoctor(id) {
+      self.setProcessing(true);
       self.selectedDoctorId = id;
-    };
+      self.setProcessing(false);
+    });
 
     const fetchDoctorById = flow(function* fetchDoctorById(userToken, doctorId) {
       self.setProcessing(true);
       try {
-        const response = yield Api.fetchDoctorById(userToken, doctorId);
-        const {ok, data} = response;
-        self.lastStatus = response.status;
-        console.log(tag, 'Response from DoctorByID API', data);
-        if (ok) {
-          let {doctor} = data;
-          doctor.avatarUrl = Config.appBaseUrl + doctor.avatarUrl;
-          for (let i = 0; i < doctor.reviews.length; i++) {
-            doctor.reviews[i].author.avatarUrl = Config.appBaseUrl + doctor.reviews[i].author.avatarUrl;
-          }
-          for (let i = 0; i < doctor.hospital.images.length; i++) {
-            if (!doctor.hospital.images[i].startsWith('http')) {
-              doctor.hospital.images[i] = Config.hospitalUrlPrefix + doctor.hospital.images[i];
+        if (doctorId != null && doctorId.length > 0) {
+          // doctorId = self.selectedDoctorId;
+          // console.log('__fetch_doctor_id_null__', doctorId, self.selectedDoctorId);
+          const response = yield Api.fetchDoctorById(userToken, doctorId);
+          const {ok, data} = response;
+          self.lastStatus = response.status;
+          console.log(tag, 'Response from DoctorByID API', data);
+          if (ok) {
+            let {doctor} = data;
+            doctor.avatarUrl = Config.appBaseUrl + doctor.avatarUrl;
+            for (let i = 0; i < doctor.reviews.length; i++) {
+              doctor.reviews[i].author.avatarUrl = Config.appBaseUrl + doctor.reviews[i].author.avatarUrl;
             }
+            for (let i = 0; i < doctor.hospital.images.length; i++) {
+              if (!doctor.hospital.images[i].startsWith('http')) {
+                doctor.hospital.images[i] = Config.hospitalUrlPrefix + doctor.hospital.images[i];
+              }
+            }
+            self.selectedDoctor = [doctor];
           }
-          self.selectedDoctor = [doctor];
-        }
 
-        if (!data) {
-          alert(__('can_not_connect_server'));
+          if (!data) {
+            alert(__('can_not_connect_server'));
+          }
         }
       } catch (e) {
 

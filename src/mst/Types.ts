@@ -59,10 +59,12 @@ export const Doctor = types.model('Doctor', {
     street: defString,
     city: defString,
     country: defString,
+    description: defString,
     speciality: defString,
     language: defString,
     reviews: types.array(Review),
     availableTime: AvailableTime,
+    slotSizeInMin: defNumber,
 });
 
 export const Speciality = types.model('Speciality', {

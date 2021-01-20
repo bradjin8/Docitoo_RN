@@ -65,7 +65,7 @@ export const DoctorCard = ({doctor, clickAvatar}) => {
       }}>
         <Image source={{uri: doctor.avatarUrl}} style={styles.avatar}/>
       </TouchableOpacity>
-      <View style={styles.containerText}>
+      {doctor && <View style={styles.containerText}>
         <Text style={styles.name}>
           Dr. {doctor.fullName}
         </Text>
@@ -75,8 +75,8 @@ export const DoctorCard = ({doctor, clickAvatar}) => {
         <Text style={styles.availableTime}>
           {(doctor.availableTime && (formatHour(doctor.availableTime.from) + ' - ' + formatHour(doctor.availableTime.to))) || '-'}
         </Text>
-        <DoctorReview style={styles.reviewsCard} reviews={doctor.reviews}/>
-      </View>
+        {doctor.reviews && <DoctorReview style={styles.reviewsCard} reviews={doctor.reviews}/>}
+      </View>}
     </View>
   );
 };

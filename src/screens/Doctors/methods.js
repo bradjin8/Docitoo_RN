@@ -55,9 +55,9 @@ function useViewModel(props) {
     toggleModal();
   };
 
-  const onPressDoctor = (doctor) => {
+  const onPressDoctor = async (doctor) => {
     console.log(tag, 'onPressDoctor()', doctor.id);
-    data.selectDoctor(doctor.id);
+    await data.selectDoctor(doctor.id);
 
     nav.navigate(DoctorStackScreens.viewDoctor);
   };

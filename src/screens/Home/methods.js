@@ -70,7 +70,7 @@ function useViewModel(props) {
         Linking.addEventListener('url', handleUrl);
 
         let url = await Linking.getInitialURL();
-        console.log(tag, url);
+        // console.log(tag, url);
         if (url) {
           // alert('INITIAL_URL', url);
           // DeepLinking.evaluateUrl(url);

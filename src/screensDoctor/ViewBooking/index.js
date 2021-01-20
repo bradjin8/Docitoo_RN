@@ -6,13 +6,14 @@ import BoardWithHeader from '@/components/Panel/BoardWithHeader';
 import Space from '@/components/Space';
 import {scale} from '@/styles/Sizes';
 import {ProfileCard} from '@/screens/More';
-import Colors from "@/styles/Colors";
-import Separator from "@/components/Separator";
+import Colors from '@/styles/Colors';
+import Separator from '@/components/Separator';
 import useViewModel from './methods';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
-import {capitalizeString} from "@/utils/String";
-import dateFormat from "node-datetime";
-import {getColor} from "@/components/List/BookingList";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {capitalizeString} from '@/utils/String';
+import dateFormat from 'node-datetime';
+import {getColor} from '@/components/List/BookingList';
+import Loading from '../../components/Loading';
 
 const ViewBooking = (props) => {
   const vm = useViewModel(props);
@@ -35,79 +36,83 @@ const ViewBooking = (props) => {
   return (
     <BoardWithHeader title={__('booking_detail')}>
       {booking && user && <ScrollView style={styles.container}>
+        {vm.d_data.isProcessing ?
+          <Loading/> :
+          <>
+            <Space height={hp('1%')}/>
+            <ProfileCard user={user}>
+            </ProfileCard>
+            <Space height={hp('4%')}/>
+            <Separator color={'#000'} width={6}/>
+            <KeyValueLabel name={__('email', vm.user.language)} value={user.email}/>
+            <Separator color={Colors.grey} width={2}/>
+            <KeyValueLabel name={__('phone_number', vm.user.language)} value={user.phoneNumber}/>
+            <Separator color={Colors.grey} width={2}/>
+            <KeyValueLabel name={__('gender', vm.user.language)} value={user.gender}/>
+            <Separator color={Colors.grey} width={2}/>
+            <KeyValueLabel name={__('blood_type', vm.user.language)} value={user.bloodType}/>
+            <Separator color={Colors.grey} width={2}/>
+            <KeyValueLabel name={__('language', vm.user.language)} value={capitalizeString(user.language)}/>
 
-        <Space height={hp('1%')}/>
-        <ProfileCard user={user}>
-        </ProfileCard>
-        <Space height={hp('4%')}/>
-        <Separator color={'#000'} width={6}/>
-        <KeyValueLabel name={__('email', vm.user.language)} value={user.email}/>
-        <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('phone_number', vm.user.language)} value={user.phoneNumber}/>
-        <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('gender', vm.user.language)} value={user.gender}/>
-        <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('blood_type', vm.user.language)} value={user.bloodType}/>
-        <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('language', vm.user.language)} value={capitalizeString(user.language)}/>
-
-        <Separator color={'#000'} width={6}/>
-        <KeyValueLabel name={__('Booking Time', vm.user.language)}
-                       value={dateFormat.create(new Date(parseInt(booking.date))).format('H:M p, n D, Y')}/>
-        <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('Requested at', vm.user.language)}
-                       value={dateFormat.create(new Date(booking.createdAt)).format('H:M p, n D, Y')}/>
-        <Separator color={Colors.grey} width={2}/>
-        <KeyValueLabel name={__('Last updated at', vm.user.language)}
-                       value={dateFormat.create(new Date(booking.updatedAt)).format('H:M p, n D, Y')}/>
-        <Separator color={Colors.grey} width={2}/>
-        <View style={{
-          borderRadius: 10,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-          <Text style={{
-            color: '#fff', width: wp('90%'), textAlign: 'center', height: hp('4%'),
-            textAlignVertical: 'center',
-            backgroundColor: getColor(booking.status),
-          }}>
-            {getStatusDesc(booking.status)}
-          </Text>
-        </View>
-        <Space height={hp('3%')}/>
-        {booking.status === 'REQUESTED' && <View style={{
-          width: wp('90%'),
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginTop: hp('1%')
-        }}>
-          <TouchableHighlight
-            style={styles.whiteButton1}
-            onPress={() => {
-              vm.handleReject(booking.id);
-            }}
-            underlayColor={Colors.blue1}>
-            <Text style={styles.whiteButtonLabel}>
-              {__('reject', vm.user.language)}
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            style={styles.blueButton}
-            onPress={() => {
-              vm.handleAccept(booking.id);
-            }}
-            underlayColor={Colors.white2}>
-            <Text style={styles.blueButtonLabel}>
-              {__('accept', vm.user.language)}
-            </Text>
-          </TouchableHighlight>
-        </View>}
-        <Space height={hp('3%')}/>
+            <Separator color={'#000'} width={6}/>
+            <KeyValueLabel name={__('Booking Time', vm.user.language)}
+                           value={dateFormat.create(new Date(parseInt(booking.date))).format('H:M p, n D, Y')}/>
+            <Separator color={Colors.grey} width={2}/>
+            <KeyValueLabel name={__('Requested at', vm.user.language)}
+                           value={dateFormat.create(new Date(booking.createdAt)).format('H:M p, n D, Y')}/>
+            <Separator color={Colors.grey} width={2}/>
+            <KeyValueLabel name={__('Last updated at', vm.user.language)}
+                           value={dateFormat.create(new Date(booking.updatedAt)).format('H:M p, n D, Y')}/>
+            <Separator color={Colors.grey} width={2}/>
+            <View style={{
+              borderRadius: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <Text style={{
+                color: '#fff', width: wp('90%'), textAlign: 'center', height: hp('4%'),
+                textAlignVertical: 'center',
+                backgroundColor: getColor(booking.status),
+              }}>
+                {getStatusDesc(booking.status)}
+              </Text>
+            </View>
+            <Space height={hp('3%')}/>
+            {booking.status === 'REQUESTED' && <View style={{
+              width: wp('90%'),
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: hp('1%'),
+            }}>
+              <TouchableHighlight
+                style={styles.whiteButton1}
+                onPress={() => {
+                  vm.handleReject(booking.id);
+                }}
+                underlayColor={Colors.blue1}>
+                <Text style={styles.whiteButtonLabel}>
+                  {__('reject', vm.user.language)}
+                </Text>
+              </TouchableHighlight>
+              <TouchableHighlight
+                style={styles.blueButton}
+                onPress={() => {
+                  vm.handleAccept(booking.id);
+                }}
+                underlayColor={Colors.white2}>
+                <Text style={styles.blueButtonLabel}>
+                  {__('accept', vm.user.language)}
+                </Text>
+              </TouchableHighlight>
+            </View>}
+            <Space height={hp('3%')}/>
+          </>
+        }
 
       </ScrollView>}
     </BoardWithHeader>
 
-  )
+  );
 };
 
 export const KeyValueLabel = ({name, value}) => {
@@ -120,12 +125,12 @@ export const KeyValueLabel = ({name, value}) => {
     },
     name: {
       fontSize: hp('1.8%'),
-      width: wp('42%')
+      width: wp('42%'),
     },
     value: {
       fontSize: hp('1.8%'),
       fontWeight: 'bold',
-    }
+    },
 
   });
 

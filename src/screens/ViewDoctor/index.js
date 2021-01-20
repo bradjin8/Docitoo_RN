@@ -241,7 +241,7 @@ const ViewDoctor = (props) => {
 export const ReviewCard = ({review}) => {
   return (
     <View style={styles.reviewContainer}>
-      <AuthorCard review={review}/>
+      {review && review.author && <AuthorCard review={review}/>}
       <Text style={styles.description}>
         {review.description}
       </Text>

@@ -11,13 +11,15 @@ function useViewModel(props) {
 
   const {user, d_data} = useStores();
 
-  const handleReject = (bookingId) => {
-    d_data.rejectBooking(user.sessionToken, bookingId);
+  const handleReject = async (bookingId) => {
+    await d_data.rejectBooking(user.sessionToken, bookingId);
+    await d_data.fetchBookings(user.sessionToken);
     nav.goBack();
   };
 
-  const handleAccept = (bookingId) => {
-    d_data.acceptBooking(user.sessionToken, bookingId);
+  const handleAccept = async (bookingId) => {
+    await d_data.acceptBooking(user.sessionToken, bookingId);
+    await d_data.fetchBookings(user.sessionToken);
     nav.goBack();
   };
 

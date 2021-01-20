@@ -153,7 +153,7 @@ function useViewModel(props) {
       }
 
       for (let i = parseInt(from); i < parseInt(doctor.availableTime.to) - (doctor.slotSizeInMin || 30) / 60; i += (doctor.slotSizeInMin || 30) / 60) {
-        availableTimeSlot[_formatKey((i * 10).toString(), 3)] = {
+        availableTimeSlot[_formatKey(parseInt(i * 100).toString(), 4)] = {
           hour: i,
           label: _getLabel(i),
           available: true,
