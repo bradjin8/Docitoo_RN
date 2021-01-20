@@ -1,5 +1,5 @@
-const ServerURL = 'http://192.168.101.140:3010';
-// const ServerURL = 'https://docitoo.com/api-v1'; //https://docitoo.com/api-v1
+// const ServerURL = 'http://192.168.101.140:3010';
+const ServerURL = 'https://docitoo.com/api-v1'; //https://docitoo.com/api-v1
 
 
 export default {
