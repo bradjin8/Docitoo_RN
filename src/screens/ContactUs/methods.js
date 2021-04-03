@@ -16,7 +16,7 @@ const yup = object().shape({
 });
 
 function useViewModel(props) {
-  const nav = useNavigation();
+  const nav = useNavigation(props);
 
   const tag = 'Screens::ContactUs::';
 
@@ -60,12 +60,21 @@ function useViewModel(props) {
     }
   };
 
+  const onPressBack = () => {
+    if (nav.canGoBack()) {
+      nav.goBack();
+    } else {
+      nav.navigate(Screens.home);
+    }
+  };
+
   return {
     subject, setSubject,
     message, setMessage,
     // scroll, setScroll,
     onPressSend,
     onPressImage,
+    onPressBack,
     // scrollToInput,
   };
 }

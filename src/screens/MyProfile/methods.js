@@ -21,9 +21,18 @@ function useViewModel(props) {
     setUser(store.user);
   }, [store.user.lastUpdatedAt]);
 
+  const onPressBack = () => {
+    if (nav.canGoBack()) {
+      nav.goBack();
+    } else {
+      nav.navigate(Screens.home);
+    }
+  };
+
   return {
     user,
-    onPressEdit
+    onPressEdit,
+    onPressBack,
   }
 }
 

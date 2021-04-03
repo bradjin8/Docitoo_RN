@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {useStores} from "@/hooks";
+import {Screens} from '../../constants/Navigation';
+import {useNavigation} from '@react-navigation/native';
 
 const useViewModel = (props) => {
   const mockContent =
@@ -55,9 +57,20 @@ const useViewModel = (props) => {
   const {user} = useStores();
   const [content, setContent] = useState(mockContent);
 
+  const nav = useNavigation(props);
+
+  const onPressBack = () => {
+    if (nav.canGoBack()) {
+      nav.goBack();
+    } else {
+      nav.navigate(Screens.home);
+    }
+  };
+
   return {
     content,
-    user
+    user,
+    onPressBack,
   }
 };
 

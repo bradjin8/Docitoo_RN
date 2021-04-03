@@ -6,17 +6,18 @@ import BoardWithHeader from '@/components/Panel/BoardWithHeader';
 import Space from '@/components/Space';
 import {scale} from '@/styles/Sizes';
 import {ProfileCard} from '@/screens/More';
-import Colors from "@/styles/Colors";
-import Separator from "@/components/Separator";
+import Colors from '@/styles/Colors';
+import Separator from '@/components/Separator';
 import useViewModel from './methods';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen";
-import {capitalizeString} from "@/utils/String";
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {capitalizeString} from '@/utils/String';
+import BoardWithHeaderBackButton from '../../components/Panel/BoardWithHeaderBackButton';
 
 const PillReminder = (props) => {
   const vm = useViewModel(props);
 
-  return (
-    <BoardWithHeader title={__('my_profile', vm.user.language)}>
+  const renderContent = () => {
+    return (<>
       {vm.user && <View style={styles.container}>
         <ProfileCard user={vm.user}>
         </ProfileCard>
@@ -31,32 +32,47 @@ const PillReminder = (props) => {
         <KeyValueLabel name={__('gender', vm.user.language)} value={vm.user.gender}/>
         <Separator color={Colors.grey} width={2}/>
 
-        {vm.user.accountType === "User" &&
+        {vm.user.accountType === 'User' &&
         <>
           <KeyValueLabel name={__('blood_type', vm.user.language)} value={vm.user.bloodType}/>
           <Separator color={Colors.grey} width={2}/>
         </>}
-        {vm.user.accountType === "Doctor" &&
+        {vm.user.accountType === 'Doctor' &&
         <>
           <KeyValueLabel name={__('speciality', vm.user.language)} value={vm.user.speciality.toUpperCase()}/>
           <Separator color={Colors.grey} width={2}/>
-          <KeyValueLabel name={__('address', vm.user.language)} value={vm.user.street + ', ' + vm.user.city + ', ' + vm.user.country || ''}/>
+          <KeyValueLabel name={__('address', vm.user.language)}
+                         value={vm.user.street + ', ' + vm.user.city + ', ' + vm.user.country || ''}/>
           <Separator color={Colors.grey} width={2}/>
         </>}
         <KeyValueLabel name={__('language', vm.user.language)} value={capitalizeString(vm.user.language)}/>
         <Space height={hp('3%')}/>
 
-        {vm.user.accountType === "User" && <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressEdit} underlayColor={Colors.blue1}>
+        {vm.user.accountType === 'User' &&
+        <TouchableHighlight style={styles.whiteButton} onPress={vm.onPressEdit} underlayColor={Colors.blue1}>
           <Text style={styles.whiteButtonLabel}>
             {__('edit_profile', vm.user.language)}
           </Text>
         </TouchableHighlight>}
         <Space height={hp('3%')}/>
-
       </View>}
-    </BoardWithHeader>
+    </>);
+  };
 
-  )
+  if (Platform.OS === 'ios') {
+    return (
+      <BoardWithHeaderBackButton title={__('my_profile', vm.user.language)} onPressButton={vm.onPressBack}
+                                 buttonCaption={__('back', vm.user.language)}>
+        {renderContent()}
+      </BoardWithHeaderBackButton>
+    );
+  } else {
+    return (
+      <BoardWithHeader title={__('my_profile', vm.user.language)}>
+        {renderContent()}
+      </BoardWithHeader>
+    );
+  }
 };
 
 export const KeyValueLabel = ({name, value}) => {
@@ -69,12 +85,12 @@ export const KeyValueLabel = ({name, value}) => {
     },
     name: {
       fontSize: hp('1.8%'),
-      width: wp('42%')
+      width: wp('42%'),
     },
     value: {
       fontSize: hp('1.8%'),
       fontWeight: 'bold',
-    }
+    },
 
   });
 
