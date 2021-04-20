@@ -7,8 +7,10 @@ GoogleSignin.configure({
   scopes: Config.googleSignIn.scopes,
   // webClientId: Config.googleSignIn.webClient.id,
   // offlineAccess: false,
-  iosClientId: Config.googleSignIn.iosClientId
+  iosClientId: Config.googleSignIn.iosClientId,
 });
+
+// const TwilioClient = require('twilio')(Config.twilio.SID, Config.twilio.AUTH_TOKEN);
 
 const tag = 'Services::SocialApi';
 export const facebookAuth = async () => {
@@ -16,7 +18,7 @@ export const facebookAuth = async () => {
     let result = {
       success: false,
       data: null,
-      error: null
+      error: null,
     };
 
     try {
@@ -59,16 +61,16 @@ export const facebookAuth = async () => {
                 accessToken,
                 parameters: {
                   fields: {
-                    string: 'email,name,birthday'
-                  }
-                }
+                    string: 'email,name,birthday',
+                  },
+                },
               },
               // null,
               _responseInfoCallback,
             );
             // Start the graph request.
             new GraphRequestManager().addRequest(infoRequest).start();
-          }
+          },
         );
       }
     } catch (e) {
@@ -79,7 +81,7 @@ export const facebookAuth = async () => {
       };
       resolve(result);
     }
-  })
+  });
 };
 
 export const googleAuth = async () => {
@@ -87,10 +89,10 @@ export const googleAuth = async () => {
     let result = {
       success: false,
       data: null,
-      error: null
+      error: null,
     };
 
-   try {
+    try {
       const hasPlayServices = await GoogleSignin.hasPlayServices();
 
       if (!hasPlayServices) {
@@ -128,9 +130,44 @@ export const googleAuth = async () => {
 
       result.error = {
         name: error.name,
-        message: error.message
+        message: error.message,
       };
       resolve(result);
     }
-  })
+  });
 };
+
+/*
+export const sendSMS = async (phoneNumber) => {
+  return new Promise(async resolve => {
+    TwilioClient.verify.services(Config.twilio.VERIFICATION_SERVICE_SID)
+      .verifications
+      .create({to: phoneNumber, channel: 'sms'})
+      .then(verification => {
+        resolve(verification.sid);
+      })
+      .catch(error => {
+        console.log(tag, 'twilio-verification-error', error.message);
+        resolve(null);
+      });
+  });
+};
+
+export const checkCode = async (phoneNumber, code) => {
+  return new Promise(async resolve => {
+    TwilioClient.verify.services(Config.twilio.VERIFICATION_SERVICE_SID)
+      .verificationChecks
+      .create({
+        to: phoneNumber,
+        // verificationSid: 'VE........', // Alternative to checking with a Phone Number
+        code
+      })
+      .then(verificationCheck => {
+        resolve(verificationCheck.valid);
+      })
+      .catch(error => {
+        console.log(tag, 'twilio-verification-check-error', e.message);
+        resolve(false);
+      });
+  });
+};*/

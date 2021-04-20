@@ -40,6 +40,14 @@ export const logIn = (email, password, deviceUserId, deviceType) => api.post(Api
   deviceType,
 });
 
+export const logInWithPhone = (phoneNumber, deviceUserId, deviceType) => api.post(ApiUrl.logIn, {
+  email: '',
+  password: '',
+  deviceUserId,
+  deviceType,
+  phoneNumber,
+});
+
 export const logOut = (userToken) =>
   api.post(
     ApiUrl.logOut,
@@ -153,3 +161,6 @@ export const sendMessage = (subject, message) => api.post(`${ApiUrl.sendMessage}
   subject,
   message,
 });
+
+export const sendCodeSMS = (phoneNumber) => api.post(ApiUrl.sendCodeSMS, {phoneNumber});
+export const checkCode = (phoneNumber, code) => api.post(ApiUrl.checkCode, {phoneNumber, code});

@@ -4,11 +4,13 @@ export default {
   logOut: 'user/logout',
   details: 'user/details',
   sendMessage: 'user/sendMessage',
+  sendCodeSMS: 'user/sendCodeSMS',
+  checkCode: 'user/checkCode',
   pillReminder: 'pill',
   notification: 'notification',
   searchDoctorsByCategory: 'userDoctor/searchDoctorsByCategory',
   searchDoctors: 'userDoctor/searchDoctors',
   userDoctor: 'userDoctor',
   doctorUser: 'doctorUser',
-  fetchSpecialities: 'speciality'
+  fetchSpecialities: 'speciality',
 }
