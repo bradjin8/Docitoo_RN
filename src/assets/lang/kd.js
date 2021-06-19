@@ -26,7 +26,7 @@ const ku = {
   'select_gender': 'ڕه‌گه‌زی هه‌لبژێره‌',
   'male': 'نێر',
   'female': 'مێ',
-  'unisex': 'Unisex',
+  'unisex': 'یونیسیکس',
   'select_blood_type': 'جوڕێ خوینێ هه‌لبژێره‌',
   'submit': 'پێشكێش بكه‌',
 
@@ -97,14 +97,15 @@ const ku = {
   'edit_profile': 'پڕوفایلی بگوڕه‌',
   'update_profile': 'پڕوفایلی نوی بكه‌',
 
-  'gynecologist': 'Gynecologist',
-  'skin_specialist': 'Skin Specialist',
-  'child_specialist': 'Child Specialist',
-  'orthopedic_surgeon': 'Orthopedic Surgeon',
-  'ent_specialist': 'ENT Specialist',
-  'diagnostics': 'Diagnostics',
-  'diabetes_specialist': 'Diabetes Specialist',
-  'eye_specialist': 'Eye Specialist',
+  'gynecologist': 'ژدارا نه‌خوشیێن ژنان',
+  'skin_specialist': 'تایبته‌مه‌ندێ نه‌خوشیێن پێستی',
+  'child_specialist': 'ایبه‌تمه‌ندێ نه‌خوشیێن زاڕوكان',
+  'orthopedic_surgeon': 'برینپێچێ نه‌خوشیێن هه‌ستییان',
+  'ent_specialist': 'یبه‌تمه‌ندێ نه‌خوشیێن دفن و\n' +
+    ' گوه و گه‌وری',
+  'diagnostics': 'دیاركه‌رێ نه‌خوشییان',
+  'diabetes_specialist': 'ایبه‌تمه‌ندێ نه‌خوشیێن شه‌كرێ',
+  'eye_specialist': 'تایبه‌تمه‌ندێ نه‌خوشیێن چاڤان',
 
   bookings: 'ژڤان وه‌رگرتن',
   booking_detail: 'پێزانینێن ژڤان وه‌رگرتنێ',

@@ -4,7 +4,7 @@ const en = {
   'skip_sign_up': 'Skip Sign Up',
   'app_desc': 'Search for medical \n professionals nearby',
   'app_note': 'By using this application, you agree to our privacy policy and terms of service.',
-  'session_expired': 'You have to login to use this feature.',
+  'session_expired': 'You must login to use this feature.',
   'can_not_connect_server': 'Can not connect to server',
 
   'sign_up_with': 'Sign up with',

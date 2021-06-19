@@ -59,60 +59,63 @@ const ar = {
   'pick_a_time': 'اختر وقتا',
   'book_appointment': 'حجز موعدا',
   'no_hospital': 'ليس هناك اي مستشفيات لهذا الطبيب.',
-  'no_review': 'There is no review for this doctor.',
-  'no_available_time_slot': 'There is no available time on this date, please select another date.',
-  'rating': 'Rating',
-  'cancel': 'Cancel',
+  'no_review': 'يس هناك اي مراجعات لهذا الطبيب',
+  'no_available_time_slot': 'ليس هناك اي وقت متاح في هذا التاريخ,\n' +
+    ' رجاءا اختر يوم اخر',
+  'rating': 'التقييم',
+  'cancel': 'الغاء',
 
-  'notifications': 'Notifications',
+  'notifications': 'الاشعارات',
 
-  'pill_reminder': 'Pill Reminder', // 10
-  'pill_at': 'pill at',
-  'add_the_relevant_details_below': 'Add the relevant details below',
-  'medicine_name': 'Medicine Name',
-  'dosage': 'Dosage',
-  'frequency': 'Frequency',
-  'select_time_to_take_pill': 'Select time to take pill',
-  'set_pill_reminder': 'Set Pill Reminder',
+  'pill_reminder': 'تذكير موعود اخذ الحبوب', // 10
+  'pill_at': 'اخذ الحبوب في',
+  'add_the_relevant_details_below': 'أضف التفاصيل ذات الصلة أدناه',
+  'medicine_name': 'سم العلاج',
+  'dosage': 'الجرعة',
+  'frequency': 'التكرر',
+  'select_time_to_take_pill': 'ختر وقتا لاخذ الحبوب',
+  'set_pill_reminder': 'بّط تذكير موعد اخذ الحبوب',
 
-  'more': 'More', // 14
-  'More': 'More',
-  'english': 'English',
-  'account_settings': 'Account Settings',
-  'logout': 'Logout',
+  'more': 'اكثر', // 14
+  'More': 'اكثر',
+  'english': 'الانجليزي',
+  'account_settings': 'ضبط الحساب',
+  'logout': 'تسجيل الخروج',
 
-  'terms_and_conditions': 'Terms & Conditions', // 17
+  'terms_and_conditions': 'لبنود و الشروط', // 17
 
-  'contact_us': 'Contact Us', // 18
-  'contact_us_note': 'Have feedback or question? Send us a message',
-  'subject': 'Subject',
-  'message': 'Message',
-  'send_message': 'Send Message',
+  'contact_us': 'اتصل بنا', // 18
+  'contact_us_note': 'هل لديك ملاحظات أو سؤال؟\n' +
+    ' إرسل لنا رسالة',
+  'subject': 'الموضوع',
+  'message': 'الرسالة',
+  'send_message': 'رسل رسالة',
 
-  'my_profile': 'My Profile',
-  'name': 'Name',
-  'email': 'Email',
-  'gender': 'Gender',
-  'blood_type': 'Blood Type',
-  'language': 'Language',
-  'edit_profile': 'Edit Profile',
-  'update_profile': 'Update Profile',
+  'my_profile': 'ملفي الشخصي',
+  'name': 'الاسم',
+  'email': 'لبريد الالكتروني',
+  'gender': 'وع الجنس',
+  'blood_type': 'فصيلة الدم',
+  'language': 'اللغة',
+  'edit_profile': 'تعديل الملف الشخصي',
+  'update_profile': 'تحديث الملف الشخصي',
 
-  'gynecologist': 'Gynecologist',
-  'skin_specialist': 'Skin Specialist',
-  'child_specialist': 'Child Specialist',
-  'orthopedic_surgeon': 'Orthopedic Surgeon',
-  'ent_specialist': 'ENT Specialist',
-  'diagnostics': 'Diagnostics',
-  'diabetes_specialist': 'Diabetes Specialist',
-  'eye_specialist': 'Eye Specialist',
+  'gynecologist': 'اخصائية امراض النساء',
+  'skin_specialist': 'اخصائي امراض الجلدية',
+  'child_specialist': 'اخصائي امراض الاطفال',
+  'orthopedic_surgeon': 'جراح العظام',
+  'ent_specialist': 'خصائي امراض\n' +
+    ' الأنف والأذن والحنج',
+  'diagnostics': 'التشخيص',
+  'diabetes_specialist': 'اخصائي مرض السكر',
+  'eye_specialist': 'اخصائي امراض العيون',
 
-  bookings: 'Bookings',
-  booking_detail: 'Booking Details',
-  profile: 'Profile',
-  reject: 'Reject',
-  accept: 'Accept',
-  choose: 'Choose',
+  bookings: 'الحجوزات',
+  booking_detail: 'فاصيل الحجوزات',
+  profile: 'الملف الشخصي',
+  reject: 'رفض',
+  accept: 'قبول',
+  choose: 'اختر',
 };
 
 export default ar;
