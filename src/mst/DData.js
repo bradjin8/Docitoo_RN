@@ -57,6 +57,26 @@ const DData = types
       }
     });
 
+    const fetchUserBookings = flow(function* (
+      userToken
+    ) {
+      self.setProcessing(true);
+      try {
+        const {ok, data, status} = yield Api.getUserBookings(userToken);
+        self.lastStatus = status;
+        if (!data) {
+          alert(__('can_not_connect_server'));
+        }
+        if (ok) {
+          _updateBookings(data)
+        }
+      } catch (e) {
+
+      } finally {
+        self.setProcessing(false)
+      }
+    });
+
     const selectBooking = function (bookingId) {
       self.selectedBookingId = bookingId;
     };
@@ -140,6 +160,7 @@ const DData = types
 
     return {
       fetchBookings,
+      fetchUserBookings,
       selectBooking,
       rejectBooking,
       acceptBooking,

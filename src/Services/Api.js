@@ -8,7 +8,7 @@ const api = apisauce.create({
   headers: {
     'Cache-Control': 'no-cache',
   },
-  timeout: 10000,
+  timeout: 30000,
 });
 
 const createFormData = (avatarSource, body) => {
@@ -154,6 +154,7 @@ export const fetchDoctorById = (userToken, doctorId) => api.get(ApiUrl.userDocto
 export const fetchSpecialities = (userToken) => api.get(ApiUrl.fetchSpecialities, {}, {headers: {userToken}});
 
 export const getBookings = (userToken) => api.get(ApiUrl.doctorUser + '/booking', {}, {headers: {userToken}});
+export const getUserBookings = (userToken) => api.get(ApiUrl.userDoctor + '/booking', {}, {headers: {userToken}});
 export const acceptBooking = (userToken, bookingId) => api.post(`${ApiUrl.doctorUser}/booking/${bookingId}/accepted`, {}, {headers: {userToken}});
 export const rejectBooking = (userToken, bookingId) => api.post(`${ApiUrl.doctorUser}/booking/${bookingId}/rejected`, {}, {headers: {userToken}});
 

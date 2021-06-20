@@ -49,19 +49,28 @@ function useViewModel(props) {
     nav.navigate(Screens.signUp);
   };
 
-  const _login = (_email, _pwd) => {
+  const _login = (_email, _pwd, _isSocial) => {
     setTimeout(async (_email, _pwd) => {
       try {
-        if (authMode === 'email') {
-          const params = await yup.validate({email: _email.toString(), password: _pwd.toString()}, {abortEarly: false});
-          console.log(tag, 'Login', params);
-          // hud.show()
+        if (_isSocial !== true) {
+          if (authMode === 'email') {
+            const params = await yup.validate({
+              email: _email.toString(),
+              password: _pwd.toString(),
+            }, {abortEarly: false});
+            console.log(tag, 'Login', params);
+            // hud.show()
 
+            await user.logIn(params.email, params.password);
+          } else if (authMode === 'phone') {
+            const params = await yup1.validate({phoneNumber: _email.toString()}, {abortEarly: false});
+            console.log(tag, 'LoginWithPhone', params);
+            await user.logInWithPhone(params.phoneNumber);
+          }
+        } else {
+          const params = await yup.validate({email: _email.toString(), password: _pwd.toString()}, {abortEarly: false});
+          console.log(tag, 'Social Login', params);
           await user.logIn(params.email, params.password);
-        } else if (authMode === 'phone') {
-          const params = await yup1.validate({phoneNumber: _email.toString()}, {abortEarly: false});
-          console.log(tag, 'LoginWithPhone', params);
-          await user.logInWithPhone(params.phoneNumber);
         }
         // When user became valid, then it means login succeed
         if (user.isValid) {
@@ -140,7 +149,7 @@ function useViewModel(props) {
     }
 
     const {email, id} = data;
-    _login(email, id);
+    _login(email, id, true);
 
   };
 
@@ -152,7 +161,7 @@ function useViewModel(props) {
     }
 
     const {email, id} = data;
-    _login(email, id);
+    _login(email, id, true);
   };
 
   useEffect(() => {

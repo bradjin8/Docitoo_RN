@@ -39,10 +39,10 @@ function useViewModel(props) {
   const [delay, setDelay] = useState(0);
   const phoneInput = useRef();
 
-  const _signUp = (_fullName, _email, _pwd, _phoneNumber) => {
+  const _signUp = (_fullName, _email, _pwd, _phoneNumber, _isSocial) => {
     setTimeout(async () => {
       try {
-        if (authMode === 'email') {
+        if (authMode === 'email' || _isSocial) {
           const params = await yup.validate(
             {email: _email, fullName: _fullName, password: _pwd /*phoneNumber: _phoneNumber*/},
             {abortEarly: false},
@@ -114,7 +114,7 @@ function useViewModel(props) {
     }
 
     const {name, email, id} = data;
-    _signUp(name, email, id);
+    _signUp(name, email, id, '', true);
   };
 
   const onPressGoogle = async () => {
@@ -125,7 +125,7 @@ function useViewModel(props) {
     }
 
     const {name, email, id} = data;
-    _signUp(name, email, id);
+    _signUp(name, email, id, '', true);
   };
 
   const startDownCount = () => {

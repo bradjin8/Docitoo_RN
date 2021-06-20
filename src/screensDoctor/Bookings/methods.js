@@ -76,7 +76,11 @@ function useViewModel(props) {
 
   const fetchBookings = async () => {
     setLoading(true);
-    await d_data.fetchBookings(user.sessionToken);
+    if (user.accountType === 'Doctor') {
+      await d_data.fetchBookings(user.sessionToken);
+    } else {
+      await d_data.fetchUserBookings(user.sessionToken);
+    }
     if (d_data.lastStatus == '401') {
       nav.navigate(Screens.logIn);
       user.logOut();

@@ -78,7 +78,7 @@ const ViewBooking = (props) => {
               </Text>
             </View>
             <Space height={hp('3%')}/>
-            {booking.status === 'REQUESTED' && <View style={{
+            {user.accountType === 'Doctor' && booking.status === 'REQUESTED' && <View style={{
               width: wp('90%'),
               flexDirection: 'row',
               justifyContent: 'space-between',

@@ -53,7 +53,7 @@ export const BookingRow = ({booking, onPressBooking}) => {
       <Image source={{uri: booking.user.avatarUrl}} style={styles.avatar}/>
       <View style={styles.containerText}>
         <Text style={styles.name}>
-          From: {booking.user.fullName}
+          {booking.user.fullName}
         </Text>
         <Text style={styles.speciality}>
           Time: {'\t' + dateFormat.create(new Date(parseInt(booking.date))).format('H:M p, n D, Y')}

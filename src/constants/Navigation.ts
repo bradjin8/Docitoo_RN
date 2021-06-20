@@ -36,6 +36,7 @@ export const TabStackScreens = {
     doctorStack: 'DoctorStack',
     notifications: 'Notifications',
     pillReminderStack: 'PillReminderStack', // 10, 11
+    bookings: 'Bookings',
     moreStack: 'MoreStack',
 };
 

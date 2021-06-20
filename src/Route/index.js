@@ -119,6 +119,16 @@ function UserTab(props) {
         }}
       />
       <Tab.Screen
+        name={TabStackScreens.bookings}
+        component={DBookingStack}
+        options={{
+          title: __('bookings', language),
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome5Icon name={'book-medical'} color={color} size={size}/>
+          ),
+        }}
+      />
+      <Tab.Screen
         name={TabStackScreens.moreStack}
         component={MoreStack}
         options={{
